@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.RobotState;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -59,8 +60,6 @@ public class Drivetrain extends SubsystemBase {
 
     private final double[] lockAngles = new double[] { 45, 315, 45, 315 };
 
-    public final SwerveDrivePoseEstimator poseEstimator; 
-
     private double lastFPGATimestamp;
 
     private Field2d field = new Field2d();  
@@ -70,8 +69,8 @@ public class Drivetrain extends SubsystemBase {
     public Drivetrain() {
         gyro.enableBoardlevelYawReset(true);
         
-        poseEstimator = new SwerveDrivePoseEstimator(Constants.DriveConstants.DRIVE_KINEMATICS, gyro.getRotation2d(), getModulePositions(), new Pose2d());
-        
+        RobotState.getInstance().initPoseEstimator(getHeading(), getModulePositions());
+       
         for( SwerveModule module : modules) {
             module.resetDistance();
             //module.syncTurnEncoders();
@@ -82,13 +81,9 @@ public class Drivetrain extends SubsystemBase {
         PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
         SmartDashboard.putData("Field", field);
     }
-
-    public Pose2d getPose() {
-        return poseEstimator.getEstimatedPosition();
-    }
+    
     @Override
     public void periodic() {
-        poseEstimator.update(gyro.getRotation2d(), getModulePositions());
         if (lastFPGATimestamp < Timer.getFPGATimestamp()) {
             lastFPGATimestamp = Timer.getFPGATimestamp() + 1;
             for (SwerveModule module : modules) {
@@ -99,20 +94,14 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putBoolean("Gyro calibration Status", gyro.isCalibrating());
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());
         SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
-        SmartDashboard.putNumber("Odometry X", poseEstimator.getEstimatedPosition().getX());
-        SmartDashboard.putNumber("Odometry Y", poseEstimator.getEstimatedPosition().getY());
-        SmartDashboard.putNumber("Odometry Rotation", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
         SmartDashboard.putNumber("Front Right", frontRight.turnAngleDegrees());
         SmartDashboard.putNumber("Front Left", frontLeft.turnAngleDegrees());
         SmartDashboard.putNumber("Back Right", backRight.turnAngleDegrees());
         SmartDashboard.putNumber("Back Left", backLeft.turnAngleDegrees());
         SmartDashboard.putNumber("Pitch", getPitchDegrees());
 
-    }
+        RobotState.getInstance().recordDriveObservations(getHeading(), getModulePositions());
 
-    public void resetOdometry(Pose2d pose) {
-        poseEstimator.resetPosition(gyro.getRotation2d(), getModulePositions(), pose);
-        
     }
 
     public Rotation2d getHeading() {
@@ -153,6 +142,10 @@ public class Drivetrain extends SubsystemBase {
         return states;
     }
 
+    public void setFieldToVehicle(Pose2d fieldToVehicle) {
+        RobotState.getInstance().setFieldToVehicle(getHeading(), getModulePositions(), fieldToVehicle);
+    }
+
     public void brake() {
         for (int i = 0; i < modules.length; i++) {
           modules[i].setState(new SwerveModuleState(0, Rotation2d.fromDegrees(lockAngles[i])));
@@ -173,11 +166,7 @@ public class Drivetrain extends SubsystemBase {
         for (int i = 0; i < moduleStates.length; i++) {
           modules[i].setState(moduleStates[i]);
         }
-    }
-
-    public void addVisionOdometryMeasurement(Pose3d pose, double timestampSeconds) {
-        poseEstimator.addVisionMeasurement(pose.toPose2d(), timestampSeconds);
-    }    
+    }  
 
     public void resetEncoders() {
         for (SwerveModule module : modules) {
@@ -188,10 +177,6 @@ public class Drivetrain extends SubsystemBase {
     public void zeroHeading() {
         gyro.zeroYaw();
     }   
-
-    public void setFieldToVehicle(Rotation2d rotation, SwerveModulePosition[] modulePositions, Pose2d fieldToVehicle) {
-        poseEstimator.resetPosition(rotation, modulePositions, fieldToVehicle);
-    }
 
     public void resetFrontLeftAbsoluteEncoder() {
         modules[0].resetAbsoluteEncoder();
@@ -232,4 +217,12 @@ public class Drivetrain extends SubsystemBase {
     public ChassisSpeeds getSpeeds() {
         return Constants.DriveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleState());
       }
+
+      public Pose2d getPose() {
+        return RobotState.getInstance().getFieldToVehicle();
+      }
+
+      public void resetPose(Pose2d pose) {
+        RobotState.getInstance().setFieldToVehicle(gyro.getRotation2d(), getModulePositions(), pose);
+    }
 }

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkPIDController;
 
 import frc.robot.Constants;
 
@@ -32,7 +33,7 @@ public class SwerveModule extends SubsystemBase {
 
    double encoderOffset;
 
-   SparkMaxPIDController driveController, turnController;
+   SparkPIDController driveController, turnController;
 
    private double adjustedSpeed;
 

@@ -25,7 +25,7 @@ public final class Autos {
     drivetrain = RobotContainer.drivetrain;
     AutoBuilder.configureHolonomic(
       drivetrain::getPose, 
-      drivetrain::resetOdometry, 
+      drivetrain::resetPose, 
       drivetrain::getSpeeds, 
       drivetrain::drive, 
       new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
