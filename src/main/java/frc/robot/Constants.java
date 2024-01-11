@@ -90,10 +90,10 @@ public final class Constants {
  public static final class VisionConstants {
 
         public static final String[] cameraNames = {
-            "FrontLeft", 
-            "FrontRight", 
-            "BackLeft", 
-            "BackRight"
+            "Camera1", 
+            "Camera2", 
+            "Camera3", 
+            "Camera4"
         };
 
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
@@ -103,13 +103,12 @@ public final class Constants {
             new Transform3d(new Translation3d(-0.03, -0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(175)))
         };
 
-        public static final double fieldLength = 16.542;
-        public static final double fieldWidth = 8.014;
-
-        public static final double singleTagAmbiguityCutoff = 0.05;
-        public static final double minimumStdDev = 0.3;
-        public static final double eulerMultiplier = 0.25;
-        public static final double distanceMultiplier = 0.4;
+        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF = 0.05;
+        public static final double MINIMUM_STANDARD_DEVIATION = 0.3;
+        public static final double EULER_MULTIPLIER = 0.25;
+        public static final double DISTANCE_MULTIPLIER = 0.4;
+        public static final double RIGHT_FIELD_THRESHOLD = 5;
+        public static final double LEFT_FIELD_THRESHOLD = 5;
 
     }
 }

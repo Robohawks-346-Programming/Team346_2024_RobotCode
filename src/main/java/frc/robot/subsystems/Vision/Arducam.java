@@ -57,7 +57,7 @@ public class Arducam {
         EstimatedRobotPose estimation = estimatedPose.get();
         if (estimation.timestampSeconds == timestamp) return;
         if (estimation.targetsUsed.size() == 1 && 
-            (estimation.targetsUsed.get(0).getPoseAmbiguity() > Constants.VisionConstants.singleTagAmbiguityCutoff || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
+            (estimation.targetsUsed.get(0).getPoseAmbiguity() > Constants.VisionConstants.SINGLE_TAG_AMBIGUITY_CUTOFF || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
             return;
 
         double distance = 0;
@@ -79,7 +79,7 @@ public class Arducam {
     }
 
     public void recordVisionObservation() {
-        if(calculatedPose.toPose2d().getX() < 5 || calculatedPose.toPose2d().getX() > 11) {
+        if(calculatedPose.toPose2d().getX() < Constants.VisionConstants.RIGHT_FIELD_THRESHOLD || calculatedPose.toPose2d().getX() > Constants.VisionConstants.LEFT_FIELD_THRESHOLD) {
             RobotState.getInstance()
                 .recordVisionObservations(calculatedPose.toPose2d(), stdDevs, timestamp);
         }
@@ -88,8 +88,8 @@ public class Arducam {
 
     private Matrix<N3, N1> computeStdDevs(double distance) {
         double stdDev = Math.max(
-            Constants.VisionConstants.minimumStdDev, 
-            Constants.VisionConstants.eulerMultiplier * Math.exp(distance * Constants.VisionConstants.distanceMultiplier)
+            Constants.VisionConstants.MINIMUM_STANDARD_DEVIATION, 
+            Constants.VisionConstants.EULER_MULTIPLIER * Math.exp(distance * Constants.VisionConstants.DISTANCE_MULTIPLIER)
         );
         return VecBuilder.fill(stdDev, stdDev, 1000);
     }
