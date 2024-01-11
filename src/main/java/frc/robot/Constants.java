@@ -7,6 +7,10 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
+
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -15,6 +19,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Unit;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -27,10 +32,12 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 
     public static final class DriveConstants {
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS             = 0.8128; //32 in
-    public static final double DRIVETRAIN_WHEELBASE_METERS              = 0.7112; //28 in
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(32);
+    public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(28);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
-    public static final double WHEEL_DIAMETER                           = 0.09398; // 3.7 in
+    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.7);
+
+    public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));
     
     public static final double DRIVE_CONVERSION                         = (WHEEL_DIAMETER * Math.PI) / DRIVETRAIN_GEAR_RATIO;
     public static final double TURN_CONVERSION                          = 12.8;
@@ -110,5 +117,24 @@ public final class Constants {
         public static final double RIGHT_FIELD_THRESHOLD = 5;
         public static final double LEFT_FIELD_THRESHOLD = 5;
 
+    }
+
+    public static final class AutoConstants {
+        public static final double AUTO_DRIVE_P                                  = 0.07;
+        public static final double AUTO_DRIVE_I                                  = 0;
+        public static final double AUTO_DRIVE_D                                  = 0;
+
+        public static final double AUTO_TURN_P                                   = 0.01;
+        public static final double AUTO_TURN_I                                   = 0;
+        public static final double AUTO_TURN_D                                   = 5;
+
+        public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = 
+            new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+            new PIDConstants(AUTO_DRIVE_P, AUTO_DRIVE_I, AUTO_DRIVE_D), // Translation PID constants
+            new PIDConstants(AUTO_TURN_P, AUTO_TURN_I, AUTO_TURN_D), // Rotation PID constants
+            Constants.DriveConstants.MAX_MOVE_VELOCITY, // Max module speed, in m/s
+            DriveConstants.MAX_DRIVE_BASE_RADIUS, // Drive base radius in meters. Distance from robot center to furthest module.
+            new ReplanningConfig() // Default path replanning config. See the API for the options here
+        );
     }
 }
