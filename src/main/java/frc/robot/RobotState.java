@@ -28,7 +28,6 @@ public class RobotState {
     private SwerveDriveOdometry odometry;
 
     private final Field2d mainField = new Field2d();
-    private final Field2d targetField = new Field2d();
     private final Field2d odometryField = new Field2d();
 
     public void initPoseEstimator(Rotation2d rotation, SwerveModulePosition[] modulePositions) {
@@ -43,7 +42,6 @@ public class RobotState {
 
         mainField.setRobotPose(new Pose2d(1.9, 4.99, Rotation2d.fromDegrees(0)));
         SmartDashboard.putData("Field Pose", mainField);
-        SmartDashboard.putData("Target Pose", targetField);
         odometry = new SwerveDriveOdometry(Constants.DriveConstants.DRIVE_KINEMATICS, rotation, modulePositions);
     }
 
