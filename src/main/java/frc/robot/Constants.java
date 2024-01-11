@@ -114,8 +114,6 @@ public final class Constants {
         public static final double MINIMUM_STANDARD_DEVIATION = 0.3;
         public static final double EULER_MULTIPLIER = 0.25;
         public static final double DISTANCE_MULTIPLIER = 0.4;
-        public static final double RIGHT_FIELD_THRESHOLD = 5;
-        public static final double LEFT_FIELD_THRESHOLD = 5;
 
     }
 

@@ -79,10 +79,7 @@ public class Arducam {
     }
 
     public void recordVisionObservation() {
-        if(calculatedPose.toPose2d().getX() < Constants.VisionConstants.RIGHT_FIELD_THRESHOLD || calculatedPose.toPose2d().getX() > Constants.VisionConstants.LEFT_FIELD_THRESHOLD) {
-            RobotState.getInstance()
-                .recordVisionObservations(calculatedPose.toPose2d(), stdDevs, timestamp);
-        }
+        RobotState.getInstance().recordVisionObservations(calculatedPose.toPose2d(), stdDevs, timestamp);
         hasNewPose = false;
     }
 
