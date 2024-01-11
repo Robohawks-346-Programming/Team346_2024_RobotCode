@@ -4,8 +4,17 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -77,4 +86,30 @@ public final class Constants {
 
     public static final int DRIVER_CONTROLLER_PORT                      = 0;
  }
+
+ public static final class VisionConstants {
+
+        public static final String[] cameraNames = {
+            "FrontLeft", 
+            "FrontRight", 
+            "BackLeft", 
+            "BackRight"
+        };
+
+        public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
+            new Transform3d(new Translation3d(0.03, 0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(-10))),
+            new Transform3d(new Translation3d(0.03, -0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(10))),
+            new Transform3d(new Translation3d(-0.03, 0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(-175))),
+            new Transform3d(new Translation3d(-0.03, -0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(175)))
+        };
+
+        public static final double fieldLength = 16.542;
+        public static final double fieldWidth = 8.014;
+
+        public static final double singleTagAmbiguityCutoff = 0.05;
+        public static final double minimumStdDev = 0.3;
+        public static final double stdDevEulerMultiplier = 0.25;
+        public static final double stdDevDistanceMultiplier = 0.4;
+
+    }
 }
