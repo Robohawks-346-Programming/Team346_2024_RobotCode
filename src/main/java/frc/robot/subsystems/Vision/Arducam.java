@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 import frc.robot.RobotState;
 import frc.robot.Constants.VisionConstants;
 
@@ -56,7 +57,7 @@ public class Arducam {
         EstimatedRobotPose estimation = estimatedPose.get();
         if (estimation.timestampSeconds == timestamp) return;
         if (estimation.targetsUsed.size() == 1 && 
-            (estimation.targetsUsed.get(0).getPoseAmbiguity() > VisionConstants.singleTagAmbiguityCutoff || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
+            (estimation.targetsUsed.get(0).getPoseAmbiguity() > Constants.VisionConstants.singleTagAmbiguityCutoff || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
             return;
 
         double distance = 0;
@@ -87,8 +88,8 @@ public class Arducam {
 
     private Matrix<N3, N1> computeStdDevs(double distance) {
         double stdDev = Math.max(
-            VisionConstants.minimumStdDev, 
-            VisionConstants.stdDevEulerMultiplier * Math.exp(distance * VisionConstants.stdDevDistanceMultiplier)
+            Constants.VisionConstants.minimumStdDev, 
+            Constants.VisionConstants.eulerMultiplier * Math.exp(distance * Constants.VisionConstants.distanceMultiplier)
         );
         return VecBuilder.fill(stdDev, stdDev, 1000);
     }
