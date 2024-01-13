@@ -1,7 +1,10 @@
 package frc.robot.subsystems.Drivetrain;
 
-import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CANcoderConfigurator;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,7 +31,9 @@ public class SwerveModule extends SubsystemBase {
 
    RelativeEncoder driveEncoder, turnEncoder;
 
-   CANCoder turningCANCoder;
+   CANcoder turningCANCoder;
+   CANcoderConfiguration caNcoderConfigurationConfiguration;
+   MagnetSensorConfigs magnetSensorConfigs;
 
    double encoderOffset;
 
@@ -54,9 +59,9 @@ public class SwerveModule extends SubsystemBase {
         driveEncoder = driveMotor.getEncoder();
         turnEncoder = turnMotor.getEncoder();
 
-        turningCANCoder = new CANCoder(turningCANCoderID);
-        turningCANCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Signed_PlusMinus180);
-        turningCANCoder.configSensorDirection(false);
+        turningCANCoder = new CANcoder(turningCANCoderID);
+        magnetSensorConfigs.withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf);
+        turningCANCoder.getConfigurator().apply(magnetSensorConfigs);
 
         driveEncoder.setVelocityConversionFactor(Constants.DriveConstants.DRIVE_CONVERSION / 60);
         driveEncoder.setPositionConversionFactor(Constants.DriveConstants.DRIVE_CONVERSION);
@@ -114,7 +119,8 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public Rotation2d getAbsoluteRotation() {
-        return Rotation2d.fromDegrees(turningCANCoder.getAbsolutePosition());
+        //return Rotation2d.fromDegrees(turningCANCoder.getAbsolutePosition());
+        return Rotation2d.fromRotations(turningCANCoder.getAbsolutePosition().getValue());
     }
 
     public Rotation2d adjustedAngle = new Rotation2d();
@@ -148,11 +154,11 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void syncTurnEncoders() {
-        turnEncoder.setPosition(turningCANCoder.getAbsolutePosition());
+        turnEncoder.setPosition(turningCANCoder.getAbsolutePosition().getValue());
     }
 
     public void resetEncoders() {
-        turnEncoder.setPosition(turningCANCoder.getAbsolutePosition());
+        turnEncoder.setPosition(turningCANCoder.getAbsolutePosition().getValue());
     }
 
     public SwerveModulePosition getPosition() {
@@ -161,8 +167,6 @@ public class SwerveModule extends SubsystemBase {
 
     public void resetAbsoluteEncoder() {
         turningCANCoder.setPosition(0);
-        turningCANCoder.setPositionToAbsolute();
-        turningCANCoder.configMagnetOffset(turningCANCoder.configGetMagnetOffset()- turningCANCoder.getAbsolutePosition());
     }
 
     public Rotation2d getAngle() {
