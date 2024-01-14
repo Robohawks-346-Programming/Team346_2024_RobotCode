@@ -61,25 +61,29 @@ public final class Constants {
     public static final double MAX_MOVE_VELOCITY_FAST                   = 5.5;
     public static final double MAX_TURN_VELOCITY_FAST                   = 5.5;
     
-    public static final int FRONT_LEFT_DRIVE_ID                         = 9;
-    public static final int FRONT_LEFT_TURN_ID                          = 11;
-    public static final int FRONT_LEFT_ENCODER_ID                       = 1;
-    public static final double FRONT_LEFT_TURN_OFFSET                   = 0;
+     // Front left Swerve Module
+  public static final int FRONT_LEFT_DRIVE_ID                         = 21;
+  public static final int FRONT_LEFT_TURN_ID                          = 22;
+  public static final int FRONT_LEFT_ENCODER_ID                       = 23;
+  public static final double FRONT_LEFT_TURN_OFFSET                   = 0; // 359 is good
 
-    public static final int FRONT_RIGHT_DRIVE_ID                        = 7;
-    public static final int FRONT_RIGHT_TURN_ID                         = 17;
-    public static final int FRONT_RIGHT_ENCODER_ID                      = 2;
-    public static final double FRONT_RIGHT_TURN_OFFSET                  = 0;
+  // Back left Swerve Module
+  public static final int BACK_LEFT_DRIVE_ID                          = 31;  // 31 is og
+  public static final int BACK_LEFT_TURN_ID                           = 32;  // 32 is og
+  public static final int BACK_LEFT_ENCODER_ID                        = 33;  // 33 is og
+  public static final double BACK_LEFT_TURN_OFFSET                    = 0; // 358.5 is good
 
-    public static final int BACK_LEFT_DRIVE_ID                          = 10;
-    public static final int BACK_LEFT_TURN_ID                           = 41;
-    public static final int BACK_LEFT_ENCODER_ID                        = 4;
-    public static final double BACK_LEFT_TURN_OFFSET                    = 0;
+  // Front Right Swerve Module
+  public static final int FRONT_RIGHT_DRIVE_ID                        = 24;
+  public static final int FRONT_RIGHT_TURN_ID                         = 25;
+  public static final int FRONT_RIGHT_ENCODER_ID                      = 26;
+  public static final double FRONT_RIGHT_TURN_OFFSET                  = 0; // 1 is good
 
-    public static final int BACK_RIGHT_DRIVE_ID                         = 12;
-    public static final int BACK_RIGHT_TURN_ID                          = 24;
-    public static final int BACK_RIGHT_ENCODER_ID                       = 3;
-    public static final double BACK_RIGHT_TURN_OFFSET                   = 0;
+  // Back Right Swerve Module
+  public static final int BACK_RIGHT_DRIVE_ID                         = 34;  // 34 is og
+  public static final int BACK_RIGHT_TURN_ID                          = 35;  // 35 is og
+  public static final int BACK_RIGHT_ENCODER_ID                       = 36;  // 36 is og
+  public static final double BACK_RIGHT_TURN_OFFSET                   = 0; // 0 is good
 
     public static final double DRIVE_P                                  = 0.1;
     public static final double DRIVE_I                                  = 0;

@@ -32,7 +32,6 @@ public class SwerveModule extends SubsystemBase {
    RelativeEncoder driveEncoder, turnEncoder;
 
    CANcoder turningCANCoder;
-   CANcoderConfiguration caNcoderConfigurationConfiguration;
    MagnetSensorConfigs magnetSensorConfigs;
 
    double encoderOffset;
@@ -60,8 +59,8 @@ public class SwerveModule extends SubsystemBase {
         turnEncoder = turnMotor.getEncoder();
 
         turningCANCoder = new CANcoder(turningCANCoderID);
-        magnetSensorConfigs.withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf);
-        turningCANCoder.getConfigurator().apply(magnetSensorConfigs);
+        magnetSensorConfigs = new MagnetSensorConfigs();
+        turningCANCoder.getConfigurator().apply(magnetSensorConfigs.withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf));
 
         driveEncoder.setVelocityConversionFactor(Constants.DriveConstants.DRIVE_CONVERSION / 60);
         driveEncoder.setPositionConversionFactor(Constants.DriveConstants.DRIVE_CONVERSION);
