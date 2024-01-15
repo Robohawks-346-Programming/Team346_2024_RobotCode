@@ -9,7 +9,6 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
@@ -19,10 +18,8 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotState;
-import frc.robot.Constants.VisionConstants;
 
 public class Arducam {
 
@@ -36,15 +33,12 @@ public class Arducam {
     private volatile Matrix<N3, N1> stdDevs = VecBuilder.fill(1000, 1000, 1000);
     private volatile double timestamp = 1;
 
-    private String name;
 
 
     public Arducam(String cameraName, Transform3d vehicleToCamera) {
         camera = new PhotonCamera(cameraName);
         poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, vehicleToCamera);
         poseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
-
-        name = cameraName;
     }
 
     public void periodic() {

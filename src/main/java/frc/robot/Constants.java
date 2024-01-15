@@ -4,22 +4,16 @@
 
 package frc.robot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
-import edu.wpi.first.apriltag.AprilTag;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.Unit;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -101,10 +95,10 @@ public final class Constants {
  public static final class VisionConstants {
 
         public static final String[] cameraNames = {
-            "Camera1", 
-            "Camera2", 
-            "Camera3", 
-            "Camera4"
+            "FL", 
+            "FR", 
+            "BL", 
+            "BR"
         };
 
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
@@ -114,10 +108,10 @@ public final class Constants {
             new Transform3d(new Translation3d(-0.03, -0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(175)))
         };
 
-        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF = 0.05;
-        public static final double MINIMUM_STANDARD_DEVIATION = 0.3;
-        public static final double EULER_MULTIPLIER = 0.25;
-        public static final double DISTANCE_MULTIPLIER = 0.4;
+        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.05;
+        public static final double MINIMUM_STANDARD_DEVIATION                   = 0.3;
+        public static final double EULER_MULTIPLIER                             = 0.25;
+        public static final double DISTANCE_MULTIPLIER                          = 0.4;
 
     }
 
@@ -138,5 +132,34 @@ public final class Constants {
             DriveConstants.MAX_DRIVE_BASE_RADIUS, // Drive base radius in meters. Distance from robot center to furthest module.
             new ReplanningConfig() // Default path replanning config. See the API for the options here
         );
+    }
+
+    public static final class PivotConstants {
+        public static final int PIVOT_MOTOR_ID                                = 12;
+
+        public static final double PIVOT_GEAR_RATIO                           = 580; // 580 motor rev :1 arm rev
+
+        public static final double PIVOT_MOTOR_SPEED_UP                       = 1;
+        public static final double PIVOT_MOTOR_SPEED_DOWN                     = 1;
+        public static final double PIVOT_MOTOR_SPEED_UP_FINAL                 = 0.3;
+        public static final double PIVOT_MOTOR_SPEED_DOWN_FINAL               = 0.2;
+
+        public static final double HOME_PIVOT_ANGLE                           = 8; //off vertical
+        public static final double SPEAKER_PIVOT_ANGLE                        = 28; //off vertical
+        public static final double AMP_PIVOT_ANGLE                            = 73; //off vertical
+        public static final double TRAP_PIVOT_ANGLE                           = 92; //off vertical
+        public static final double SOURCE_PIVOT_ANGLE                         = 81; //off vertical
+        public static final double PIVOT_ANGLE_THRESHOLD                      = 0.75; // in degrees
+
+        public static final double PIVOT_P                                    = 1;
+        public static final double PIVOT_I                                    = 0;
+        public static final double PIVOT_D                                    = 0;
+
+        public static final int PIVOT_BRAKE_FORWARD_CHANNEL                   = 4;
+        public static final int PIVOT_BRAKE_REVERSE_CHANNEL                   = 5;
+    }
+
+    public static final class IntakeConstants {
+        public static final int INTAKE_MOTOR_ID                               = 15;
     }
 }
