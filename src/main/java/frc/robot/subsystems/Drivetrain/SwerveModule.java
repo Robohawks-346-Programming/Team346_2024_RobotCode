@@ -1,8 +1,15 @@
 package frc.robot.subsystems.Drivetrain;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,19 +27,28 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class SwerveModule extends SubsystemBase {
 
-   CANSparkMax driveMotor, turnMotor;
+   //CANSparkMax turnMotor;
+   CANSparkMax driveMotor;
 
-   RelativeEncoder driveEncoder, turnEncoder;
+   TalonFX turnMotor;
+   TalonFXConfiguration swerveAngleFXConfig;
+   CANcoderConfiguration swerveCANcoderConfig;
+   private final PositionVoltage anglePosition = new PositionVoltage(0);
+
+   RelativeEncoder driveEncoder;
+   //RelativeEncoder turnEncoder;
 
    CANcoder turningCANCoder;
    MagnetSensorConfigs magnetSensorConfigs;
 
    double encoderOffset;
 
-   SparkPIDController driveController, turnController;
+   SparkPIDController driveController;
+   //SparkPIDController turnController;
 
    private double adjustedSpeed;
 
@@ -42,58 +58,90 @@ public class SwerveModule extends SubsystemBase {
     int turningCANCoderID,
     double turnEncoderOffset) 
     {
+        //turnMotor = new CANSparkMax(turnMotorID, MotorType.kBrushless);
+        turnMotor = new TalonFX(turnMotorID);
+        swerveAngleFXConfig = new TalonFXConfiguration();
+        swerveCANcoderConfig = new CANcoderConfiguration();
+
+        swerveCANcoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+
+        turningCANCoder = new CANcoder(turningCANCoderID);
+        turningCANCoder.getConfigurator().apply(swerveCANcoderConfig);
+
+        /** Swerve Angle Motor Configurations */
+        /* Motor Inverts and Neutral Mode */
+        swerveAngleFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        swerveAngleFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+
+        /* Gear Ratio and Wrapping Config */
+        swerveAngleFXConfig.Feedback.SensorToMechanismRatio = (12.8 / 1.0);
+        swerveAngleFXConfig.ClosedLoopGeneral.ContinuousWrap = true;
+        
+        /* Current Limiting */
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimit = 25;
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 40;
+        swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
+
+        /* PID Config */
+        swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
+        swerveAngleFXConfig.Slot0.kI = Constants.DriveConstants.TURN_I;
+        swerveAngleFXConfig.Slot0.kD = Constants.DriveConstants.TURN_D;
+
+        turnMotor.getConfigurator().apply(swerveAngleFXConfig);
+
+
 
         encoderOffset = turnEncoderOffset;
 
         driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
-        turnMotor = new CANSparkMax(turnMotorID, MotorType.kBrushless);
 
         driveMotor.restoreFactoryDefaults();
-        turnMotor.restoreFactoryDefaults();
+        //turnMotor.restoreFactoryDefaults();
 
         driveEncoder = driveMotor.getEncoder();
-        turnEncoder = turnMotor.getEncoder();
+        //turnEncoder = turnMotor.getEncoder();
 
-        turningCANCoder = new CANcoder(turningCANCoderID);
-        magnetSensorConfigs = new MagnetSensorConfigs();
-        turningCANCoder.getConfigurator().apply(magnetSensorConfigs.withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf));
+        // turningCANCoder = new CANcoder(turningCANCoderID);
+        // magnetSensorConfigs = new MagnetSensorConfigs();
+        // turningCANCoder.getConfigurator().apply(magnetSensorConfigs.withAbsoluteSensorRange(AbsoluteSensorRangeValue.Signed_PlusMinusHalf));
 
         driveEncoder.setVelocityConversionFactor(Constants.DriveConstants.DRIVE_CONVERSION / 60);
         driveEncoder.setPositionConversionFactor(Constants.DriveConstants.DRIVE_CONVERSION);
 
-        turnEncoder.setPositionConversionFactor(360.0 / Constants.DriveConstants.TURN_CONVERSION);
+        //turnEncoder.setPositionConversionFactor(360.0 / Constants.DriveConstants.TURN_CONVERSION);
 
         driveMotor.setInverted(true);
         turnMotor.setInverted(true);
         
         driveMotor.setIdleMode(IdleMode.kCoast);
-        turnMotor.setIdleMode(IdleMode.kBrake);
+        //turnMotor.setIdleMode(IdleMode.kBrake);
 
         driveMotor.enableVoltageCompensation(Constants.DriveConstants.MAX_VOLTAGE);
-        turnMotor.enableVoltageCompensation(Constants.DriveConstants.MAX_VOLTAGE);
+        //turnMotor.enableVoltageCompensation(Constants.DriveConstants.MAX_VOLTAGE);
 
         driveMotor.setSmartCurrentLimit(Constants.DriveConstants.DRIVE_CURRENT_LIMIT);
-        turnMotor.setSmartCurrentLimit(Constants.DriveConstants.TURN_CURRENT_LIMIT);
+        //turnMotor.setSmartCurrentLimit(Constants.DriveConstants.TURN_CURRENT_LIMIT);
 
         driveController = driveMotor.getPIDController();
-        turnController = turnMotor.getPIDController();
+        //turnController = turnMotor.getPIDController();
 
-        turnController.setPositionPIDWrappingEnabled(true);
-        turnController.setPositionPIDWrappingMinInput(-180);
-        turnController.setPositionPIDWrappingMaxInput(180);
+        // turnController.setPositionPIDWrappingEnabled(true);
+        // turnController.setPositionPIDWrappingMinInput(-180);
+        // turnController.setPositionPIDWrappingMaxInput(180);
 
         driveController.setP(Constants.DriveConstants.DRIVE_P);
         driveController.setI(Constants.DriveConstants.DRIVE_I);
         driveController.setD(Constants.DriveConstants.DRIVE_D);
         //driveController.setFF(Constants.DriveConstants.DRIVE_FF);
 
-        turnController.setP(Constants.DriveConstants.TURN_P);
-        turnController.setI(Constants.DriveConstants.TURN_I);
-        turnController.setD(Constants.DriveConstants.TURN_D);
-        turnController.setFF(Constants.DriveConstants.TURN_FF);
+        // turnController.setP(Constants.DriveConstants.TURN_P);
+        // turnController.setI(Constants.DriveConstants.TURN_I);
+        // turnController.setD(Constants.DriveConstants.TURN_D);
+        // turnController.setFF(Constants.DriveConstants.TURN_FF);
 
         driveMotor.burnFlash();
-        turnMotor.burnFlash();  
+        //turnMotor.burnFlash();  
     }
 
     public SwerveModuleState getState() {
@@ -105,7 +153,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public Rotation2d getStateAngle() {
-        double stateAngle = Units.degreesToRadians(turnEncoder.getPosition());
+        double stateAngle = Units.degreesToRadians(turnMotor.getPosition().getValue());
         return new Rotation2d(MathUtil.angleModulus(stateAngle));
     }
 
@@ -123,17 +171,10 @@ public class SwerveModule extends SubsystemBase {
     public void setState(SwerveModuleState state) {
         double driveOutput = state.speedMetersPerSecond;
         SmartDashboard.putNumber("Velocity Input", driveOutput);
-        turnController.setReference(state.angle.getDegrees(), ControlType.kPosition);
+        //turnController.setReference(state.angle.getDegrees(), ControlType.kPosition);
+        turnMotor.setControl(anglePosition.withPosition(state.angle.getRotations()));
         adjustedSpeed = driveOutput;
         driveController.setReference(driveOutput, ControlType.kVelocity, 0, 2.35 * adjustedSpeed);
-    }
-
-    public void setAutoState(SwerveModuleState state) {
-        double driveOutput = state.speedMetersPerSecond;
-        SmartDashboard.putNumber("Velocity Input", driveOutput);
-        turnController.setReference(state.angle.getDegrees(), ControlType.kPosition);
-        adjustedSpeed = driveOutput;
-        driveController.setReference(-driveOutput, ControlType.kVelocity, 0, 2.35 * adjustedSpeed);
     }
 
     public double adjustedAngle(double wantedAngle, double currentAngle) {
@@ -149,11 +190,11 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void syncTurnEncoders() {
-        turnEncoder.setPosition(turningCANCoder.getAbsolutePosition().getValue());
+        turnMotor.setPosition(turningCANCoder.getAbsolutePosition().getValue());
     }
 
     public void resetEncoders() {
-        turnEncoder.setPosition(turningCANCoder.getAbsolutePosition().getValue());
+        turnMotor.setPosition(turningCANCoder.getAbsolutePosition().getValue());
     }
 
     public SwerveModulePosition getPosition() {
@@ -165,16 +206,16 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public Rotation2d getAngle() {
-        double angle = Units.degreesToRadians(turnEncoder.getPosition());
+        double angle = Units.degreesToRadians(turnMotor.getPosition().getValue());
         return new Rotation2d(MathUtil.angleModulus(angle));
     }
 
     public double turnAngleRadians() {
-        return encoderOffset + (turnEncoder.getPosition() * 2 * Math.PI); 
+        return encoderOffset + (turnMotor.getPosition().getValue() * 2 * Math.PI); 
     }
 
     public double turnAngleDegrees() {
-        return encoderOffset + Math.toDegrees(turnEncoder.getPosition() * 2 * Math.PI); 
+        return encoderOffset + Math.toDegrees(turnMotor.getPosition().getValue() * 2 * Math.PI); 
     }
 
         public double getMetersDriven() {

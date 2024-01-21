@@ -137,7 +137,7 @@ public final class Constants {
     public static final class PivotConstants {
         public static final int PIVOT_MOTOR_ID                                = 12;
 
-        public static final double PIVOT_GEAR_RATIO                           = 580; // 580 motor rev :1 arm rev
+        public static final double PIVOT_GEAR_RATIO                           = 48; // 48 motor rev : 1 arm rev
 
         public static final double PIVOT_MOTOR_SPEED_UP                       = 1;
         public static final double PIVOT_MOTOR_SPEED_DOWN                     = 1;
@@ -161,5 +161,17 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int INTAKE_MOTOR_ID                               = 15;
+    }
+
+    public static final class ShooterConstants {
+        public static final double SHOOTER_WHEEL_DIAMETER                     = 4/12; // feet
+        public static final int SHOOTER_MOTOR_ID                              = 2;
+        public static final double SHOOTER_P                                  = 4/12;
+        public static final double SHOOTER_I                                  = 4/12;
+        public static final double SHOOTER_D                                  = 4/12;
+        public static final double SHOOTER_IZ                                 = 4/12;
+        public static final double SHOOTER_FF                                 = 4/12;
+        public static final double SHOOTER_MIN_OUTPUT                         = 4/12;
+        public static final double SHOOTER_MAX_OUTPUT                         = 4/12;
     }
 }

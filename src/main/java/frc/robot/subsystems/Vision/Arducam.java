@@ -30,6 +30,7 @@ public class Arducam {
 
     private volatile boolean hasNewPose = false;
     private volatile Pose3d calculatedPose = new Pose3d();
+    private volatile Pose3d intermediatePose = new Pose3d();
     private volatile Matrix<N3, N1> stdDevs = VecBuilder.fill(1000, 1000, 1000);
     private volatile double timestamp = 1;
 
@@ -53,6 +54,12 @@ public class Arducam {
         if (estimation.targetsUsed.size() == 1 && 
             (estimation.targetsUsed.get(0).getPoseAmbiguity() > Constants.VisionConstants.SINGLE_TAG_AMBIGUITY_CUTOFF || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
             return;
+
+        intermediatePose = estimation.estimatedPose;
+
+        if (intermediatePose.getZ() > 1 || intermediatePose.getZ() < -0.1) {
+            return;
+        }
 
         double distance = 0;
         for (PhotonTrackedTarget target : estimation.targetsUsed) {

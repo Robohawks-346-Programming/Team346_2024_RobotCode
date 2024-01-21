@@ -185,7 +185,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void resetBackRightAbsoluteEncoder() {
-        modules[0].resetAbsoluteEncoder();
+        modules[3].resetAbsoluteEncoder();
     }
 
     public double getFrontLeftEncoder() {

@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.commands.Drive;
-import frc.robot.subsystems.Pivot;
+//import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 import java.util.Optional;
@@ -28,8 +28,8 @@ public class RobotContainer {
 
   private final XboxController driverControl = new XboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
   public static final Drivetrain drivetrain = new Drivetrain();
-  public static final Pivot pivot = new Pivot();
-  private final SendableChooser<Command> autoChooser;
+  //public static final Pivot pivot = new Pivot();
+  //private final SendableChooser<Command> autoChooser;
   public int isInverted = 1;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
@@ -38,8 +38,8 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooser();
+    // SmartDashboard.putData("Auto Chooser", autoChooser);
 
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
@@ -56,9 +56,13 @@ public class RobotContainer {
   private void configureBindings() {
     new JoystickButton(driverControl, Button.kStart.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::resetEncoders), new InstantCommand(drivetrain::zeroHeading)));
     new JoystickButton(driverControl, Button.kRightBumper.value).whileTrue(new Drive(drivetrain, xAxis, yAxis, thetaAxis, Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
+    new JoystickButton(driverControl, Button.kX.value).onTrue(new InstantCommand(drivetrain::resetFrontLeftAbsoluteEncoder));
+    new JoystickButton(driverControl, Button.kY.value).onTrue(new InstantCommand(drivetrain::resetFrontRightAbsoluteEncoder));
+    new JoystickButton(driverControl, Button.kA.value).onTrue(new InstantCommand(drivetrain::resetBackLeftAbsoluteEncoder));
+    new JoystickButton(driverControl, Button.kB.value).onTrue(new InstantCommand(drivetrain::resetBackRightAbsoluteEncoder));
   }
 
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return null;
   }
 }
