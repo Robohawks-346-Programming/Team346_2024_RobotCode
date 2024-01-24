@@ -1,5 +1,11 @@
 // package frc.robot.subsystems;
 
+// import org.photonvision.estimation.RotTrlTransform3d;
+
+// import com.ctre.phoenix6.configs.TalonFXConfiguration;
+// import com.ctre.phoenix6.controls.PositionVoltage;
+// import com.ctre.phoenix6.hardware.TalonFX;
+// import com.ctre.phoenix6.signals.NeutralModeValue;
 // import com.revrobotics.CANSparkMax;
 // import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.SparkPIDController;
@@ -14,35 +20,32 @@
 // import frc.robot.Constants;
 
 // public class Pivot extends SubsystemBase {
-//     private static CANSparkMax rotationMotor;
+//     private static TalonFX rotationMotor;
 //     private static DoubleSolenoid brakeSolenoid;
-//     private static RelativeEncoder rotationEncoder;
-//     private static SparkPIDController rotationPIDController;
+//     private static TalonFXConfiguration pivotMotorConfig;
+    
+//    private final PositionVoltage anglePosition;
 
 //     double armDegreesPerMotorRev;
     
 //     public Pivot() {
-//         rotationMotor = new CANSparkMax(Constants.PivotConstants.PIVOT_MOTOR_ID, MotorType.kBrushless);    
-//         rotationMotor.setIdleMode(IdleMode.kBrake);
-//         rotationEncoder = rotationMotor.getEncoder();
+//         rotationMotor = new TalonFX(Constants.PivotConstants.PIVOT_MOTOR_ID);
+//         pivotMotorConfig = new TalonFXConfiguration();
+//         pivotMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
 //         armDegreesPerMotorRev = 360/Constants.PivotConstants.PIVOT_GEAR_RATIO;
         
-//         rotationEncoder.setPositionConversionFactor(armDegreesPerMotorRev);
-//         rotationEncoder.setPosition(Constants.PivotConstants.HOME_PIVOT_ANGLE);
 //         rotationMotor.setInverted(true);
-//         rotationMotor.setIdleMode(IdleMode.kBrake);
 
-//         rotationPIDController = rotationMotor.getPIDController();
-//         rotationPIDController.setP(Constants.PivotConstants.PIVOT_P);
-//         rotationPIDController.setI(Constants.PivotConstants.PIVOT_I);
-//         rotationPIDController.setD(Constants.PivotConstants.PIVOT_D);
-        
+//         pivotMotorConfig.Slot0.kP = Constants.PivotConstants.PIVOT_P;
+//         pivotMotorConfig.Slot0.kI = Constants.PivotConstants.PIVOT_I;
+//         pivotMotorConfig.Slot0.kD = Constants.PivotConstants.PIVOT_D;
 
-//         rotationPIDController.setOutputRange(-Constants.PivotConstants.PIVOT_MOTOR_SPEED_DOWN, Constants.PivotConstants.PIVOT_MOTOR_SPEED_UP);
-
-//         rotationMotor.burnFlash();
+//         rotationMotor.getConfigurator().apply(pivotMotorConfig);
 
 //         brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PivotConstants.PIVOT_BRAKE_FORWARD_CHANNEL, Constants.PivotConstants.PIVOT_BRAKE_REVERSE_CHANNEL);
+
+//         anglePosition = new PositionVoltage(0);
 
 //     }
 
@@ -53,20 +56,20 @@
 
 //     // Resetting Rotation encoders
 //     public void resetRotationEncoder() {
-//         rotationEncoder.setPosition(0.0);
+//         rotationMotor.setPosition(0.0);
 //     }
 
 //     public double getRotationEncoder() {
-//         return rotationEncoder.getPosition();
+//         return rotationMotor.getPosition().getValue();
 //     }
 
 //     public void setRotationEncoder() {
-//         rotationEncoder.setPosition(Constants.PivotConstants.HOME_PIVOT_ANGLE);
+//         rotationMotor.setPosition(Constants.PivotConstants.HOME_PIVOT_ANGLE);
 //     }
 
 //     // Checks to see if the position has been reached
 //     public boolean isAtPosition(double rev) {
-//         double difference = Math.abs(rotationEncoder.getPosition() - rev);
+//         double difference = Math.abs(rotationMotor.getPosition().getValue() - rev);
 //         return(difference <= Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD);
 //     }
 
@@ -80,7 +83,7 @@
 //     }
 
 //     public void moveArm(double wantedPosition, double currentDegree) {
-//         double currentPosition = rotationEncoder.getPosition();
+//         double currentPosition = rotationMotor.getPosition().getValue();
 //         if (wantedPosition > currentPosition) {
 //             rotationMotor.set(lerpSpeed(currentDegree, wantedPosition, Constants.PivotConstants.PIVOT_MOTOR_SPEED_UP, Constants.PivotConstants.PIVOT_MOTOR_SPEED_UP_FINAL));
 //         }
@@ -95,7 +98,7 @@
 //     }
 
 //     public void moveArmToPosition(double wantedPosition) {
-//         rotationPIDController.setReference(wantedPosition, ControlType.kPosition);
+//         rotationMotor.setControl(anglePosition.withPosition(wantedPosition));
 //     }
 
 //     public void engageBrake() {

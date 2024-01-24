@@ -78,12 +78,12 @@ public class Drivetrain extends SubsystemBase {
     
     @Override
     public void periodic() {
-        if (lastFPGATimestamp < Timer.getFPGATimestamp()) {
-            lastFPGATimestamp = Timer.getFPGATimestamp() + 1;
-            for (SwerveModule module : modules) {
-                module.syncTurnEncoders();
-            }
-        }
+        // if (lastFPGATimestamp < Timer.getFPGATimestamp()) {
+        //     lastFPGATimestamp = Timer.getFPGATimestamp() + 1;
+        //     for (SwerveModule module : modules) {
+        //         module.syncTurnEncoders();
+        //     }
+        // }
 
         SmartDashboard.putBoolean("Gyro calibration Status", gyro.isCalibrating());
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());

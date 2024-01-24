@@ -84,9 +84,9 @@ public final class Constants {
     public static final double DRIVE_D                                  = 0;
     public static final double DRIVE_FF                                 = 2.96;
 
-    public static final double TURN_P                                   = 0.01;
+    public static final double TURN_P                                   = 20;
     public static final double TURN_I                                   = 0;
-    public static final double TURN_D                                   = 0.005;
+    public static final double TURN_D                                   = 0;
     public static final double TURN_FF                                  = 0;
 
     public static final int DRIVER_CONTROLLER_PORT                      = 0;
@@ -164,14 +164,24 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final double SHOOTER_WHEEL_DIAMETER                     = 4/12; // feet
-        public static final int SHOOTER_MOTOR_ID                              = 2;
-        public static final double SHOOTER_P                                  = 4/12;
-        public static final double SHOOTER_I                                  = 4/12;
-        public static final double SHOOTER_D                                  = 4/12;
-        public static final double SHOOTER_IZ                                 = 4/12;
-        public static final double SHOOTER_FF                                 = 4/12;
-        public static final double SHOOTER_MIN_OUTPUT                         = 4/12;
-        public static final double SHOOTER_MAX_OUTPUT                         = 4/12;
+        public static final int TOP_SPEAKER_ROLLER_MOTOR_ID                   = 2;
+        public static final int BOTTOM_SPEAKER_ROLLER_MOTOR_ID                = 4;
+        public static final int FEEDER_ROLLER_MOTOR_ID                        = 5;
+        public static final int AMP_ROLLER_MOTOR_ID                           = 6;
+
+        public static final int INTAKE_LASER_BREAK_PORT                       = 1;
+
+        public static final double SPEAKER_SHOOTER_TOP_P                      = 0;
+        public static final double SPEAKER_SHOOTER_TOP_I                      = 0;
+        public static final double SPEAKER_SHOOTER_TOP_D                      = 0;
+
+        public static final double SPEAKER_SHOOTER_BOTTOM_P                   = 0;
+        public static final double SPEAKER_SHOOTER_BOTTOM_I                   = 0;
+        public static final double SPEAKER_SHOOTER_BOTTOM_D                   = 0;
+
+        public static final double SPEAKER_ROLLER_VELOCITY_THRESHOLD          = 25;
+
+        public static final double FEEDER_ROLLER_SPEED                        = 0.5;
+        public static final double AMP_ROLLERS_ROLLER_SPEED                   = 0.5;
     }
 }

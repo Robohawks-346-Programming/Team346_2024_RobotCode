@@ -5,62 +5,96 @@
 // import com.revrobotics.SparkPIDController;
 // import com.revrobotics.CANSparkLowLevel.MotorType;
 
+// import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import frc.robot.Constants;
 
 
 // public class Shooter extends SubsystemBase{
-//     CANSparkMax shooter;
-//     SparkPIDController shooterPIDController;
-//     RelativeEncoder shooterEncoder;
-    
-//     double gravity = 32.2; // acceleration of gravity, ft/s^2
-//     double diameter = Constants.ShooterConstants.SHOOTER_WHEEL_DIAMETER;
-//     double angle; //Initial angle ball leaves shooter, could be constant or variable, in degrees
-  
-//     double kP,kI,kD,kIZ,kFF,kMinOut,kMaxOut;
-//     double P,I,D,IZ,FF,MinOut,MaxOut;
+//     CANSparkMax topSpeakerRoller, bottomSpeakerRoller, feederRoller, ampRollers;
+//     SparkPIDController topSpeakerRollerPIDController, bottomSpeakerRollerPIDController;
+//     RelativeEncoder topSpeakerRollerEncoder, bottomSpeakerRollerEncoder;
+//     private DigitalInput laserBreak;
+//     boolean shooterVelocity;
+
 //     double setPoint;
 //     public Shooter() {
-//         shooter = new CANSparkMax(Constants.ShooterConstants.SHOOTER_MOTOR_ID, MotorType.kBrushless);
+//         topSpeakerRoller = new CANSparkMax(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID, MotorType.kBrushless);
+//         bottomSpeakerRoller = new CANSparkMax(Constants.ShooterConstants.BOTTOM_SPEAKER_ROLLER_MOTOR_ID, MotorType.kBrushless);
+//         feederRoller = new CANSparkMax(Constants.ShooterConstants.FEEDER_ROLLER_MOTOR_ID, MotorType.kBrushless);
+//         ampRollers = new CANSparkMax(Constants.ShooterConstants.AMP_ROLLER_MOTOR_ID, MotorType.kBrushless);
 
-//         kP = Constants.ShooterConstants.SHOOTER_P;
-//         kI = Constants.ShooterConstants.SHOOTER_I;
-//         kD = Constants.ShooterConstants.SHOOTER_D;
-//         kIZ = Constants.ShooterConstants.SHOOTER_IZ;
-//         kFF = Constants.ShooterConstants.SHOOTER_FF;
-//         kMinOut = Constants.ShooterConstants.SHOOTER_MIN_OUTPUT;
-//         kMaxOut = Constants.ShooterConstants.SHOOTER_MAX_OUTPUT;
+//         laserBreak = new DigitalInput(Constants.ShooterConstants.INTAKE_LASER_BREAK_PORT);
 
-//         shooterPIDController = shooter.getPIDController();
-//         shooterEncoder = shooter.getEncoder();
+//         topSpeakerRollerPIDController = topSpeakerRoller.getPIDController();
+//         bottomSpeakerRollerPIDController = bottomSpeakerRoller.getPIDController();
 
-//         shooterPIDController.setP(kP);
-//         shooterPIDController.setI(kI);
-//         shooterPIDController.setD(kD);
-//         shooterPIDController.setIZone(kIZ);
-//         shooterPIDController.setFF(kFF);
-//         shooterPIDController.setOutputRange(kMinOut, kMaxOut);
+//         topSpeakerRollerEncoder = topSpeakerRoller.getEncoder();
+//         bottomSpeakerRollerEncoder = bottomSpeakerRoller.getEncoder();
+
+//         topSpeakerRollerPIDController.setP(Constants.ShooterConstants.SPEAKER_SHOOTER_TOP_P);
+//         topSpeakerRollerPIDController.setI(Constants.ShooterConstants.SPEAKER_SHOOTER_TOP_I);
+//         topSpeakerRollerPIDController.setD(Constants.ShooterConstants.SPEAKER_SHOOTER_TOP_D);
+
+//         bottomSpeakerRollerPIDController.setP(Constants.ShooterConstants.SPEAKER_SHOOTER_BOTTOM_P);
+//         bottomSpeakerRollerPIDController.setI(Constants.ShooterConstants.SPEAKER_SHOOTER_BOTTOM_I);
+//         bottomSpeakerRollerPIDController.setD(Constants.ShooterConstants.SPEAKER_SHOOTER_BOTTOM_D);
+
+//         topSpeakerRoller.burnFlash();
+//         bottomSpeakerRoller.burnFlash();
 
 //     }
 
-//     public void setShooterSpeed(double shooterSpeed) {
-//         shooter.set(shooterSpeed);
-//     }
-
-//     public void setShooterVelocity(double setPoint) {
-//         boolean shooterVelocity;
+//     @Override
+//     public void periodic() {
+//         SmartDashboard.putBoolean("Intake laser", getLaserBreak());
+//         SmartDashboard.putNumber("Top Roller RPM", topSpeakerRollerEncoder.getVelocity());
+//         SmartDashboard.putNumber("Bottom Roller RPM", bottomSpeakerRollerEncoder.getVelocity());
+//         SmartDashboard.putBoolean("Shooter is Good", shooterVelocity); //Tells when ready to shoot
 //         SmartDashboard.putNumber("Shooter Setpoint", setPoint);
-//         shooterPIDController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
-//         SmartDashboard.putNumber("Shooter RPM", shooterEncoder.getVelocity());
-//         if(setPoint+50 <= shooterEncoder.getVelocity() && setPoint-50 >= shooterEncoder.getVelocity()) { //Constant may change 
+//     }
+
+//     public void setSpeakerShooterSpeed(double shooterSpeed) {
+//         topSpeakerRoller.set(shooterSpeed);
+//         bottomSpeakerRoller.set(shooterSpeed);
+//     }
+
+//     public void setSpeakerShooterVelocity(double setPoint) {
+//         topSpeakerRollerPIDController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+//         bottomSpeakerRollerPIDController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
+//         if(Math.abs(topSpeakerRollerEncoder.getVelocity() - setPoint) <= Constants.ShooterConstants.SPEAKER_ROLLER_VELOCITY_THRESHOLD && Math.abs(bottomSpeakerRollerEncoder.getVelocity() - setPoint) <= Constants.ShooterConstants.SPEAKER_ROLLER_VELOCITY_THRESHOLD) {
 //             shooterVelocity = true;
 //         }
 //         else {
 //             shooterVelocity = false;
 //         }
-//         SmartDashboard.putBoolean("Shooter is Good", shooterVelocity); //Tells when ready to shoot
 //     }
 
+//     public boolean getSpeakerShooterVelocity(double setpoint){
+//         return setpoint == Math.min(topSpeakerRollerEncoder.getVelocity(), bottomSpeakerRollerEncoder.getVelocity());
+//     }
+
+//     public boolean getLaserBreak() {
+//         return laserBreak.get();
+//     }
+
+//     public void armIntake() {
+//         feederRoller.set(Constants.ShooterConstants.FEEDER_ROLLER_SPEED);
+//         ampRollers.set(Constants.ShooterConstants.AMP_ROLLERS_ROLLER_SPEED);
+//     }
+
+//     public void ejectSpeaker() {
+//         feederRoller.set(Constants.ShooterConstants.FEEDER_ROLLER_SPEED);
+//     }
+
+//     public void ejectAmp() {
+//         feederRoller.set(-Constants.ShooterConstants.FEEDER_ROLLER_SPEED);
+//         ampRollers.set(Constants.ShooterConstants.AMP_ROLLERS_ROLLER_SPEED);
+//     }
+
+//     public void stopAmpShooter() {
+//         feederRoller.set(0);
+//         ampRollers.set(0);
+//     }
 // }

@@ -17,42 +17,86 @@
     {
       "anchor": {
         "x": 2.894774188131225,
-        "y": 5.57024620572833
+        "y": 5.626895204408749
       },
       "prevControl": {
-        "x": 2.897917844374999,
-        "y": 5.5486990618908125
+        "x": 2.8804968063320153,
+        "y": 5.61045384342209
       },
       "nextControl": {
-        "x": 2.4273409400974684,
-        "y": 8.774111593290497
+        "x": 3.193005892186079,
+        "y": 5.970328977700689
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4078645547627295,
-        "y": 4.119255498299951
+        "x": 2.894774188131225,
+        "y": 6.9727843159447
       },
       "prevControl": {
-        "x": 3.664091408848578,
-        "y": 6.407730775131881
+        "x": 2.8867000943939396,
+        "y": 6.972784315950398
+      },
+      "nextControl": {
+        "x": 2.920187873781699,
+        "y": 6.972784315926763
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.459728376248331,
+        "y": 4.076802227684226
+      },
+      "prevControl": {
+        "x": 1.876413703959717,
+        "y": 5.760292674289339
+      },
+      "nextControl": {
+        "x": 3.193005892186079,
+        "y": 1.9605076247246496
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.288820528255155,
+        "y": 0.7724124090234037
+      },
+      "prevControl": {
+        "x": 8.937352199213176,
+        "y": 1.0044622558391476
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
     {
-      "waypointRelativePos": 0.0,
-      "rotationDegrees": 0,
-      "rotateFast": false
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "deadline",
+              "data": {
+                "commands": []
+              }
+            }
+          ]
+        }
+      }
     }
   ],
-  "constraintZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

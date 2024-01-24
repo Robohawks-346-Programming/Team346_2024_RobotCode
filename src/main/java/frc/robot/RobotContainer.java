@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
+//import frc.robot.subsystems.Shooter;
 //import frc.robot.subsystems.Pivot;
+//import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 import java.util.Optional;
@@ -28,8 +31,10 @@ public class RobotContainer {
 
   private final XboxController driverControl = new XboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
   public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Autos autos = new Autos();
   //public static final Pivot pivot = new Pivot();
-  //private final SendableChooser<Command> autoChooser;
+  //public static final Shooter shooter = new Shooter();
+  //public static final Intake intake = new Intake();
   public int isInverted = 1;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
@@ -38,8 +43,6 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-    // autoChooser = AutoBuilder.buildAutoChooser();
-    // SmartDashboard.putData("Auto Chooser", autoChooser);
 
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
@@ -54,7 +57,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(driverControl, Button.kStart.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::resetEncoders), new InstantCommand(drivetrain::zeroHeading)));
+    new JoystickButton(driverControl, Button.kLeftBumper.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::resetEncoders), new InstantCommand(drivetrain::zeroHeading)));
     new JoystickButton(driverControl, Button.kRightBumper.value).whileTrue(new Drive(drivetrain, xAxis, yAxis, thetaAxis, Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
     new JoystickButton(driverControl, Button.kX.value).onTrue(new InstantCommand(drivetrain::resetFrontLeftAbsoluteEncoder));
     new JoystickButton(driverControl, Button.kY.value).onTrue(new InstantCommand(drivetrain::resetFrontRightAbsoluteEncoder));
@@ -63,6 +66,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return autos.returnAutos();
   }
 }
