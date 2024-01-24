@@ -161,6 +161,8 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int INTAKE_MOTOR_ID                               = 15;
+
+        public static final double INTAKE_IN_MOTOR_SPEED                      = 0.5;
     }
 
     public static final class ShooterConstants {
@@ -183,5 +185,7 @@ public final class Constants {
 
         public static final double FEEDER_ROLLER_SPEED                        = 0.5;
         public static final double AMP_ROLLERS_ROLLER_SPEED                   = 0.5;
+
+        public static final double SPEAKER_SHOOTER_SPEED_CENTER               = 4000;
     }
 }

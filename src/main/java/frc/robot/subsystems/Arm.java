@@ -11,7 +11,7 @@
 // import frc.robot.Constants;
 
 
-// public class Shooter extends SubsystemBase{
+// public class Arm extends SubsystemBase{
 //     CANSparkMax topSpeakerRoller, bottomSpeakerRoller, feederRoller, ampRollers;
 //     SparkPIDController topSpeakerRollerPIDController, bottomSpeakerRollerPIDController;
 //     RelativeEncoder topSpeakerRollerEncoder, bottomSpeakerRollerEncoder;
@@ -19,7 +19,7 @@
 //     boolean shooterVelocity;
 
 //     double setPoint;
-//     public Shooter() {
+//     public Arm() {
 //         topSpeakerRoller = new CANSparkMax(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID, MotorType.kBrushless);
 //         bottomSpeakerRoller = new CANSparkMax(Constants.ShooterConstants.BOTTOM_SPEAKER_ROLLER_MOTOR_ID, MotorType.kBrushless);
 //         feederRoller = new CANSparkMax(Constants.ShooterConstants.FEEDER_ROLLER_MOTOR_ID, MotorType.kBrushless);
@@ -52,7 +52,7 @@
 //         SmartDashboard.putNumber("Top Roller RPM", topSpeakerRollerEncoder.getVelocity());
 //         SmartDashboard.putNumber("Bottom Roller RPM", bottomSpeakerRollerEncoder.getVelocity());
 //         SmartDashboard.putBoolean("Shooter is Good", shooterVelocity); //Tells when ready to shoot
-//         SmartDashboard.putNumber("Shooter Setpoint", setPoint);
+//         SmartDashboard.putNumber("Shooter RPM", setPoint);
 //     }
 
 //     public void setSpeakerShooterSpeed(double shooterSpeed) {
@@ -82,6 +82,11 @@
 //     public void armIntake() {
 //         feederRoller.set(Constants.ShooterConstants.FEEDER_ROLLER_SPEED);
 //         ampRollers.set(Constants.ShooterConstants.AMP_ROLLERS_ROLLER_SPEED);
+//     }
+
+//     public void stopArmIntake() {
+//         feederRoller.set(0);
+//         ampRollers.set(0);
 //     }
 
 //     public void ejectSpeaker() {

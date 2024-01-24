@@ -5,14 +5,18 @@
 package frc.robot.commands;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+// import frc.robot.commands.Intake.IntakeFull;
+// import frc.robot.commands.Shoot.ShootSpeakerAtVelocity;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 public final class Autos {
@@ -40,7 +44,10 @@ public final class Autos {
     autoChooser = AutoBuilder.buildAutoChooser();
     }
 
-    public void addAutors() {
+    // public void addCommands() {
+    //   NamedCommands.registerCommand("Intake Center", new ParallelCommandGroup(new IntakeFull(), new ShootSpeakerAtVelocity(Constants.ShooterConstants.SPEAKER_SHOOTER_SPEED_CENTER)));
+    // }
+    public void addAutos() {
       autoChooser.addOption("Test Auto", new PathPlannerAuto("Test Auto"));
     SmartDashboard.putData("Auto Chooser", autoChooser);
     }

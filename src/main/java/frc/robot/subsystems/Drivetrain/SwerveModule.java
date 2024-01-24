@@ -80,17 +80,10 @@ public class SwerveModule extends SubsystemBase {
         swerveAngleFXConfig.ClosedLoopGeneral.ContinuousWrap = true;
         
         /* Current Limiting */
-<<<<<<< Updated upstream
         swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimitEnable(true);
         swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimit(25);
         swerveAngleFXConfig.CurrentLimits.withSupplyCurrentThreshold(40);
         swerveAngleFXConfig.CurrentLimits.withSupplyTimeThreshold(0.1);
-=======
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimit = 25;
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 25;
-        swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
->>>>>>> Stashed changes
 
         /* PID Config */
         swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
