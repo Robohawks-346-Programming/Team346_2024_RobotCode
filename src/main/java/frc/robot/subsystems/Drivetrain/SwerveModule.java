@@ -63,25 +63,25 @@ public class SwerveModule extends SubsystemBase {
         swerveAngleFXConfig = new TalonFXConfiguration();
         swerveCANcoderConfig = new CANcoderConfiguration();
 
-        swerveCANcoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+        swerveCANcoderConfig.MagnetSensor.withSensorDirection(SensorDirectionValue.CounterClockwise_Positive);
 
         turningCANCoder = new CANcoder(turningCANCoderID);
         turningCANCoder.getConfigurator().apply(swerveCANcoderConfig);
 
         /** Swerve Angle Motor Configurations */
         /* Motor Inverts and Neutral Mode */
-        swerveAngleFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        swerveAngleFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        swerveAngleFXConfig.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
+        swerveAngleFXConfig.MotorOutput.withNeutralMode(NeutralModeValue.Coast);
 
         /* Gear Ratio and Wrapping Config */
-        swerveAngleFXConfig.Feedback.SensorToMechanismRatio = (12.8 / 1.0);
+        swerveAngleFXConfig.Feedback.withSensorToMechanismRatio(12.8 / 1.0);
         swerveAngleFXConfig.ClosedLoopGeneral.ContinuousWrap = true;
         
         /* Current Limiting */
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimit = 25;
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 40;
-        swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
+        swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimitEnable(true);
+        swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimit(25);
+        swerveAngleFXConfig.CurrentLimits.withSupplyCurrentThreshold(40);
+        swerveAngleFXConfig.CurrentLimits.withSupplyTimeThreshold(0.1);
 
         /* PID Config */
         swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
@@ -169,6 +169,7 @@ public class SwerveModule extends SubsystemBase {
     public Rotation2d adjustedAngle = new Rotation2d();
 
     public void setState(SwerveModuleState state) {
+        state = SwerveModuleState.optimize(state, getState().angle); 
         double driveOutput = state.speedMetersPerSecond;
         SmartDashboard.putNumber("Velocity Input", driveOutput);
         //turnController.setReference(state.angle.getDegrees(), ControlType.kPosition);
