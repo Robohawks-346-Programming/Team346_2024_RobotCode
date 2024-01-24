@@ -3,7 +3,12 @@ package frc.robot.subsystems.Drivetrain;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -52,6 +57,13 @@ public class SwerveModule extends SubsystemBase {
    SparkPIDController driveController;
    //SparkPIDController turnController;
 
+   MotorOutputConfigs motorOutputConfigs;
+   MagnetSensorConfigs magnetSensorConfigs2;
+   FeedbackConfigs feedbackConfigs;
+   ClosedLoopGeneralConfigs closedLoopGeneralConfigs;
+   CurrentLimitsConfigs currentLimitsConfigs;
+   Slot0Configs slot0Configs;
+
    private double adjustedSpeed;
 
    public SwerveModule (
@@ -64,31 +76,44 @@ public class SwerveModule extends SubsystemBase {
         turnMotor = new TalonFX(turnMotorID);
         swerveAngleFXConfig = new TalonFXConfiguration();
         swerveCANcoderConfig = new CANcoderConfiguration();
+        motorOutputConfigs = new MotorOutputConfigs();
+        feedbackConfigs = new FeedbackConfigs();
+        closedLoopGeneralConfigs = new ClosedLoopGeneralConfigs();
+        currentLimitsConfigs = new CurrentLimitsConfigs();
+        slot0Configs = new Slot0Configs();
 
-        swerveCANcoderConfig.MagnetSensor.withSensorDirection(SensorDirectionValue.CounterClockwise_Positive);
+        magnetSensorConfigs2 = new MagnetSensorConfigs();
+        magnetSensorConfigs2.withSensorDirection(SensorDirectionValue.CounterClockwise_Positive);
+        swerveCANcoderConfig.withMagnetSensor(magnetSensorConfigs);
 
         turningCANCoder = new CANcoder(turningCANCoderID);
         turningCANCoder.getConfigurator().apply(swerveCANcoderConfig);
 
         /** Swerve Angle Motor Configurations */
         /* Motor Inverts and Neutral Mode */
-        swerveAngleFXConfig.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
-        swerveAngleFXConfig.MotorOutput.withNeutralMode(NeutralModeValue.Coast);
+        motorOutputConfigs.withInverted(InvertedValue.CounterClockwise_Positive);
+        motorOutputConfigs.withNeutralMode(NeutralModeValue.Coast);
 
         /* Gear Ratio and Wrapping Config */
-        swerveAngleFXConfig.Feedback.withSensorToMechanismRatio(12.8 / 1.0);
-        swerveAngleFXConfig.ClosedLoopGeneral.ContinuousWrap = true;
+        feedbackConfigs.withSensorToMechanismRatio(12.8 / 1.0);
+        closedLoopGeneralConfigs.ContinuousWrap = true;
         
         /* Current Limiting */
-        swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimitEnable(true);
-        swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimit(25);
-        swerveAngleFXConfig.CurrentLimits.withSupplyCurrentThreshold(40);
-        swerveAngleFXConfig.CurrentLimits.withSupplyTimeThreshold(0.1);
+        currentLimitsConfigs.withSupplyCurrentLimitEnable(true);
+        currentLimitsConfigs.withSupplyCurrentLimit(25);
+        currentLimitsConfigs.withSupplyCurrentThreshold(40);
+        currentLimitsConfigs.withSupplyTimeThreshold(0.1);
 
         /* PID Config */
-        swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
-        swerveAngleFXConfig.Slot0.kI = Constants.DriveConstants.TURN_I;
-        swerveAngleFXConfig.Slot0.kD = Constants.DriveConstants.TURN_D;
+        slot0Configs.withKP(Constants.DriveConstants.TURN_P);
+        slot0Configs.withKI(Constants.DriveConstants.TURN_I);
+        slot0Configs.withKD(Constants.DriveConstants.TURN_D);
+
+        swerveAngleFXConfig.withClosedLoopGeneral(closedLoopGeneralConfigs);
+        swerveAngleFXConfig.withMotorOutput(motorOutputConfigs);
+        swerveAngleFXConfig.withFeedback(feedbackConfigs);
+        swerveAngleFXConfig.withCurrentLimits(currentLimitsConfigs);
+        swerveAngleFXConfig.withSlot0(slot0Configs);
 
         turnMotor.getConfigurator().apply(swerveAngleFXConfig);
 
@@ -171,7 +196,7 @@ public class SwerveModule extends SubsystemBase {
     public Rotation2d adjustedAngle = new Rotation2d();
 
     public void setState(SwerveModuleState state) {
-        state = SwerveModuleState.optimize(state, getState().angle); 
+        state = SwerveModuleState.optimize(state, getStateAngle());
         double driveOutput = state.speedMetersPerSecond;
         SmartDashboard.putNumber("Velocity Input", driveOutput);
         //turnController.setReference(state.angle.getDegrees(), ControlType.kPosition);

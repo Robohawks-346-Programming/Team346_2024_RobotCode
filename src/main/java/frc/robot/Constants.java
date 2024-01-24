@@ -59,7 +59,7 @@ public final class Constants {
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
   public static final int FRONT_LEFT_TURN_ID                          = 22;
   public static final int FRONT_LEFT_ENCODER_ID                       = 23;
-  public static final double FRONT_LEFT_TURN_OFFSET                   = 0; // 359 is good
+  public static final double FRONT_LEFT_TURN_OFFSET                   = 20; // 359 is good
 
   // Back left Swerve Module
   public static final int BACK_LEFT_DRIVE_ID                          = 31;  // 31 is og
@@ -84,7 +84,7 @@ public final class Constants {
     public static final double DRIVE_D                                  = 0;
     public static final double DRIVE_FF                                 = 2.96;
 
-    public static final double TURN_P                                   = 20;
+    public static final double TURN_P                                   = 8;
     public static final double TURN_I                                   = 0;
     public static final double TURN_D                                   = 0;
     public static final double TURN_FF                                  = 0;
