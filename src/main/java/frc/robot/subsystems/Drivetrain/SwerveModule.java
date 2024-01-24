@@ -1,5 +1,7 @@
 package frc.robot.subsystems.Drivetrain;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -37,7 +39,7 @@ public class SwerveModule extends SubsystemBase {
    TalonFX turnMotor;
    TalonFXConfiguration swerveAngleFXConfig;
    CANcoderConfiguration swerveCANcoderConfig;
-   private final PositionVoltage anglePosition = new PositionVoltage(0);
+   private final PositionVoltage anglePosition;
 
    RelativeEncoder driveEncoder;
    //RelativeEncoder turnEncoder;
@@ -78,10 +80,17 @@ public class SwerveModule extends SubsystemBase {
         swerveAngleFXConfig.ClosedLoopGeneral.ContinuousWrap = true;
         
         /* Current Limiting */
+<<<<<<< Updated upstream
         swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimitEnable(true);
         swerveAngleFXConfig.CurrentLimits.withSupplyCurrentLimit(25);
         swerveAngleFXConfig.CurrentLimits.withSupplyCurrentThreshold(40);
         swerveAngleFXConfig.CurrentLimits.withSupplyTimeThreshold(0.1);
+=======
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimit = 25;
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 25;
+        swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
+>>>>>>> Stashed changes
 
         /* PID Config */
         swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
@@ -90,7 +99,7 @@ public class SwerveModule extends SubsystemBase {
 
         turnMotor.getConfigurator().apply(swerveAngleFXConfig);
 
-
+        anglePosition = new PositionVoltage(0);
 
         encoderOffset = turnEncoderOffset;
 
