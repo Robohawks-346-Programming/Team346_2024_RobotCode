@@ -150,7 +150,7 @@ public class Drivetrain extends SubsystemBase {
         SwerveModuleState[] moduleStates = Constants.DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(speeds);
 
         for (int i = 0; i < moduleStates.length; i++) {
-            moduleStates[i] = SwerveModuleState.optimize(moduleStates[i], modules[i].getStateAngle());
+            moduleStates[i] = SwerveModuleState.optimize(moduleStates[i], modules[i].getState().angle);
         }
 
         setModuleStates(moduleStates);
@@ -186,10 +186,6 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetBackRightAbsoluteEncoder() {
         modules[3].resetAbsoluteEncoder();
-    }
-
-    public double getFrontLeftEncoder() {
-            return (frontLeft.turnAngleRadians());
     }
 
       public double getFrontLeftMetersDriven() {

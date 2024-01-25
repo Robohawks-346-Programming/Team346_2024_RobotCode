@@ -42,8 +42,6 @@ public class SwerveModule extends SubsystemBase {
    CANSparkMax driveMotor;
 
    TalonFX turnMotor;
-   TalonFXConfiguration swerveAngleFXConfig;
-   CANcoderConfiguration swerveCANcoderConfig;
    private final PositionVoltage anglePosition;
 
    RelativeEncoder driveEncoder;
@@ -52,17 +50,10 @@ public class SwerveModule extends SubsystemBase {
    CANcoder turningCANCoder;
    MagnetSensorConfigs magnetSensorConfigs;
 
-   double encoderOffset;
+   Rotation2d encoderOffset;
 
    SparkPIDController driveController;
    //SparkPIDController turnController;
-
-   MotorOutputConfigs motorOutputConfigs;
-   MagnetSensorConfigs magnetSensorConfigs2;
-   FeedbackConfigs feedbackConfigs;
-   ClosedLoopGeneralConfigs closedLoopGeneralConfigs;
-   CurrentLimitsConfigs currentLimitsConfigs;
-   Slot0Configs slot0Configs;
 
    private double adjustedSpeed;
 
@@ -70,52 +61,14 @@ public class SwerveModule extends SubsystemBase {
     int driveMotorID,
     int turnMotorID,
     int turningCANCoderID,
-    double turnEncoderOffset) 
+    Rotation2d turnEncoderOffset) 
     {
         //turnMotor = new CANSparkMax(turnMotorID, MotorType.kBrushless);
-        turnMotor = new TalonFX(turnMotorID);
-        swerveAngleFXConfig = new TalonFXConfiguration();
-        swerveCANcoderConfig = new CANcoderConfiguration();
-        motorOutputConfigs = new MotorOutputConfigs();
-        feedbackConfigs = new FeedbackConfigs();
-        closedLoopGeneralConfigs = new ClosedLoopGeneralConfigs();
-        currentLimitsConfigs = new CurrentLimitsConfigs();
-        slot0Configs = new Slot0Configs();
-
-        magnetSensorConfigs2 = new MagnetSensorConfigs();
-        magnetSensorConfigs2.withSensorDirection(SensorDirectionValue.CounterClockwise_Positive);
-        swerveCANcoderConfig.withMagnetSensor(magnetSensorConfigs);
 
         turningCANCoder = new CANcoder(turningCANCoderID);
-        turningCANCoder.getConfigurator().apply(swerveCANcoderConfig);
+        turningCANCoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
 
-        /** Swerve Angle Motor Configurations */
-        /* Motor Inverts and Neutral Mode */
-        motorOutputConfigs.withInverted(InvertedValue.CounterClockwise_Positive);
-        motorOutputConfigs.withNeutralMode(NeutralModeValue.Coast);
-
-        /* Gear Ratio and Wrapping Config */
-        feedbackConfigs.withSensorToMechanismRatio(12.8 / 1.0);
-        closedLoopGeneralConfigs.ContinuousWrap = true;
-        
-        /* Current Limiting */
-        currentLimitsConfigs.withSupplyCurrentLimitEnable(true);
-        currentLimitsConfigs.withSupplyCurrentLimit(25);
-        currentLimitsConfigs.withSupplyCurrentThreshold(40);
-        currentLimitsConfigs.withSupplyTimeThreshold(0.1);
-
-        /* PID Config */
-        slot0Configs.withKP(Constants.DriveConstants.TURN_P);
-        slot0Configs.withKI(Constants.DriveConstants.TURN_I);
-        slot0Configs.withKD(Constants.DriveConstants.TURN_D);
-
-        swerveAngleFXConfig.withClosedLoopGeneral(closedLoopGeneralConfigs);
-        swerveAngleFXConfig.withMotorOutput(motorOutputConfigs);
-        swerveAngleFXConfig.withFeedback(feedbackConfigs);
-        swerveAngleFXConfig.withCurrentLimits(currentLimitsConfigs);
-        swerveAngleFXConfig.withSlot0(slot0Configs);
-
-        turnMotor.getConfigurator().apply(swerveAngleFXConfig);
+        turnMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);   
 
         anglePosition = new PositionVoltage(0);
 
@@ -172,31 +125,16 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public SwerveModuleState getState() {
-        return new SwerveModuleState(driveEncoder.getVelocity(), getStateAngle());
-    }
-
-    public SwerveModuleState getAbsoluteState() {
-        return new SwerveModuleState(getDriveVelocity(), getAbsoluteRotation());
-    }
-
-    public Rotation2d getStateAngle() {
-        double stateAngle = Units.degreesToRadians(turnMotor.getPosition().getValue());
-        return new Rotation2d(MathUtil.angleModulus(stateAngle));
+        return new SwerveModuleState(driveEncoder.getVelocity(), 
+        Rotation2d.fromRotations(turnMotor.getPosition().getValue()));
     }
 
     public double getDriveVelocity() {
         return driveEncoder.getVelocity();
     }
 
-    public Rotation2d getAbsoluteRotation() {
-        //return Rotation2d.fromDegrees(turningCANCoder.getAbsolutePosition());
-        return Rotation2d.fromRotations(turningCANCoder.getAbsolutePosition().getValue());
-    }
-
-    public Rotation2d adjustedAngle = new Rotation2d();
-
     public void setState(SwerveModuleState state) {
-        state = SwerveModuleState.optimize(state, getStateAngle());
+        state = SwerveModuleState.optimize(state, getState().angle);
         double driveOutput = state.speedMetersPerSecond;
         SmartDashboard.putNumber("Velocity Input", driveOutput);
         //turnController.setReference(state.angle.getDegrees(), ControlType.kPosition);
@@ -205,50 +143,40 @@ public class SwerveModule extends SubsystemBase {
         driveController.setReference(driveOutput, ControlType.kVelocity, 0, 2.35 * adjustedSpeed);
     }
 
-    public double adjustedAngle(double wantedAngle, double currentAngle) {
-        return ((wantedAngle - currentAngle + 180) % 360 + 360) % 360 - 180;
-    }
-
-    public double getDriveDistance() {
-        return driveEncoder.getPosition();
-    }
-
     public void resetDistance() {
         driveEncoder.setPosition(0.0);
     }
 
-    public void syncTurnEncoders() {
-        turnMotor.setPosition(turningCANCoder.getAbsolutePosition().getValue());
-    }
-
-    public void resetEncoders() {
-        turnMotor.setPosition(turningCANCoder.getAbsolutePosition().getValue());
-    }
-
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveEncoder.getPosition(), getStateAngle());
+        return new SwerveModulePosition(driveEncoder.getPosition(), 
+        Rotation2d.fromRotations(turnMotor.getPosition().getValue()));
     }
 
     public void resetAbsoluteEncoder() {
         turningCANCoder.setPosition(0);
     }
 
-    public Rotation2d getAngle() {
-        double angle = Units.degreesToRadians(turnMotor.getPosition().getValue());
-        return new Rotation2d(MathUtil.angleModulus(angle));
-    }
-
-    public double turnAngleRadians() {
-        return encoderOffset + (turnMotor.getPosition().getValue() * 2 * Math.PI); 
-    }
-
-    public double turnAngleDegrees() {
-        return encoderOffset + Math.toDegrees(turnMotor.getPosition().getValue() * 2 * Math.PI); 
-    }
-
-        public double getMetersDriven() {
+    public double getMetersDriven() {
         // The formula for calculating meters from total rotation is:
         // (Total Rotations * 2PI * Wheel Radius)
         return (driveEncoder.getPosition());
     }
+
+    public Rotation2d getCANcoder(){
+        return Rotation2d.fromRotations(turningCANCoder.getAbsolutePosition().getValue());
+    }
+
+    public void resetToAbsolute(){
+        double absolutePosition = getCANcoder().getRotations() - encoderOffset.getRotations();
+        turnMotor.setPosition(absolutePosition);
+    }
+
+    public double turnAngleDegrees() {
+        return encoderOffset.getDegrees() + Math.toDegrees(turnMotor.getPosition().getValue() * 2 * Math.PI); 
+    }
+
+    public void resetEncoders() {
+        turnMotor.setPosition(turningCANCoder.getPosition().getValue());
+    }
+
 }

@@ -8,6 +8,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -59,25 +60,25 @@ public final class Constants {
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
   public static final int FRONT_LEFT_TURN_ID                          = 22;
   public static final int FRONT_LEFT_ENCODER_ID                       = 23;
-  public static final double FRONT_LEFT_TURN_OFFSET                   = 20; // 359 is good
+  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromDegrees(0.0); // 359 is good
 
   // Back left Swerve Module
   public static final int BACK_LEFT_DRIVE_ID                          = 31;  // 31 is og
   public static final int BACK_LEFT_TURN_ID                           = 32;  // 32 is og
   public static final int BACK_LEFT_ENCODER_ID                        = 33;  // 33 is og
-  public static final double BACK_LEFT_TURN_OFFSET                    = 0; // 358.5 is good
+  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromDegrees(0.0); // 358.5 is good
 
   // Front Right Swerve Module
   public static final int FRONT_RIGHT_DRIVE_ID                        = 24;
   public static final int FRONT_RIGHT_TURN_ID                         = 25;
   public static final int FRONT_RIGHT_ENCODER_ID                      = 26;
-  public static final double FRONT_RIGHT_TURN_OFFSET                  = 0; // 1 is good
+  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromDegrees(0.0); // 1 is good
 
   // Back Right Swerve Module
   public static final int BACK_RIGHT_DRIVE_ID                         = 34;  // 34 is og
   public static final int BACK_RIGHT_TURN_ID                          = 35;  // 35 is og
   public static final int BACK_RIGHT_ENCODER_ID                       = 36;  // 36 is og
-  public static final double BACK_RIGHT_TURN_OFFSET                   = 0; // 0 is good
+  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromDegrees(0.0); // 0 is good
 
     public static final double DRIVE_P                                  = 0.1;
     public static final double DRIVE_I                                  = 0;
