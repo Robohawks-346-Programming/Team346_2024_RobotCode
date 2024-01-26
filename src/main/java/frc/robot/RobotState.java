@@ -29,6 +29,9 @@ public class RobotState {
     private final Field2d mainField = new Field2d();
     private final Field2d odometryField = new Field2d();
 
+    private boolean isIntaking = false;
+    private boolean hasIntaked = false;
+
     public void initPoseEstimator(Rotation2d rotation, SwerveModulePosition[] modulePositions) {
         poseEstimator = new SwerveDrivePoseEstimator(
             Constants.DriveConstants.DRIVE_KINEMATICS,
@@ -75,5 +78,21 @@ public class RobotState {
 
     public Pose2d getOdometryFieldToVehicle() {
         return odometry.getPoseMeters();
+    }
+
+    public boolean hasIntaked() {
+        return hasIntaked;
+    }
+
+    public void setIntaked(boolean i) {
+        hasIntaked = i;
+    }
+    
+    public boolean isIntaking() {
+        return isIntaking;
+    }
+
+    public void setIntaking(boolean i) {
+        isIntaking = i;
     }
 }

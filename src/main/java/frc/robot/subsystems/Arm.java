@@ -18,7 +18,6 @@
 //     private DigitalInput laserBreak;
 //     boolean shooterVelocity;
 
-//     double setPoint;
 //     public Arm() {
 //         topSpeakerRoller = new CANSparkMax(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID, MotorType.kBrushless);
 //         bottomSpeakerRoller = new CANSparkMax(Constants.ShooterConstants.BOTTOM_SPEAKER_ROLLER_MOTOR_ID, MotorType.kBrushless);
@@ -52,7 +51,6 @@
 //         SmartDashboard.putNumber("Top Roller RPM", topSpeakerRollerEncoder.getVelocity());
 //         SmartDashboard.putNumber("Bottom Roller RPM", bottomSpeakerRollerEncoder.getVelocity());
 //         SmartDashboard.putBoolean("Shooter is Good", shooterVelocity); //Tells when ready to shoot
-//         SmartDashboard.putNumber("Shooter RPM", setPoint);
 //     }
 
 //     public void setSpeakerShooterSpeed(double shooterSpeed) {
@@ -60,10 +58,10 @@
 //         bottomSpeakerRoller.set(shooterSpeed);
 //     }
 
-//     public void setSpeakerShooterVelocity(double setPoint) {
-//         topSpeakerRollerPIDController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
-//         bottomSpeakerRollerPIDController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
-//         if(Math.abs(topSpeakerRollerEncoder.getVelocity() - setPoint) <= Constants.ShooterConstants.SPEAKER_ROLLER_VELOCITY_THRESHOLD && Math.abs(bottomSpeakerRollerEncoder.getVelocity() - setPoint) <= Constants.ShooterConstants.SPEAKER_ROLLER_VELOCITY_THRESHOLD) {
+//     public void setSpeakerShooterVelocity(double setpoint) {
+//         topSpeakerRollerPIDController.setReference(setpoint, CANSparkMax.ControlType.kVelocity);
+//         bottomSpeakerRollerPIDController.setReference(setpoint, CANSparkMax.ControlType.kVelocity);
+//         if(Math.abs(topSpeakerRollerEncoder.getVelocity() - setpoint) <= Constants.ShooterConstants.SPEAKER_ROLLER_VELOCITY_THRESHOLD && Math.abs(bottomSpeakerRollerEncoder.getVelocity() - setPoint) <= Constants.ShooterConstants.SPEAKER_ROLLER_VELOCITY_THRESHOLD) {
 //             shooterVelocity = true;
 //         }
 //         else {

@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
+import frc.robot.subsystems.LEDs;
+//import frc.robot.subsystems.Climber;
 // import frc.robot.subsystems.Arm;
 // import frc.robot.subsystems.Pivot;
 // import frc.robot.subsystems.Intake;
@@ -32,9 +34,11 @@ public class RobotContainer {
   private final XboxController driverControl = new XboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
+  public static final LEDs leds = new LEDs();
   // public static final Pivot pivot = new Pivot();
   // public static final Arm arm = new Arm();
   // public static final Intake intake = new Intake();
+  // public static final Climber climber = new Climber();
   public int isInverted = 1;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());

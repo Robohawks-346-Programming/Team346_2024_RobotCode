@@ -133,6 +133,7 @@ public final class Constants {
             DriveConstants.MAX_DRIVE_BASE_RADIUS, // Drive base radius in meters. Distance from robot center to furthest module.
             new ReplanningConfig() // Default path replanning config. See the API for the options here
         );
+
     }
 
     public static final class PivotConstants {
@@ -146,11 +147,12 @@ public final class Constants {
         public static final double PIVOT_MOTOR_SPEED_DOWN_FINAL               = 0.2;
 
         public static final double HOME_PIVOT_ANGLE                           = 8; //off vertical
-        public static final double SPEAKER_PIVOT_ANGLE                        = 28; //off vertical
         public static final double AMP_PIVOT_ANGLE                            = 73; //off vertical
         public static final double TRAP_PIVOT_ANGLE                           = 92; //off vertical
         public static final double SOURCE_PIVOT_ANGLE                         = 81; //off vertical
         public static final double PIVOT_ANGLE_THRESHOLD                      = 0.75; // in degrees
+
+        public static final double SPEAKER_CLOSE_PIVOT_ANGLE                  = 28; //off vertical
 
         public static final double PIVOT_P                                    = 1;
         public static final double PIVOT_I                                    = 0;
@@ -163,7 +165,7 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int INTAKE_MOTOR_ID                               = 15;
 
-        public static final double INTAKE_IN_MOTOR_SPEED                      = 0.5;
+        public static final double INTAKE_MOTOR_SPEED                         = 0.5;
     }
 
     public static final class ShooterConstants {
@@ -187,6 +189,31 @@ public final class Constants {
         public static final double FEEDER_ROLLER_SPEED                        = 0.5;
         public static final double AMP_ROLLERS_ROLLER_SPEED                   = 0.5;
 
-        public static final double SPEAKER_SHOOTER_SPEED_CENTER               = 4000;
+        public static final double SPEAKER_CLOSE_MOTOR_SPEED                  = 4000;
+    }
+
+    public static final class ClimberConstants {
+        public static final int LEFT_HOOK_MOTOR_ID                            = 57;
+        public static final int RIGHT_HOOK_MOTOR_ID                           = 58;
+
+        public static final double LEFT_HOOK_P                                = 0;
+        public static final double LEFT_HOOK_I                                = 0;
+        public static final double LEFT_HOOK_D                                = 0;
+
+        public static final double RIGHT_HOOK_P                               = 0;
+        public static final double RIGHT_HOOK_I                               = 0;
+        public static final double RIGHT_HOOK_D                               = 0;
+
+        public static final double CLIMBER_REV_THRESHOLD                      = 5;
+
+        public static final double CLIMB_LOW_REV                              = 1000;
+        public static final double CLIMB_HIGH_REV                             = 2000;
+
+    }
+
+    public static final class LEDConstants {
+        public static final int LED_PORT                                      = 1;
+
+        public static final int NUMBER_OF_LEDS                                = 50;
     }
 }

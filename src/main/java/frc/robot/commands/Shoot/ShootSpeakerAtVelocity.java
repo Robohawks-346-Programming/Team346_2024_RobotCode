@@ -43,6 +43,7 @@
 //   // Called once the command ends or is interrupted.
 //   @Override
 //   public void end(boolean interrupted) {
+//     new ParallelDeadlineGroup(new EjectSpeaker(), new WaitCommand(2));
 //   }
 
 //   // Returns true when the command should end.

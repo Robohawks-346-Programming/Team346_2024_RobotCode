@@ -6,6 +6,7 @@
 
 // import frc.robot.Constants;
 // import frc.robot.Robot;
+// import frc.robot.RobotState;
 // import frc.robot.RobotContainer;
 // import frc.robot.subsystems.Arm;
 // import edu.wpi.first.wpilibj2.command.Command;
@@ -43,6 +44,7 @@
 //   @Override
 //   public void end(boolean interrupted) {
 //     arm.stopArmIntake();
+//     RobotState.getInstance().setIntaked(true);
 //   }
 
 //   // Returns true when the command should end.
