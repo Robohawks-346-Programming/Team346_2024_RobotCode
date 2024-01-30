@@ -24,28 +24,32 @@ public class Drivetrain extends SubsystemBase {
                     Constants.DriveConstants.FRONT_LEFT_DRIVE_ID,
                     Constants.DriveConstants.FRONT_LEFT_TURN_ID,
                     Constants.DriveConstants.FRONT_LEFT_ENCODER_ID,
-                    Constants.DriveConstants.FRONT_LEFT_TURN_OFFSET
+                    Constants.DriveConstants.FRONT_LEFT_TURN_OFFSET,
+                    Constants.DriveConstants.FRONT_LEFT_DRIVE_MOTOR_INVERT
                 );
         
             SwerveModule frontRight = new SwerveModule(
                 Constants.DriveConstants.FRONT_RIGHT_DRIVE_ID,
                 Constants.DriveConstants.FRONT_RIGHT_TURN_ID,
                 Constants.DriveConstants.FRONT_RIGHT_ENCODER_ID,
-                Constants.DriveConstants.FRONT_RIGHT_TURN_OFFSET
+                Constants.DriveConstants.FRONT_RIGHT_TURN_OFFSET,
+                Constants.DriveConstants.FRONT_RIGHT_DRIVE_MOTOR_INVERT
                 ); 
         
             SwerveModule backLeft = new SwerveModule(
                 Constants.DriveConstants.BACK_LEFT_DRIVE_ID,
                 Constants.DriveConstants.BACK_LEFT_TURN_ID,
                 Constants.DriveConstants.BACK_LEFT_ENCODER_ID,
-                Constants.DriveConstants.BACK_LEFT_TURN_OFFSET
+                Constants.DriveConstants.BACK_LEFT_TURN_OFFSET,
+                Constants.DriveConstants.BACK_LEFT_DRIVE_MOTOR_INVERT
                 );
         
             SwerveModule backRight = new SwerveModule(
                 Constants.DriveConstants.BACK_RIGHT_DRIVE_ID,
                 Constants.DriveConstants.BACK_RIGHT_TURN_ID,
                 Constants.DriveConstants.BACK_RIGHT_ENCODER_ID,
-                Constants.DriveConstants.BACK_RIGHT_TURN_OFFSET
+                Constants.DriveConstants.BACK_RIGHT_TURN_OFFSET,
+                Constants.DriveConstants.BACK_RIGHT_DRIVE_MOTOR_INVERT
                 );
 
     SwerveModule[] modules = {frontLeft, frontRight, backLeft, backRight};
@@ -88,10 +92,10 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putBoolean("Gyro calibration Status", gyro.isCalibrating());
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());
         SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
-        SmartDashboard.putNumber("Front Right", frontRight.turnAngleDegrees());
-        SmartDashboard.putNumber("Front Left", frontLeft.turnAngleDegrees());
-        SmartDashboard.putNumber("Back Right", backRight.turnAngleDegrees());
-        SmartDashboard.putNumber("Back Left", backLeft.turnAngleDegrees());
+        SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
+        SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
+        SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
+        SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
         SmartDashboard.putNumber("Pitch", getPitchDegrees());
 
         RobotState.getInstance().recordDriveObservations(getHeading(), getModulePositions());
@@ -164,7 +168,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetEncoders() {
         for (SwerveModule module : modules) {
-            module.resetEncoders();
+            module.resetToAbsolute();
         }
     }
 

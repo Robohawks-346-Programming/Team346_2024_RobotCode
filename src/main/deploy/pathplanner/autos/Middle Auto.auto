@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "middle 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MIddle 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "middle 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle 8"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

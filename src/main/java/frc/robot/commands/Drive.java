@@ -39,7 +39,7 @@ public class Drive extends Command {
     double vy = doubleY * moveVelocity;
     double omega = doubleTheta * turnVelocity;
 
-    ChassisSpeeds velocity = Constants.DriveConstants.IS_FIELD_RELATIVE ? ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, -omega, drivetrain.getHeading()) 
+    ChassisSpeeds velocity = Constants.DriveConstants.IS_FIELD_RELATIVE ? ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, drivetrain.getHeading()) 
       : new ChassisSpeeds(vx, vy, omega);
 
     drivetrain.drive(velocity);

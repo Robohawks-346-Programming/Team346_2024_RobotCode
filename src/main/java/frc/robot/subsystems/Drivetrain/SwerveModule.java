@@ -61,18 +61,20 @@ public class SwerveModule extends SubsystemBase {
     int driveMotorID,
     int turnMotorID,
     int turningCANCoderID,
-    Rotation2d turnEncoderOffset) 
+    Rotation2d turnEncoderOffset, boolean invert) 
     {
+        encoderOffset = turnEncoderOffset;
         //turnMotor = new CANSparkMax(turnMotorID, MotorType.kBrushless);
 
         turningCANCoder = new CANcoder(turningCANCoderID);
-        turningCANCoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
+        turnMotor = new TalonFX(turnMotorID);
 
-        turnMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);   
+        CTREConfigs configs = new CTREConfigs();
+
+        turningCANCoder.getConfigurator().apply(configs.swerveCANcoderConfig); 
+        turnMotor.getConfigurator().apply(configs.swerveAngleFXConfig);  
 
         anglePosition = new PositionVoltage(0);
-
-        encoderOffset = turnEncoderOffset;
 
         driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
 
@@ -91,8 +93,8 @@ public class SwerveModule extends SubsystemBase {
 
         //turnEncoder.setPositionConversionFactor(360.0 / Constants.DriveConstants.TURN_CONVERSION);
 
-        driveMotor.setInverted(true);
-        turnMotor.setInverted(true);
+        driveMotor.setInverted(invert);
+        turnMotor.setInverted(false);
         
         driveMotor.setIdleMode(IdleMode.kCoast);
         //turnMotor.setIdleMode(IdleMode.kBrake);
@@ -122,6 +124,8 @@ public class SwerveModule extends SubsystemBase {
 
         driveMotor.burnFlash();
         //turnMotor.burnFlash();  
+
+        resetToAbsolute();
     }
 
     public SwerveModuleState getState() {
@@ -173,6 +177,10 @@ public class SwerveModule extends SubsystemBase {
 
     public double turnAngleDegrees() {
         return encoderOffset.getDegrees() + Math.toDegrees(turnMotor.getPosition().getValue() * 2 * Math.PI); 
+    }
+
+    public double canCoderRotations() {
+        return turningCANCoder.getPosition().getValue();
     }
 
     public void resetEncoders() {

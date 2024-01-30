@@ -6,10 +6,11 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
+import frc.robot.commands.PivotToAngle;
 import frc.robot.subsystems.LEDs;
 //import frc.robot.subsystems.Climber;
 // import frc.robot.subsystems.Arm;
-// import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Pivot;
 // import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
@@ -35,7 +36,7 @@ public class RobotContainer {
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
   public static final LEDs leds = new LEDs();
-  // public static final Pivot pivot = new Pivot();
+  public static final Pivot pivot = new Pivot();
   // public static final Arm arm = new Arm();
   // public static final Intake intake = new Intake();
   // public static final Climber climber = new Climber();
@@ -61,12 +62,14 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(driverControl, Button.kLeftBumper.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::resetEncoders), new InstantCommand(drivetrain::zeroHeading)));
-    new JoystickButton(driverControl, Button.kRightBumper.value).whileTrue(new Drive(drivetrain, xAxis, yAxis, thetaAxis, Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
-    new JoystickButton(driverControl, Button.kX.value).onTrue(new InstantCommand(drivetrain::resetFrontLeftAbsoluteEncoder));
-    new JoystickButton(driverControl, Button.kY.value).onTrue(new InstantCommand(drivetrain::resetFrontRightAbsoluteEncoder));
-    new JoystickButton(driverControl, Button.kA.value).onTrue(new InstantCommand(drivetrain::resetBackLeftAbsoluteEncoder));
-    new JoystickButton(driverControl, Button.kB.value).onTrue(new InstantCommand(drivetrain::resetBackRightAbsoluteEncoder));
+    new JoystickButton(driverControl, Button.kLeftBumper.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::zeroHeading)));
+    new JoystickButton(driverControl, Button.kRightBumper.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::resetEncoders)));
+    // new JoystickButton(driverControl, Button.kX.value).onTrue(new InstantCommand(drivetrain::resetFrontLeftAbsoluteEncoder));
+    // new JoystickButton(driverControl, Button.kY.value).onTrue(new InstantCommand(drivetrain::resetFrontRightAbsoluteEncoder));
+    // new JoystickButton(driverControl, Button.kA.value).onTrue(new InstantCommand(drivetrain::resetBackLeftAbsoluteEncoder));
+    // new JoystickButton(driverControl, Button.kB.value).onTrue(new InstantCommand(drivetrain::resetBackRightAbsoluteEncoder));
+    new JoystickButton(driverControl, Button.kX.value).onTrue(new PivotToAngle(100));
+    new JoystickButton(driverControl, Button.kY.value).onTrue(new PivotToAngle(0));
   }
 
   public Command getAutonomousCommand() {
