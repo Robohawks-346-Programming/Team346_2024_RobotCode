@@ -82,21 +82,12 @@ public class Drivetrain extends SubsystemBase {
     
     @Override
     public void periodic() {
-        // if (lastFPGATimestamp < Timer.getFPGATimestamp()) {
-        //     lastFPGATimestamp = Timer.getFPGATimestamp() + 1;
-        //     for (SwerveModule module : modules) {
-        //         module.syncTurnEncoders();
-        //     }
-        // }
-
-        SmartDashboard.putBoolean("Gyro calibration Status", gyro.isCalibrating());
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());
         SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
-        SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
-        SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
-        SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
-        SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
-        SmartDashboard.putNumber("Pitch", getPitchDegrees());
+        // SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
+        // SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
+        // SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
+        // SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
 
         RobotState.getInstance().recordDriveObservations(getHeading(), getModulePositions());
 
@@ -110,16 +101,6 @@ public class Drivetrain extends SubsystemBase {
         }
         return Rotation2d.fromDegrees(-calcYaw);
     }
-
-    // public SwerveModulePosition[] getModulePositions() {
-    //     SwerveModulePosition[] position = new SwerveModulePosition[4];
-
-    //     for (int i2=0; i2<=3; i2++) {
-    //         position[i2++] = modules[i2].getPosition(); 
-    //     }
-
-    //     return position;
-    // }
 
     public SwerveModulePosition[] getModulePositions() {
         return new SwerveModulePosition[] {

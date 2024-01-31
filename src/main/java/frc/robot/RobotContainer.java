@@ -8,17 +8,21 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
 import frc.robot.commands.PivotToAngle;
 import frc.robot.subsystems.LEDs;
-//import frc.robot.subsystems.Climber;
-// import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Pivot;
-// import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonAreaLayout;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -37,9 +41,9 @@ public class RobotContainer {
   public static final Autos autos = new Autos();
   public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
-  // public static final Arm arm = new Arm();
-  // public static final Intake intake = new Intake();
-  // public static final Climber climber = new Climber();
+  public static final Arm arm = new Arm();
+  public static final Intake intake = new Intake();
+  public static final Climber climber = new Climber();
   public int isInverted = 1;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
@@ -58,18 +62,22 @@ public class RobotContainer {
           isInverted = -1;
         }
     }
-    drivetrain.setDefaultCommand(new Drive(drivetrain, xAxis, yAxis, thetaAxis, Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
+    drivetrain.setDefaultCommand(new Drive(drivetrain, xAxis, yAxis, thetaAxis, 
+    Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
+    Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
   }
 
   private void configureBindings() {
-    new JoystickButton(driverControl, Button.kLeftBumper.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::zeroHeading)));
-    new JoystickButton(driverControl, Button.kRightBumper.value).onTrue(new SequentialCommandGroup(new InstantCommand(drivetrain::resetEncoders)));
-    // new JoystickButton(driverControl, Button.kX.value).onTrue(new InstantCommand(drivetrain::resetFrontLeftAbsoluteEncoder));
-    // new JoystickButton(driverControl, Button.kY.value).onTrue(new InstantCommand(drivetrain::resetFrontRightAbsoluteEncoder));
-    // new JoystickButton(driverControl, Button.kA.value).onTrue(new InstantCommand(drivetrain::resetBackLeftAbsoluteEncoder));
-    // new JoystickButton(driverControl, Button.kB.value).onTrue(new InstantCommand(drivetrain::resetBackRightAbsoluteEncoder));
-    new JoystickButton(driverControl, Button.kX.value).onTrue(new PivotToAngle(100));
-    new JoystickButton(driverControl, Button.kY.value).onTrue(new PivotToAngle(0));
+    new JoystickButton(driverControl, Button.kLeftBumper.value).onTrue(new InstantCommand(() -> {
+      drivetrain.zeroHeading(); 
+      drivetrain.setFieldToVehicle(
+        new Pose2d(RobotState.getInstance().getFieldToVehicle().getTranslation(),
+        new Rotation2d(0)));
+    }));
+    new JoystickButton(driverControl, Button.kRightBumper.value).onTrue(
+      new Drive(drivetrain, xAxis, yAxis, thetaAxis, 
+      Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
+      Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
   }
 
   public Command getAutonomousCommand() {

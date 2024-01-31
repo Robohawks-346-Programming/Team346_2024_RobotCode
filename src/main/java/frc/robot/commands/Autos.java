@@ -16,11 +16,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-//import frc.robot.commands.Shoot.RevSpeakerShooter;
-// import frc.robot.commands.Intake.IntakeFull;
-// import frc.robot.commands.Shoot.ShootSpeakerAtVelocity;
-// import frc.robot.commands.Intake.IntakeFull;
-// import frc.robot.commands.Shoot.ShootSpeakerAtVelocity;
+import frc.robot.commands.Intake.IntakeFull;
+import frc.robot.commands.Shoot.ShootSpeaker;
+import frc.robot.commands.Intake.IntakeFull;
+import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 public final class Autos {
@@ -46,13 +45,12 @@ public final class Autos {
         drivetrain);
 
     autoChooser = AutoBuilder.buildAutoChooser();
-
-    //NamedCommands.registerCommand("Intake Rev Close", (Commands.parallel(new IntakeFull(), new ShootSpeakerAtVelocity(Constants.AutoConstants.SPEAKER_CLOSE_MOTOR_SPEED))).andThen(null));
+    
     }
 
     public void addCommands() {
-      //NamedCommands.registerCommand("Intake Center", new ParallelCommandGroup(new IntakeFull(), new RevSpeakerShooter(Constants.ShooterConstants.SPEAKER_CLOSE_MOTOR_SPEED)));
-      //NamedCommands.registerCommand("Shoot Close", Commands.sequence(new ParallelCommandGroup(new PivotToAngle(Constants.PivotConstants.SPEAKER_CLOSE_PIVOT_ANGLE), new RevSpeakerShooter(Constants.ShooterConstants.SPEAKER_CLOSE_MOTOR_SPEED)), new ParallelCommandGroup(null)));
+      NamedCommands.registerCommand("Intake", new IntakeFull());
+      NamedCommands.registerCommand("Shoot Close", null);
     }
 
     public void addAutos() {
