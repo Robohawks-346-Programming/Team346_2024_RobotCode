@@ -50,7 +50,7 @@ public final class Autos {
 
     public void addCommands() {
       NamedCommands.registerCommand("Intake", new IntakeFull());
-      NamedCommands.registerCommand("Shoot Close", null);
+      NamedCommands.registerCommand("Shoot Close", new ShootSpeaker(Constants.ShooterConstants.SPEAKER_CLOSE_MOTOR_SPEED));
     }
 
     public void addAutos() {

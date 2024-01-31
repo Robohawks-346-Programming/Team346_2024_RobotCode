@@ -17,6 +17,7 @@ import frc.robot.subsystems.Drivetrain.Drivetrain;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
+import javax.smartcardio.CommandAPDU;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonAreaLayout;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -32,11 +33,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
-  private final XboxController driverControl = new XboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
+  private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
+  private Trigger leftTrigger = driverControl.leftTrigger();
+  private Trigger rightBumper = driverControl.rightBumper();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
   public static final LEDs leds = new LEDs();
@@ -68,16 +73,17 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(driverControl, Button.kLeftBumper.value).onTrue(new InstantCommand(() -> {
+    rightBumper.onTrue(new InstantCommand(() -> {
       drivetrain.zeroHeading(); 
       drivetrain.setFieldToVehicle(
         new Pose2d(RobotState.getInstance().getFieldToVehicle().getTranslation(),
         new Rotation2d(0)));
     }));
-    new JoystickButton(driverControl, Button.kRightBumper.value).onTrue(
+    leftTrigger.onTrue(
       new Drive(drivetrain, xAxis, yAxis, thetaAxis, 
       Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
+      driverControl.getRightTriggerAxis();
   }
 
   public Command getAutonomousCommand() {
