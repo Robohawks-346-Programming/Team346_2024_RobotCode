@@ -24,7 +24,7 @@ public class Pivot extends SubsystemBase {
     private static DoubleSolenoid brakeSolenoid;
     private static TalonFXConfiguration pivotMotorConfig;
     
-   private final PositionVoltage anglePosition;
+   private final PositionVoltage position;
 
     double armDegreesPerMotorRev;
     
@@ -45,26 +45,15 @@ public class Pivot extends SubsystemBase {
 
         brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PivotConstants.PIVOT_BRAKE_FORWARD_CHANNEL, Constants.PivotConstants.PIVOT_BRAKE_REVERSE_CHANNEL);
 
-        anglePosition = new PositionVoltage(0);
+        position = new PositionVoltage(0);
+
+        rotationMotor.setPosition(Constants.PivotConstants.HOME_PIVOT_ANGLE);
 
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Arm Degrees", getRotationEncoder());
-    }
-
-    // Resetting Rotation encoders
-    public void resetRotationEncoder() {
-        rotationMotor.setPosition(0.0);
-    }
-
-    public double getRotationEncoder() {
-        return rotationMotor.getPosition().getValue();
-    }
-
-    public void setRotationEncoder() {
-        rotationMotor.setPosition(Constants.PivotConstants.HOME_PIVOT_ANGLE);
+        SmartDashboard.putNumber("Arm Degrees", rotationMotor.getPosition().getValue());
     }
 
     // Checks to see if the position has been reached
@@ -73,32 +62,8 @@ public class Pivot extends SubsystemBase {
         return(difference <= Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD);
     }
 
-    // Stops rotation motor once finished
-    public void stopRotationMotor() {
-        rotationMotor.set(0.0);
-    }
-
-    public double lerpSpeed(double aI, double aF, double bI, double bF) {
-        return (bI * (aF - getRotationEncoder()) + bF * (getRotationEncoder() - aI)) / (aF - aI);
-    }
-
-    public void moveArm(double wantedPosition, double currentDegree) {
-        double currentPosition = rotationMotor.getPosition().getValue();
-        if (wantedPosition > currentPosition) {
-            rotationMotor.set(lerpSpeed(currentDegree, wantedPosition, Constants.PivotConstants.PIVOT_MOTOR_SPEED_UP, Constants.PivotConstants.PIVOT_MOTOR_SPEED_UP_FINAL));
-        }
-
-        else if (wantedPosition < currentPosition) {
-            rotationMotor.set(-lerpSpeed(currentDegree, wantedPosition, Constants.PivotConstants.PIVOT_MOTOR_SPEED_DOWN, Constants.PivotConstants.PIVOT_MOTOR_SPEED_DOWN_FINAL));
-        }
-
-        else {
-            rotationMotor.set(0.0);
-        }
-    }
-
     public void moveArmToPosition(double wantedPosition) {
-        rotationMotor.setControl(anglePosition.withPosition(wantedPosition));
+        rotationMotor.setControl(position.withPosition(wantedPosition));
     }
 
     public void engageBrake() {

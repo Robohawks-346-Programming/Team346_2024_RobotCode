@@ -8,13 +8,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 /** An example command that uses an example subsystem. */
-public class Drive extends Command {
+public class TeleopDrive extends Command {
 
   Drivetrain drivetrain;
   DoubleSupplier x,y,theta;
   double moveVelocity, turnVelocity;
 
-  public Drive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier theta, double moveVelocity, double turnVelocity) {
+  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier theta, double moveVelocity, double turnVelocity) {
     this.drivetrain = drivetrain;
     this.x = x;
     this.y = y;

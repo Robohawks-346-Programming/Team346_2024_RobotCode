@@ -4,20 +4,22 @@
 
 package frc.robot;
 
+import frc.robot.commands.Shoot.TestShooter;
 import frc.robot.commands.Autos;
-import frc.robot.commands.Drive;
-import frc.robot.commands.PivotToAngle;
-import frc.robot.subsystems.LEDs;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Pivot;
+import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.Shoot.TestShooter;
+// import frc.robot.commands.PivotToAngle;
+// import frc.robot.subsystems.LEDs;
+// import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Indexer;
+// import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
-import javax.smartcardio.CommandAPDU;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonAreaLayout;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -40,15 +42,17 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
-  private Trigger leftTrigger = driverControl.leftTrigger();
+  private Trigger rightTrigger = driverControl.rightTrigger();
   private Trigger rightBumper = driverControl.rightBumper();
+  private Trigger right = driverControl.x();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
-  public static final LEDs leds = new LEDs();
-  public static final Pivot pivot = new Pivot();
-  public static final Arm arm = new Arm();
-  public static final Intake intake = new Intake();
-  public static final Climber climber = new Climber();
+  // public static final LEDs leds = new LEDs();
+  // public static final Pivot pivot = new Pivot();
+  public static final Indexer indexer = new Indexer();
+  public static final Shooter shooter = new Shooter();
+  // public static final Intake intake = new Intake();
+  // public static final Climber climber = new Climber();
   public int isInverted = 1;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
@@ -67,23 +71,25 @@ public class RobotContainer {
           isInverted = -1;
         }
     }
-    drivetrain.setDefaultCommand(new Drive(drivetrain, xAxis, yAxis, thetaAxis, 
+    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
     Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
     Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
+
+    autos.addAutos();
   }
 
   private void configureBindings() {
     rightBumper.onTrue(new InstantCommand(() -> {
       drivetrain.zeroHeading(); 
       drivetrain.setFieldToVehicle(
-        new Pose2d(RobotState.getInstance().getFieldToVehicle().getTranslation(),
+        new Pose2d(drivetrain.poseEstimator.getEstimatedPosition().getTranslation(),
         new Rotation2d(0)));
     }));
-    leftTrigger.onTrue(
-      new Drive(drivetrain, xAxis, yAxis, thetaAxis, 
+    rightTrigger.whileTrue(
+      new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
       Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
-      driverControl.getRightTriggerAxis();
+    right.whileTrue(new TestShooter());
   }
 
   public Command getAutonomousCommand() {

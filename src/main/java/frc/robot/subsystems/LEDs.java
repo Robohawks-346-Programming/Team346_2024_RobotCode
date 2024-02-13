@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotState;
 import frc.robot.Constants.LEDConstants;
 
 public class LEDs extends SubsystemBase {
@@ -97,18 +96,6 @@ public class LEDs extends SubsystemBase {
             }
         }
 
-    }
-
-    private void flashOnIntake() {
-        if (RobotState.getInstance().isIntaking()) {
-            Color color = (RobotState.getInstance().hasIntaked() && (flashTimer.get()*10%10)%5 < 2.5) ? Color.kBlack : Color.kOrange;
-            for (int i = 0; i < Constants.LEDConstants.NUMBER_OF_LEDS / 4; i++) {
-                setLED(i, color);
-            }
-            for (int i = 3 * Constants.LEDConstants.NUMBER_OF_LEDS / 4; i < Constants.LEDConstants.NUMBER_OF_LEDS; i++) {
-                setLED(i, color);
-            }
-        }
     }
 
     public void setOff(boolean offf) {

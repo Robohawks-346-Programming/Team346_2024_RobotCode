@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.Intake.IntakeFull;
-import frc.robot.commands.Shoot.ShootSpeaker;
-import frc.robot.commands.Intake.IntakeFull;
-import frc.robot.commands.Shoot.ShootSpeaker;
+// import frc.robot.commands.Intake.IntakeFull;
+// import frc.robot.commands.Shoot.ShootSpeaker;
+// import frc.robot.commands.Intake.IntakeFull;
+// import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 public final class Autos {
@@ -49,17 +49,18 @@ public final class Autos {
     }
 
     public void addCommands() {
-      NamedCommands.registerCommand("Intake", new IntakeFull());
-      NamedCommands.registerCommand("Shoot Close", new ShootSpeaker(Constants.ShooterConstants.SPEAKER_CLOSE_MOTOR_SPEED));
+      // NamedCommands.registerCommand("Intake", new IntakeFull());
+      // NamedCommands.registerCommand("Shoot Close", new ShootSpeaker(Constants.ShooterConstants.SPEAKER_CLOSE_MOTOR_SPEED));
     }
 
     public void addAutos() {
-      autoChooser.addOption("Test Auto", new PathPlannerAuto("Test Auto"));
+      autoChooser.addOption("Middle Auto", new PathPlannerAuto("Middle Auto"));
     SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     public Command returnAutos() {
-        return autoChooser.getSelected();
+        return new PathPlannerAuto("Back 2 auto");
+        //return new PathPlannerAuto("Rotation Auto");
     }
 
 

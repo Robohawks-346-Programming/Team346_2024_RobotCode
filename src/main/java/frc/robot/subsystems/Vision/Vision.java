@@ -3,7 +3,7 @@ package frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotState;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.VisionConstants;
 
 public class Vision extends SubsystemBase {
@@ -33,7 +33,7 @@ public class Vision extends SubsystemBase {
     @Override
     public void periodic() {
 
-        RobotState.getInstance().getFieldToVehicle();
+        RobotContainer.drivetrain.poseEstimator.getEstimatedPosition();
 
         for (int i = 0; i < 3; i++) {
             if (cameras[i].hasNewObservation()) {

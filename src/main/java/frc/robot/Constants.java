@@ -27,10 +27,10 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 
     public static final class DriveConstants {
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(28);
-    public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(32);
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(32);
+    public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(28);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
-    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.7);
+    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(4);
 
     public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));
     
@@ -61,28 +61,28 @@ public final class Constants {
   public static final int FRONT_LEFT_TURN_ID                          = 22;
   public static final int FRONT_LEFT_ENCODER_ID                       = 23;
   public static final boolean FRONT_LEFT_DRIVE_MOTOR_INVERT           = true;
-  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromRotations(-0.139892578125); // 359 is good
+  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromRotations(0.874755859375); // 359 is good
 
   // Back left Swerve Module
   public static final int BACK_LEFT_DRIVE_ID                          = 31;  // 31 is og
   public static final int BACK_LEFT_TURN_ID                           = 32;  // 32 is og
   public static final int BACK_LEFT_ENCODER_ID                        = 33;  // 33 is og
   public static final boolean BACK_LEFT_DRIVE_MOTOR_INVERT            = true;
-  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromRotations(-0.028076171875); // 358.5 is good
+  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromRotations(0.990234375); // 358.5 is good
 
   // Front Right Swerve Module
   public static final int FRONT_RIGHT_DRIVE_ID                        = 24;
   public static final int FRONT_RIGHT_TURN_ID                         = 25;
   public static final int FRONT_RIGHT_ENCODER_ID                      = 26;
   public static final boolean FRONT_RIGHT_DRIVE_MOTOR_INVERT          = true;
-  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(-0.66552734375); // 1 is good
+  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(-0.65673828125); // 1 is good
 
   // Back Right Swerve Module
   public static final int BACK_RIGHT_DRIVE_ID                         = 34;  // 34 is og
   public static final int BACK_RIGHT_TURN_ID                          = 35;  // 35 is og
   public static final int BACK_RIGHT_ENCODER_ID                       = 36;  // 36 is og
   public static final boolean BACK_RIGHT_DRIVE_MOTOR_INVERT           = true;
-  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(-0.33203125); // 0 is good
+  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.6787109375); // 0 is good
 
     public static final double DRIVE_P                                  = 0.1;
     public static final double DRIVE_I                                  = 0;
@@ -103,7 +103,8 @@ public final class Constants {
             "FL", 
             "FR", 
             "BL", 
-            "BR"
+            "BR",
+            "Camera_Module_v1"
         };
 
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
@@ -121,13 +122,13 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double AUTO_DRIVE_P                                  = 0.07;
+        public static final double AUTO_DRIVE_P                                  = 5;
         public static final double AUTO_DRIVE_I                                  = 0;
         public static final double AUTO_DRIVE_D                                  = 0;
 
-        public static final double AUTO_TURN_P                                   = 0.01;
+        public static final double AUTO_TURN_P                                   = 9;
         public static final double AUTO_TURN_I                                   = 0;
-        public static final double AUTO_TURN_D                                   = 5;
+        public static final double AUTO_TURN_D                                   = 0;
 
         public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = 
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
@@ -144,11 +145,6 @@ public final class Constants {
         public static final int PIVOT_MOTOR_ID                                = 5;
 
         public static final double PIVOT_GEAR_RATIO                           = 48; // 48 motor rev : 1 arm rev
-
-        public static final double PIVOT_MOTOR_SPEED_UP                       = 1;
-        public static final double PIVOT_MOTOR_SPEED_DOWN                     = 1;
-        public static final double PIVOT_MOTOR_SPEED_UP_FINAL                 = 0.3;
-        public static final double PIVOT_MOTOR_SPEED_DOWN_FINAL               = 0.2;
 
         public static final double HOME_PIVOT_ANGLE                           = 8; //off vertical
         public static final double AMP_PIVOT_ANGLE                            = 73; //off vertical
@@ -168,56 +164,42 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int INTAKE_MOTOR_ID                               = 15;
-
         public static final double INTAKE_MOTOR_SPEED                         = 0.5;
     }
 
     public static final class ShooterConstants {
-        public static final int TOP_SPEAKER_ROLLER_MOTOR_ID                   = 2;
-        public static final int BOTTOM_SPEAKER_ROLLER_MOTOR_ID                = 4;
+        public static final int TOP_SPEAKER_ROLLER_MOTOR_ID                   = 10;
+        public static final int BOTTOM_SPEAKER_ROLLER_MOTOR_ID                = 11;
+
+        public static final double SPEAKER_SHOOTER_P                      = 0;
+        public static final double SPEAKER_SHOOTER_I                      = 0;
+        public static final double SPEAKER_SHOOTER_D                      = 0;
+    }
+
+    public static final class IndexerConstants {
         public static final int FEEDER_ROLLER_MOTOR_ID                        = 5;
         public static final int AMP_ROLLER_MOTOR_ID                           = 6;
 
-        public static final int INTAKE_LASER_BREAK_PORT                       = 1;
-
-        public static final double SPEAKER_SHOOTER_TOP_P                      = 0;
-        public static final double SPEAKER_SHOOTER_TOP_I                      = 0;
-        public static final double SPEAKER_SHOOTER_TOP_D                      = 0;
-
-        public static final double SPEAKER_SHOOTER_BOTTOM_P                   = 0;
-        public static final double SPEAKER_SHOOTER_BOTTOM_I                   = 0;
-        public static final double SPEAKER_SHOOTER_BOTTOM_D                   = 0;
-
-        public static final double SPEAKER_ROLLER_VELOCITY_THRESHOLD          = 25;
-
         public static final double FEEDER_ROLLER_SPEED                        = 0.5;
         public static final double AMP_ROLLERS_ROLLER_SPEED                   = 0.5;
-
-        public static final double SPEAKER_CLOSE_MOTOR_SPEED                  = 4000;
     }
 
     public static final class ClimberConstants {
         public static final int LEFT_HOOK_MOTOR_ID                            = 57;
         public static final int RIGHT_HOOK_MOTOR_ID                           = 58;
 
-        public static final double LEFT_HOOK_P                                = 0;
-        public static final double LEFT_HOOK_I                                = 0;
-        public static final double LEFT_HOOK_D                                = 0;
-
-        public static final double RIGHT_HOOK_P                               = 0;
-        public static final double RIGHT_HOOK_I                               = 0;
-        public static final double RIGHT_HOOK_D                               = 0;
+        public static final double HOOK_P                                     = 0;
+        public static final double HOOK_I                                     = 0;
+        public static final double HOOK_D                                     = 0;
 
         public static final double CLIMBER_REV_THRESHOLD                      = 5;
 
-        public static final double CLIMB_LOW_REV                              = 1000;
-        public static final double CLIMB_HIGH_REV                             = 2000;
+        public static final double CLIMB_REV                              = 1000;
 
     }
 
     public static final class LEDConstants {
         public static final int LED_PORT                                      = 1;
-
         public static final int NUMBER_OF_LEDS                                = 50;
     }
 }

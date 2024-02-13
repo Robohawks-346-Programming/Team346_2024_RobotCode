@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top two 8"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

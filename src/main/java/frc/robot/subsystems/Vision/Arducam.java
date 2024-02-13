@@ -19,7 +19,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import frc.robot.Constants;
-import frc.robot.RobotState;
+import frc.robot.RobotContainer;
 
 public class Arducam {
 
@@ -80,7 +80,7 @@ public class Arducam {
     }
 
     public void recordVisionObservation() {
-        RobotState.getInstance().recordVisionObservations(calculatedPose.toPose2d(), stdDevs, timestamp);
+        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp, stdDevs);
         hasNewPose = false;
     }
 
