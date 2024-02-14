@@ -6,7 +6,6 @@ package frc.robot.commands.Shoot;
 
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;

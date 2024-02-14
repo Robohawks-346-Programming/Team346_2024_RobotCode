@@ -171,7 +171,7 @@ public final class Constants {
         public static final int TOP_SPEAKER_ROLLER_MOTOR_ID                   = 10;
         public static final int BOTTOM_SPEAKER_ROLLER_MOTOR_ID                = 11;
 
-        public static final double SPEAKER_SHOOTER_P                      = 0;
+        public static final double SPEAKER_SHOOTER_P                      = 3;
         public static final double SPEAKER_SHOOTER_I                      = 0;
         public static final double SPEAKER_SHOOTER_D                      = 0;
     }
