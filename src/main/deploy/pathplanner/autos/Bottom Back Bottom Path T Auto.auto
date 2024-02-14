@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.35,
-      "y": 7.04
+      "x": 1.31,
+      "y": 4.14
     },
     "rotation": 0
   },
@@ -14,54 +14,42 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top two 1"
+            "pathName": "Bottom Back Bottom Path T 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top two 2"
+            "pathName": "Bottom Back Bottom Path T 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top two 3"
+            "pathName": "Bottom Back Bottom Path T 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top two 4"
+            "pathName": "Bottom Back Bottom Path T 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top two 5"
+            "pathName": "Bottom Back Bottom Path T 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top two 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top two 7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top two 8"
+            "pathName": "Bottom Back Bottom Path T 6"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "1 teammate",
   "choreoAuto": false
 }

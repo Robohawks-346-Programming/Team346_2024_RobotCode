@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 1.41,
+      "y": 6.4
+    },
+    "rotation": 0
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -8,54 +14,48 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top 1"
+            "pathName": "Bottom start bottom auto 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top 2"
+            "pathName": "Bottom start bottom auto 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top 3"
+            "pathName": "Bottom start bottom auto 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top 4"
+            "pathName": "Bottom start bottom auto 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top 5"
+            "pathName": "Bottom start bottom auto 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top  6"
+            "pathName": "Bottom start bottom auto 6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top 7"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Top 8"
+            "pathName": "Bottom start bottom auto 7"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "NO Teammates",
   "choreoAuto": false
 }
