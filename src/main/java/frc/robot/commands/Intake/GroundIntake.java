@@ -16,7 +16,7 @@
 // import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // /** An example command that uses an example subsystem. */
-// public class IntakeIn extends Command {
+// public class GroundIntake extends Command {
 //   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 //     private Intake intake = RobotContainer.intake;
 
@@ -25,7 +25,7 @@
 //    *
 //    * @param subsystem The subsystem used by this command.
 //    */
-//   public IntakeIn() {
+//   public GroundIntake() {
 //     // Use addRequirements() here to declare subsystem dependencies.
 //   }
 
@@ -44,7 +44,6 @@
 //   @Override
 //   public void end(boolean interrupted) {
 //     intake.stopIntake();
-//     RobotState.getInstance().setIntaked(true);
 //   }
 
 //   // Returns true when the command should end.

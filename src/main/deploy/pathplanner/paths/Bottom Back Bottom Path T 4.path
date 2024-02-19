@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.83,
-        "y": 2.44
+        "x": 7.870990641150915,
+        "y": 2.220307928160341
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.40517488548394,
-        "y": 0.822398210091591
+        "x": 5.886437207488889,
+        "y": 0.13088286418565842
       },
       "isLocked": false,
       "linkedName": null
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "Bottom Back Bottom Path T",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 27.01266534793845,
     "velocity": 0
   },
   "useDefaultConstraints": true

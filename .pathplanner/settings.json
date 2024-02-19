@@ -1,17 +1,15 @@
 {
-  "robotWidth": 0.82,
-  "robotLength": 0.82,
+  "robotWidth": 0.9,
+  "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Back two",
+    "2631",
+    "62 path",
+    "783",
     "Bottom Back Bottom Path T",
-    "Bottom back one ",
     "Bottom back two",
-    "Bottom start ",
     "Bottom start bottom NT path",
-    "Middle NT",
-    "Top start top auto T",
-    "Top two"
+    "Top start top auto T"
   ],
   "autoFolders": [
     "1 teammate",

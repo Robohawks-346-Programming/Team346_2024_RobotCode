@@ -34,7 +34,7 @@ public class TestShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setVelocity(50);
+    shooter.setVelocity(85);
   }
 
   // Called once the command ends or is interrupted.

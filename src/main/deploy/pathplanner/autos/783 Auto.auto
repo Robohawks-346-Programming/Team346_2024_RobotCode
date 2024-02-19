@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 1.41,
+      "y": 4.09
+    },
+    "rotation": 0
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -8,48 +14,36 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom start 1"
+            "pathName": "783 one"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom start 2"
+            "pathName": "783 two"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom start 3"
+            "pathName": "783 three"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom start 4"
+            "pathName": "783 four"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bottom start 5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom start 6"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom start 7"
+            "pathName": "783 five"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Full Team",
   "choreoAuto": false
 }

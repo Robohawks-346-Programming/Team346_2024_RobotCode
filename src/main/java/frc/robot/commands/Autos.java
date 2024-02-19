@@ -59,7 +59,7 @@ public final class Autos {
     }
 
     public Command returnAutos() {
-        return new PathPlannerAuto("Back 2 auto");
+        return new PathPlannerAuto("783 Auto");
         //return new PathPlannerAuto("Rotation Auto");
     }
 

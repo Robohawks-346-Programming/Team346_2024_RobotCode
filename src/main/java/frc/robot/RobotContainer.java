@@ -6,13 +6,14 @@ package frc.robot;
 
 import frc.robot.commands.Shoot.TestShooter;
 import frc.robot.commands.Autos;
+import frc.robot.commands.PivotToAngle;
 import frc.robot.commands.TeleopDrive;
-import frc.robot.commands.Shoot.TestShooter;
+import frc.robot.commands.Intake.IntakeArm;
 // import frc.robot.commands.PivotToAngle;
-// import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.LEDs;
 // import frc.robot.subsystems.Climber;
-//import frc.robot.subsystems.Indexer;
-// import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Pivot;
 //import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
@@ -44,12 +45,15 @@ public class RobotContainer {
   private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
   private Trigger rightTrigger = driverControl.rightTrigger();
   private Trigger rightBumper = driverControl.rightBumper();
-  private Trigger right = driverControl.x();
+  private Trigger x = driverControl.x();
+  private Trigger y = driverControl.y();
+  private Trigger b = driverControl.b();
+  private Trigger a = driverControl.a();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
-  // public static final LEDs leds = new LEDs();
-  // public static final Pivot pivot = new Pivot();
-  // public static final Indexer indexer = new Indexer();
+  public static final LEDs leds = new LEDs();
+  public static final Pivot pivot = new Pivot();
+  public static final Indexer indexer = new Indexer();
   public static final Shooter shooter = new Shooter();
   // public static final Intake intake = new Intake();
   // public static final Climber climber = new Climber();
@@ -89,7 +93,11 @@ public class RobotContainer {
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
       Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
-    right.whileTrue(new TestShooter());
+    x.whileTrue(new TestShooter());
+    y.whileTrue(new IntakeArm());
+    b.onTrue(new PivotToAngle(45));
+    a.onTrue(new PivotToAngle(Constants.PivotConstants.HOME_PIVOT_ANGLE));
+
   }
 
   public Command getAutonomousCommand() {

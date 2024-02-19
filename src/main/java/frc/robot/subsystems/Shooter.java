@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -19,11 +20,13 @@ public class Shooter extends SubsystemBase{
     private final VelocityVoltage voltage;
     private TalonFXConfiguration shooterConfig = new TalonFXConfiguration();
 
+    private final VoltageOut volts;
+
     public Shooter() {
         topRoller = new TalonFX(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID);
         bottomRoller = new TalonFX(Constants.ShooterConstants.BOTTOM_SPEAKER_ROLLER_MOTOR_ID);
 
-        shooterConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        shooterConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
         shooterConfig.Slot0.kP = Constants.ShooterConstants.SPEAKER_SHOOTER_P;
@@ -34,6 +37,8 @@ public class Shooter extends SubsystemBase{
         topRoller.getConfigurator().apply(shooterConfig);
 
         voltage = new VelocityVoltage(0);
+
+        volts = new VoltageOut(0);
 
     }
 
@@ -46,5 +51,10 @@ public class Shooter extends SubsystemBase{
     public void setVelocity(double velocity) {
         topRoller.setControl(voltage.withVelocity(velocity));
         bottomRoller.setControl(voltage.withVelocity(velocity));
+    }
+
+    public void setVoltage(double volt) {
+        topRoller.setControl(volts.withOutput(volt));
+        bottomRoller.setControl(volts.withOutput(volt));
     }
 }

@@ -51,8 +51,8 @@ public final class Constants {
 
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
-    public static final double MAX_MOVE_VELOCITY                        = 2; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 2; // for testing
+    public static final double MAX_MOVE_VELOCITY                        = 4; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 4; // for testing
     public static final double MAX_MOVE_VELOCITY_FAST                   = 5.5;
     public static final double MAX_TURN_VELOCITY_FAST                   = 5.5;
     
@@ -142,11 +142,11 @@ public final class Constants {
     }
 
     public static final class PivotConstants {
-        public static final int PIVOT_MOTOR_ID                                = 5;
+        public static final int PIVOT_MOTOR_ID                                = 8;
 
         public static final double PIVOT_GEAR_RATIO                           = 48; // 48 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = 8; //off vertical
+        public static final double HOME_PIVOT_ANGLE                           = 35; //off vertical
         public static final double AMP_PIVOT_ANGLE                            = 73; //off vertical
         public static final double TRAP_PIVOT_ANGLE                           = 92; //off vertical
         public static final double SOURCE_PIVOT_ANGLE                         = 81; //off vertical
@@ -154,7 +154,7 @@ public final class Constants {
 
         public static final double SPEAKER_CLOSE_PIVOT_ANGLE                  = 28; //off vertical
 
-        public static final double PIVOT_P                                    = 4;
+        public static final double PIVOT_P                                    = 0.5;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
 
@@ -171,14 +171,14 @@ public final class Constants {
         public static final int TOP_SPEAKER_ROLLER_MOTOR_ID                   = 10;
         public static final int BOTTOM_SPEAKER_ROLLER_MOTOR_ID                = 11;
 
-        public static final double SPEAKER_SHOOTER_P                      = 3;
+        public static final double SPEAKER_SHOOTER_P                      = 0.5;
         public static final double SPEAKER_SHOOTER_I                      = 0;
         public static final double SPEAKER_SHOOTER_D                      = 0;
     }
 
     public static final class IndexerConstants {
-        public static final int FEEDER_ROLLER_MOTOR_ID                        = 5;
-        public static final int AMP_ROLLER_MOTOR_ID                           = 6;
+        public static final int FEEDER_ROLLER_MOTOR_ID                        = 6;
+        public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
         public static final double FEEDER_ROLLER_SPEED                        = 0.5;
         public static final double AMP_ROLLERS_ROLLER_SPEED                   = 0.5;

@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.48,
+      "y": 5.55
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "62 one"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "62 two"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "62 three"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Full Team",
+  "choreoAuto": false
+}

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 7.9,
-      "y": 7.45
+      "x": 1.43,
+      "y": 6.45
     },
     "rotation": 0
   },
@@ -56,6 +56,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "1 teammate",
   "choreoAuto": false
 }
