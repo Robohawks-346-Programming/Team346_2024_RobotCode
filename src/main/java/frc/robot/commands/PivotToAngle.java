@@ -45,6 +45,6 @@ public class PivotToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.pivot.isAtPosition(level);
+    return RobotContainer.pivot.isAtPosition(RobotContainer.pivot.convertDegreesToRotations(level));
   }
 }

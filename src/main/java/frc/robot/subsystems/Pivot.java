@@ -47,13 +47,14 @@ public class Pivot extends SubsystemBase {
 
         position = new PositionVoltage(0);
 
-        pivotMotor.setPosition(Constants.PivotConstants.HOME_PIVOT_ANGLE);
+        pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
 
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Arm Degrees", pivotMotor.getPosition().getValue());
+        SmartDashboard.putNumber("Arm Degrees", convertRotationsToDegrees(pivotMotor.getPosition().getValue()));
+
     }
 
     // Checks to see if the position has been reached
@@ -63,7 +64,7 @@ public class Pivot extends SubsystemBase {
     }
 
     public void moveArmToPosition(double wantedPosition) {
-        pivotMotor.setControl(position.withPosition(wantedPosition));
+        pivotMotor.setControl(position.withPosition(convertDegreesToRotations(wantedPosition)));
     }
 
     public void engageBrake() {
@@ -73,5 +74,13 @@ public class Pivot extends SubsystemBase {
 
     public void disengageBrake() {
         brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public double convertDegreesToRotations(double degrees){
+        return (degrees / 360.0);
+    }
+
+    public double convertRotationsToDegrees(double rotations){
+        return (rotations * 360.0);
     }
 }

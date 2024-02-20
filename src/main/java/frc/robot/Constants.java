@@ -144,17 +144,17 @@ public final class Constants {
     public static final class PivotConstants {
         public static final int PIVOT_MOTOR_ID                                = 8;
 
-        public static final double PIVOT_GEAR_RATIO                           = 48; // 48 motor rev : 1 arm rev
+        public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = 35; //off vertical
-        public static final double AMP_PIVOT_ANGLE                            = 73; //off vertical
+        public static final double HOME_PIVOT_ANGLE                           = -55;
+        public static final double AMP_PIVOT_ANGLE                            = 90; //off vertical
         public static final double TRAP_PIVOT_ANGLE                           = 92; //off vertical
-        public static final double SOURCE_PIVOT_ANGLE                         = 81; //off vertical
+        public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
         public static final double PIVOT_ANGLE_THRESHOLD                      = 0.75; // in degrees
 
         public static final double SPEAKER_CLOSE_PIVOT_ANGLE                  = 28; //off vertical
 
-        public static final double PIVOT_P                                    = 0.5;
+        public static final double PIVOT_P                                    = 1;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
 
@@ -164,6 +164,8 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int INTAKE_MOTOR_ID                               = 15;
+        public static final int CENTERING_MOTOR_ID                            = 16;
+
         public static final double INTAKE_MOTOR_SPEED                         = 0.5;
     }
 

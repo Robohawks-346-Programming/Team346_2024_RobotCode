@@ -10,7 +10,7 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain.CTREConfigs;
@@ -18,6 +18,8 @@ import frc.robot.subsystems.Drivetrain.CTREConfigs;
 
 public class Indexer extends SubsystemBase{
     CANSparkMax feederRoller, ampRollers;
+
+    public final Timer timer = new Timer();
 
     public Indexer() {
         feederRoller = new CANSparkMax(Constants.IndexerConstants.FEEDER_ROLLER_MOTOR_ID, MotorType.kBrushless);
@@ -27,10 +29,13 @@ public class Indexer extends SubsystemBase{
         ampRollers.setSmartCurrentLimit(40);
 
         feederRoller.setInverted(true);
-        ampRollers.setInverted(true);
+        ampRollers.setInverted(false);
 
         feederRoller.burnFlash();
         ampRollers.burnFlash();
+
+        timer.reset();
+        timer.start();
     }
 
     public void startIndex() {
@@ -54,6 +59,6 @@ public class Indexer extends SubsystemBase{
     }
 
     public boolean returnCurrent() {
-        return (feederRoller.getOutputCurrent() > 15);
+        return (feederRoller.getOutputCurrent() > 20) && timer.hasElapsed(0.7);
     }
 }

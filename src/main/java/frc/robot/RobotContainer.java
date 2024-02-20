@@ -9,6 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.PivotToAngle;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.Intake.IntakeArm;
+import frc.robot.commands.Shoot.EjectAmp;
 // import frc.robot.commands.PivotToAngle;
 import frc.robot.subsystems.LEDs;
 // import frc.robot.subsystems.Climber;
@@ -95,8 +96,8 @@ public class RobotContainer {
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
     x.whileTrue(new TestShooter());
     y.whileTrue(new IntakeArm());
-    b.onTrue(new PivotToAngle(45));
-    a.onTrue(new PivotToAngle(Constants.PivotConstants.HOME_PIVOT_ANGLE));
+    b.onTrue(new PivotToAngle(10));
+    a.whileTrue(new EjectAmp());
 
   }
 
