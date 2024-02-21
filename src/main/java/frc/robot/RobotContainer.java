@@ -97,7 +97,8 @@ public class RobotContainer {
     x.whileTrue(new TestShooter());
     y.whileTrue(new IntakeArm());
     b.onTrue(new PivotToAngle(10));
-    a.whileTrue(new EjectAmp());
+    a.onTrue
+    (new PivotToAngle(-55));
 
   }
 

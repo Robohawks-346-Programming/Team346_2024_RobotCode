@@ -59,8 +59,8 @@ public class Pivot extends SubsystemBase {
 
     // Checks to see if the position has been reached
     public boolean isAtPosition(double rev) {
-        double difference = Math.abs(pivotMotor.getPosition().getValue() - rev);
-        return(difference <= Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD);
+        double difference = Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev));
+        return(difference <= convertDegreesToRotations(Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD));
     }
 
     public void moveArmToPosition(double wantedPosition) {

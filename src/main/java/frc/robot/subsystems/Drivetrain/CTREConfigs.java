@@ -12,6 +12,7 @@ import frc.robot.Constants;
 
 public final class CTREConfigs {
     public TalonFXConfiguration swerveAngleFXConfig = new TalonFXConfiguration();
+    public TalonFXConfiguration swerveDriveFXConfig = new TalonFXConfiguration();
     public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
 
     public CTREConfigs(){
@@ -37,5 +38,24 @@ public final class CTREConfigs {
         swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
         swerveAngleFXConfig.Slot0.kI = Constants.DriveConstants.TURN_I;
         swerveAngleFXConfig.Slot0.kD = Constants.DriveConstants.TURN_D;
+
+         /** Swerve Drive Motor Configuration */
+        /* Motor Inverts and Neutral Mode */
+        swerveDriveFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        swerveDriveFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+        /* Gear Ratio Config */
+        swerveDriveFXConfig.Feedback.SensorToMechanismRatio = Constants.DriveConstants.DRIVETRAIN_GEAR_RATIO;
+
+        /* Current Limiting */
+        swerveDriveFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+        swerveDriveFXConfig.CurrentLimits.SupplyCurrentLimit = 40;
+        swerveDriveFXConfig.CurrentLimits.SupplyCurrentThreshold = 60;
+        swerveDriveFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
+
+        /* PID Config */
+        swerveDriveFXConfig.Slot0.kP = Constants.DriveConstants.DRIVE_P;
+        swerveDriveFXConfig.Slot0.kI = Constants.DriveConstants.DRIVE_I;
+        swerveDriveFXConfig.Slot0.kD = Constants.DriveConstants.DRIVE_D;
     }
 }

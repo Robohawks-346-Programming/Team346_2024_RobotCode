@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class PivotToAngle extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private double level;
-    public double currentDegree;
 
   /**
    * Creates a new ExampleCommand.
@@ -45,6 +44,6 @@ public class PivotToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.pivot.isAtPosition(RobotContainer.pivot.convertDegreesToRotations(level));
+    return RobotContainer.pivot.isAtPosition(level);
   }
 }

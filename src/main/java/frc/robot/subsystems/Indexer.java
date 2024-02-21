@@ -59,6 +59,6 @@ public class Indexer extends SubsystemBase{
     }
 
     public boolean returnCurrent() {
-        return (feederRoller.getOutputCurrent() > 20) && timer.hasElapsed(0.7);
+        return (feederRoller.getOutputCurrent() > 20) && timer.hasElapsed(1);
     }
 }

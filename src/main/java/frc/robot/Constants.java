@@ -87,7 +87,10 @@ public final class Constants {
     public static final double DRIVE_P                                  = 0.1;
     public static final double DRIVE_I                                  = 0;
     public static final double DRIVE_D                                  = 0;
-    public static final double DRIVE_FF                                 = 2.96;
+    
+    public static final double DRIVE_kS                                 = 0;
+    public static final double DRIVE_kV                                 = 0;
+    public static final double DRIVE_kA                                 = 0;
 
     public static final double TURN_P                                   = 10;
     public static final double TURN_I                                   = 0;
@@ -146,15 +149,13 @@ public final class Constants {
 
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = -55;
-        public static final double AMP_PIVOT_ANGLE                            = 90; //off vertical
-        public static final double TRAP_PIVOT_ANGLE                           = 92; //off vertical
-        public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
-        public static final double PIVOT_ANGLE_THRESHOLD                      = 0.75; // in degrees
+        public static final double HOME_PIVOT_ANGLE                           = 35;
+        public static final double AMP_PIVOT_ANGLE                            = 180; //off vertical
+        public static final double TRAP_PIVOT_ANGLE                           = 181; //off vertical
+        public static final double SOURCE_PIVOT_ANGLE                         = 135; //off vertical
+        public static final double PIVOT_ANGLE_THRESHOLD                      = 1; // in degrees
 
-        public static final double SPEAKER_CLOSE_PIVOT_ANGLE                  = 28; //off vertical
-
-        public static final double PIVOT_P                                    = 1;
+        public static final double PIVOT_P                                    = 7;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
 
@@ -187,8 +188,8 @@ public final class Constants {
     }
 
     public static final class ClimberConstants {
-        public static final int LEFT_HOOK_MOTOR_ID                            = 57;
-        public static final int RIGHT_HOOK_MOTOR_ID                           = 58;
+        public static final int LEFT_HOOK_MOTOR_ID                            = 2;
+        public static final int RIGHT_HOOK_MOTOR_ID                           = 3;
 
         public static final double HOOK_P                                     = 0;
         public static final double HOOK_I                                     = 0;
@@ -197,6 +198,7 @@ public final class Constants {
         public static final double CLIMBER_REV_THRESHOLD                      = 5;
 
         public static final double CLIMB_REV                              = 1000;
+        public static final double CLIMB_HOME_REV                         = 860;
 
     }
 
