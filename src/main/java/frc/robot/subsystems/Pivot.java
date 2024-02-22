@@ -42,6 +42,8 @@ public class Pivot extends SubsystemBase {
         pivotMotorConfig.Slot0.kP = Constants.PivotConstants.PIVOT_P;
         pivotMotorConfig.Slot0.kI = Constants.PivotConstants.PIVOT_I;
         pivotMotorConfig.Slot0.kD = Constants.PivotConstants.PIVOT_D;
+        pivotMotorConfig.Slot0.kS = Constants.PivotConstants.PIVOT_kS;
+        pivotMotorConfig.Slot0.kG = Constants.PivotConstants.PIVOT_kG;
 
         pivotMotorConfig.Feedback.SensorToMechanismRatio = Constants.PivotConstants.PIVOT_GEAR_RATIO;
 
@@ -63,7 +65,12 @@ public class Pivot extends SubsystemBase {
 
     // Checks to see if the position has been reached
     public boolean isAtPosition(double rev) {
-        double difference = Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev));
+        double difference;
+        if (pivotMotor.getPosition().getValueAsDouble() > rev){
+            difference = pivotMotor.getPosition().getValueAsDouble() + Math.abs(rev);
+        } else {
+            difference = Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev));
+        }
         return(difference <= convertDegreesToRotations(Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD));
     }
 

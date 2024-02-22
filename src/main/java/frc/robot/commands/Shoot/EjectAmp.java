@@ -40,6 +40,7 @@ public class EjectAmp extends Command {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.indexer.stopAmp();
+    RobotContainer.indexer.toggleStoringGamepiece();
   }
 
   // Returns true when the command should end.

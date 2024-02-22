@@ -43,11 +43,12 @@ public class IntakeArm extends Command {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.indexer.stopIndex();
+    RobotContainer.indexer.toggleStoringGamepiece();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.indexer.returnCurrent();
+    return RobotContainer.intake.getCurrent();
   }
 }

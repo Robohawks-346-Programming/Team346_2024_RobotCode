@@ -35,8 +35,10 @@ public final class Constants {
     public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(28);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
     public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(4);
+    public static final double WHEEL_CIRCUMFERENCE                      = Math.PI * WHEEL_DIAMETER;
 
     public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));
+
     
     public static final double DRIVE_CONVERSION                         = (WHEEL_DIAMETER * Math.PI) / DRIVETRAIN_GEAR_RATIO;
     public static final double TURN_CONVERSION                          = 12.8;
@@ -102,6 +104,7 @@ public final class Constants {
     public static final double TURN_FF                                  = 0;
 
     public static final int DRIVER_CONTROLLER_PORT                      = 0;
+    public static final int OPERATOR_CONTROLLER_PORT                    = 1;
  }
 
  public static final class VisionConstants {
@@ -153,15 +156,17 @@ public final class Constants {
 
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = 35;
-        public static final double AMP_PIVOT_ANGLE                            = 180; //off vertical
-        public static final double TRAP_PIVOT_ANGLE                           = 181; //off vertical
-        public static final double SOURCE_PIVOT_ANGLE                         = 135; //off vertical
+        public static final double HOME_PIVOT_ANGLE                           = -55;
+        public static final double AMP_PIVOT_ANGLE                            = 90; //off vertical
+        public static final double TRAP_PIVOT_ANGLE                           = 91; //off vertical
+        public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
         public static final double PIVOT_ANGLE_THRESHOLD                      = 1; // in degrees
 
-        public static final double PIVOT_P                                    = 7;
+        public static final double PIVOT_P                                    = 1;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
+        public static final double PIVOT_kS                                   = 0.1;
+        public static final double PIVOT_kG                                   = 0;
 
         public static final int PIVOT_BRAKE_FORWARD_CHANNEL                   = 4;
         public static final int PIVOT_BRAKE_REVERSE_CHANNEL                   = 5;
@@ -231,7 +236,14 @@ public final class Constants {
     }
 
     public static final class LEDConstants {
-        public static final int LED_PORT                                      = 1;
-        public static final int NUMBER_OF_LEDS                                = 50;
+        public static final int LED_BR_PORT                                    = 1;
+        public static final int LED_FR_PORT                                    = 2;
+        public static final int LED_FL_PORT                                    = 3;
+        public static final int LED_BL_PORT                                    = 4;
+
+        public static final int NUMBER_OF_LEDS_BR                              = 50;
+        public static final int NUMBER_OF_LEDS_FR                              = 50;
+        public static final int NUMBER_OF_LEDS_FL                              = 50;
+        public static final int NUMBER_OF_LEDS_BL                              = 50;
     }
 }

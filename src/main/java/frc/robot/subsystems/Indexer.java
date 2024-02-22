@@ -19,6 +19,8 @@ import frc.robot.subsystems.Drivetrain.CTREConfigs;
 public class Indexer extends SubsystemBase{
     CANSparkMax feederRoller, ampRollers;
 
+    public boolean storingGamePiece;
+
     public final Timer timer = new Timer();
 
     public Indexer() {
@@ -60,5 +62,14 @@ public class Indexer extends SubsystemBase{
 
     public boolean returnCurrent() {
         return (feederRoller.getOutputCurrent() > 20) && timer.hasElapsed(1);
+    }
+
+    public void toggleStoringGamepiece() {
+        storingGamePiece = !storingGamePiece;
+    }
+
+    public void ejectSpeaker() {
+        feederRoller.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
+        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED);
     }
 }

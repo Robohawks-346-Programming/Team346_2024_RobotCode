@@ -234,4 +234,10 @@ public class Drivetrain extends SubsystemBase {
             return 16.5 - poseEstimator.getEstimatedPosition().getX();
         }
     }
+
+    public void tuneFeedForward(double voltage){
+        for (SwerveModule module: modules){
+            module.setDriveWheelsToVoltage(voltage);
+        }
+    }
 }

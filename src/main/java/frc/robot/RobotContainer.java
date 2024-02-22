@@ -6,10 +6,12 @@ package frc.robot;
 
 import frc.robot.commands.Shoot.TestShooter;
 import frc.robot.commands.Autos;
-import frc.robot.commands.PivotToAngle;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.TuneDriveFeedForward;
 import frc.robot.commands.Intake.IntakeArm;
+import frc.robot.commands.Pivot.PivotToAngle;
 import frc.robot.commands.Shoot.EjectAmp;
+import frc.robot.commands.Shoot.ShooterSetVoltage;
 // import frc.robot.commands.PivotToAngle;
 import frc.robot.subsystems.LEDs;
 // import frc.robot.subsystems.Climber;
@@ -31,6 +33,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -44,6 +47,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
+  public static final Joystick operatorControl = new Joystick(Constants.DriveConstants.OPERATOR_CONTROLLER_PORT);
+
   private Trigger rightTrigger = driverControl.rightTrigger();
   private Trigger rightBumper = driverControl.rightBumper();
   private Trigger x = driverControl.x();
@@ -63,6 +68,23 @@ public class RobotContainer {
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
     public DoubleSupplier yAxis = () -> (driverControl.getLeftX());
     public DoubleSupplier thetaAxis = () -> (driverControl.getRightX());
+
+    public static final JoystickButton BUTTON_1 = new JoystickButton(operatorControl, 1),
+      BUTTON_2 = new JoystickButton(operatorControl, 2),
+      BUTTON_3 = new JoystickButton(operatorControl, 3),
+      BUTTON_4 = new JoystickButton(operatorControl, 4),
+      BUTTON_5 = new JoystickButton(operatorControl, 5),
+      BUTTON_6 = new JoystickButton(operatorControl, 6),
+      BUTTON_7 = new JoystickButton(operatorControl, 7),
+      BUTTON_8 = new JoystickButton(operatorControl, 8),
+      BUTTON_9 = new JoystickButton(operatorControl, 9),
+      BUTTON_10 = new JoystickButton(operatorControl, 10),
+      BUTTON_11 = new JoystickButton(operatorControl, 11),
+      BUTTON_12 = new JoystickButton(operatorControl, 12),
+      BUTTON_13 = new JoystickButton(operatorControl, 13),
+      BUTTON_14 = new JoystickButton(operatorControl, 14),
+      BUTTON_15 = new JoystickButton(operatorControl, 15),
+      BUTTON_16 = new JoystickButton(operatorControl, 16);
 
   public RobotContainer() {
     configureBindings();
@@ -95,9 +117,33 @@ public class RobotContainer {
     x.whileTrue(new TestShooter());
     y.whileTrue(new IntakeArm());
     b.onTrue(new PivotToAngle(10));
-    a.onTrue
-    (new PivotToAngle(-55));
+    a.onTrue(new PivotToAngle(-55));
+    
+    // BUTTON_1.whileTrue(new ShooterSetVoltage(1));
+    // BUTTON_2.whileTrue(new ShooterSetVoltage(2));
+    // BUTTON_3.whileTrue(new ShooterSetVoltage(3));
+    // BUTTON_4.whileTrue(new ShooterSetVoltage(4));
+    // BUTTON_5.whileTrue(new ShooterSetVoltage(5));
+    // BUTTON_6.whileTrue(new ShooterSetVoltage(6));
+    // BUTTON_7.whileTrue(new ShooterSetVoltage(7));
+    // BUTTON_8.whileTrue(new ShooterSetVoltage(8));
+    // BUTTON_9.whileTrue(new ShooterSetVoltage(9));
+    // BUTTON_10.whileTrue(new ShooterSetVoltage(10));
+    // BUTTON_11.whileTrue(new ShooterSetVoltage(11));
+    // BUTTON_12.whileTrue(new ShooterSetVoltage(12));
 
+    // BUTTON_1.whileTrue(new TuneDriveFeedForward(1));
+    // BUTTON_2.whileTrue(new TuneDriveFeedForward(2));
+    // BUTTON_3.whileTrue(new TuneDriveFeedForward(3));
+    // BUTTON_4.whileTrue(new TuneDriveFeedForward(4));
+    // BUTTON_5.whileTrue(new TuneDriveFeedForward(5));
+    // BUTTON_6.whileTrue(new TuneDriveFeedForward(6));
+    // BUTTON_7.whileTrue(new TuneDriveFeedForward(7));
+    // BUTTON_8.whileTrue(new TuneDriveFeedForward(8));
+    // BUTTON_9.whileTrue(new TuneDriveFeedForward(9));
+    // BUTTON_10.whileTrue(new TuneDriveFeedForward(10));
+    // BUTTON_11.whileTrue(new TuneDriveFeedForward(11));
+    // BUTTON_12.whileTrue(new TuneDriveFeedForward(12));
   }
 
   public Command getAutonomousCommand() {

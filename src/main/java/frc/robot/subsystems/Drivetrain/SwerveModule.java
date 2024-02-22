@@ -91,7 +91,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     private void setSpeed(SwerveModuleState desiredState){
-            driveVelocity.Velocity = desiredState.speedMetersPerSecond / Constants.DriveConstants.WHEEL_DIAMETER;
+            driveVelocity.Velocity = desiredState.speedMetersPerSecond / Constants.DriveConstants.WHEEL_CIRCUMFERENCE;
             driveVelocity.FeedForward = driveFeedForward.calculate(desiredState.speedMetersPerSecond);
             driveMotor.setControl(driveVelocity);
     }
@@ -134,6 +134,10 @@ public class SwerveModule extends SubsystemBase {
 
     public void resetEncoders() {
         turnMotor.setPosition(turningCANCoder.getPosition().getValue());
+    }
+
+    public void setDriveWheelsToVoltage(double volt) {
+        driveMotor.setControl(driveVelocity.withVelocity(volt));
     }
 
 }
