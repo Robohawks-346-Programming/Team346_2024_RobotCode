@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -13,6 +15,8 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
@@ -161,6 +165,18 @@ public final class Constants {
 
         public static final int PIVOT_BRAKE_FORWARD_CHANNEL                   = 4;
         public static final int PIVOT_BRAKE_REVERSE_CHANNEL                   = 5;
+
+        public static InterpolatingDoubleTreeMap getPivotMap() {
+            InterpolatingDoubleTreeMap pivotMap = new InterpolatingDoubleTreeMap();
+            pivotMap.put(0.0, 0.0);
+            pivotMap.put(1.0, 0.0);
+            pivotMap.put(2.0, 0.0);
+            pivotMap.put(3.0, 0.0);
+            pivotMap.put(4.0, 0.0);
+            pivotMap.put(5.0, 0.0);
+            pivotMap.put(6.0, 0.0);
+            return pivotMap;
+        }
     }
 
     public static final class IntakeConstants {
@@ -177,6 +193,18 @@ public final class Constants {
         public static final double SPEAKER_SHOOTER_P                      = 0.5;
         public static final double SPEAKER_SHOOTER_I                      = 0;
         public static final double SPEAKER_SHOOTER_D                      = 0;
+
+        public static InterpolatingDoubleTreeMap getShooterMap() {
+            InterpolatingDoubleTreeMap shooterMap = new InterpolatingDoubleTreeMap();
+            shooterMap.put(0.0, 0.0);
+            shooterMap.put(1.0, 0.0);
+            shooterMap.put(2.0, 0.0);
+            shooterMap.put(3.0, 0.0);
+            shooterMap.put(4.0, 0.0);
+            shooterMap.put(5.0, 0.0);
+            shooterMap.put(6.0, 0.0);
+            return shooterMap;
+        }
     }
 
     public static final class IndexerConstants {

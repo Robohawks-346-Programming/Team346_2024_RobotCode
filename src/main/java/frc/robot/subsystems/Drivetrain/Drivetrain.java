@@ -14,7 +14,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -223,5 +225,13 @@ public class Drivetrain extends SubsystemBase {
       public void resetPose(Pose2d pose) {
         poseEstimator.resetPosition(gyro.getRotation2d(), getModulePositions(), pose);
         odometry.resetPosition(gyro.getRotation2d(), getModulePositions(), pose);
+    }
+
+    public double getDistanceFromSpeaker() {
+        if (DriverStation.getAlliance().get() == Alliance.Blue){
+            return poseEstimator.getEstimatedPosition().getX();
+        } else {
+            return 16.5 - poseEstimator.getEstimatedPosition().getX();
+        }
     }
 }

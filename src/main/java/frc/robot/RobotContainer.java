@@ -15,7 +15,7 @@ import frc.robot.subsystems.LEDs;
 // import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Pivot;
-//import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
@@ -56,7 +56,7 @@ public class RobotContainer {
   public static final Pivot pivot = new Pivot();
   public static final Indexer indexer = new Indexer();
   public static final Shooter shooter = new Shooter();
-  // public static final Intake intake = new Intake();
+  public static final Intake intake = new Intake();
   // public static final Climber climber = new Climber();
   public int isInverted = 1;
   
@@ -79,8 +79,6 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
     Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
     Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
-
-    autos.addAutos();
   }
 
   private void configureBindings() {
@@ -103,6 +101,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autos.returnAutos();
+    return autos.getAutos();
   }
 }
