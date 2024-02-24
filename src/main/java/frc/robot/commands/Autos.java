@@ -7,8 +7,13 @@ package frc.robot.commands;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathConstraints;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -49,7 +54,7 @@ public final class Autos {
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     NamedCommands.registerCommand("Intake", new IntakeFull());
-    NamedCommands.registerCommand("Shoot Close", new DistanceBasedFullShoot());
+    NamedCommands.registerCommand("Shoot", new DistanceBasedFullShoot());
     
     }
 
@@ -57,7 +62,24 @@ public final class Autos {
       return autoChooser.getSelected();
     }
 
+    public Command findAmp(){
+      Pose2d targetPose;
+      if (DriverStation.getAlliance().get() == Alliance.Blue){
+       targetPose = new Pose2d(1.75, 7.5, Rotation2d.fromDegrees(270));
+      } else {
+         targetPose = new Pose2d(14.74, 7.5, Rotation2d.fromDegrees(270));
+      }
+      
 
+      Command pathfindingCommand = AutoBuilder.pathfindToPose(
+       targetPose,
+        new PathConstraints(
+        3.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720)),
+        0.0, // Goal end velocity in meters/sec
+        0.0 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
+);
+      return pathfindingCommand;
+    }
 
        
 }

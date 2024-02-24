@@ -67,7 +67,7 @@ public class Pivot extends SubsystemBase {
     public boolean isAtPosition(double rev) {
         double difference;
         if (pivotMotor.getPosition().getValueAsDouble() > rev){
-            difference = pivotMotor.getPosition().getValueAsDouble() + Math.abs(rev);
+            difference = pivotMotor.getPosition().getValueAsDouble() + Math.abs(convertDegreesToRotations(rev));
         } else {
             difference = Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev));
         }
