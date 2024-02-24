@@ -240,4 +240,16 @@ public class Drivetrain extends SubsystemBase {
             module.setDriveWheelsToVoltage(voltage);
         }
     }
+    public Pose2d automaticRotation(Pose2d currentPose2d){
+        double x;
+        double y = currentPose2d.getY()-5.5;
+        if (DriverStation.getAlliance().get() == Alliance.Blue){
+              x = currentPose2d.getX()-0.5;
+           } else {
+              x = currentPose2d.getX()-16;
+           }
+     
+
+    return new Pose2d(currentPose2d.getX(),currentPose2d.getY(), new Rotation2d(Math.atan2(x,y)));
+    }
 }

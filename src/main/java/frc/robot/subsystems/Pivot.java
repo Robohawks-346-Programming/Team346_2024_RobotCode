@@ -14,8 +14,12 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -101,5 +105,18 @@ public class Pivot extends SubsystemBase {
 
     public double getDistanceBasedAngle() {
         return pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker());
+    }
+    public double armPivot(Pose2d currentDouble){
+    double x;
+    double y = currentDouble.getY();
+    if (DriverStation.getAlliance().get() == Alliance.Blue){
+          x = currentDouble.getX();
+       } else {
+          x = currentDouble.getX();
+       }
+
+
+    
+    return (Math.atan2(y,x));
     }
 }

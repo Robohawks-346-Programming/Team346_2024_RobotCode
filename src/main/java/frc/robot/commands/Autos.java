@@ -69,7 +69,6 @@ public final class Autos {
       } else {
          targetPose = new Pose2d(14.74, 7.5, Rotation2d.fromDegrees(270));
       }
-      
 
       Command pathfindingCommand = AutoBuilder.pathfindToPose(
        targetPose,

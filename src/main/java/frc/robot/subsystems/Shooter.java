@@ -74,4 +74,5 @@ public class Shooter extends SubsystemBase{
     public double getDistanceBasedVelocity() {
         return shooterLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker());
     }
+    
 }
