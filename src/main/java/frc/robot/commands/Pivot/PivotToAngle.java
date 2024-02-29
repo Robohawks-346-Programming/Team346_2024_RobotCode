@@ -26,7 +26,6 @@ public class PivotToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.pivot.disengageBrake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +37,6 @@ public class PivotToAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.pivot.engageBrake();
   }
 
   // Returns true when the command should end.

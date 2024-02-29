@@ -10,9 +10,12 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain.CTREConfigs;
 
@@ -25,6 +28,8 @@ public class Shooter extends SubsystemBase{
     private final VoltageOut volts;
 
     public final InterpolatingDoubleTreeMap shooterLookupTable = Constants.ShooterConstants.getShooterMap();
+
+    private double x, y;
 
     public Shooter() {
         topRoller = new TalonFX(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID);
@@ -50,6 +55,13 @@ public class Shooter extends SubsystemBase{
     public void periodic() {
         SmartDashboard.putNumber("Top Roller RPM", topRoller.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Bottom Roller RPM", bottomRoller.getVelocity().getValueAsDouble());
+
+        y = Math.abs(RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY() - 5.5);
+        if (DriverStation.getAlliance().get() == Alliance.Blue){
+            x = RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX() - 0.5;
+        } else {
+            x = 16 - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX();
+        }
     }
 
     public void setVelocity(double velocity) {
@@ -67,12 +79,11 @@ public class Shooter extends SubsystemBase{
         bottomRoller.setControl(voltage.withVelocity(getDistanceBasedVelocity()));
     }
 
+    public double getDistanceBasedVelocity(){
+        return shooterLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+    }
+
     public boolean isAtVelocity(double rev){
         return Math.abs(topRoller.getVelocity().getValueAsDouble() - rev) < 30;
     }
-
-    public double getDistanceBasedVelocity() {
-        return shooterLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker());
-    }
-    
 }

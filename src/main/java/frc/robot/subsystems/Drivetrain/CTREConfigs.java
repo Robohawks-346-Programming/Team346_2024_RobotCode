@@ -41,17 +41,17 @@ public final class CTREConfigs {
 
          /** Swerve Drive Motor Configuration */
         /* Motor Inverts and Neutral Mode */
-        swerveDriveFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        swerveDriveFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         swerveDriveFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         /* Gear Ratio Config */
         swerveDriveFXConfig.Feedback.SensorToMechanismRatio = Constants.DriveConstants.DRIVETRAIN_GEAR_RATIO;
 
         /* Current Limiting */
-        swerveDriveFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
-        swerveDriveFXConfig.CurrentLimits.SupplyCurrentLimit = 40;
-        swerveDriveFXConfig.CurrentLimits.SupplyCurrentThreshold = 60;
-        swerveDriveFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
+        swerveDriveFXConfig.CurrentLimits.SupplyCurrentLimitEnable = false;
+
+        swerveDriveFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+        swerveDriveFXConfig.CurrentLimits.StatorCurrentLimit = 300;
 
         /* PID Config */
         swerveDriveFXConfig.Slot0.kP = Constants.DriveConstants.DRIVE_P;

@@ -12,6 +12,7 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
@@ -25,6 +26,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -42,6 +44,7 @@ public class SwerveModule extends SubsystemBase {
    TalonFX turnMotor, driveMotor;
    private final PositionVoltage anglePosition;
    private final VelocityVoltage driveVelocity;
+   private final VoltageOut volts;
 
    CANcoder turningCANCoder;
    Rotation2d encoderOffset;
@@ -57,6 +60,8 @@ public class SwerveModule extends SubsystemBase {
     Rotation2d turnEncoderOffset, boolean invert) 
     {
         encoderOffset = turnEncoderOffset;
+
+        volts = new VoltageOut(0);
 
         turningCANCoder = new CANcoder(turningCANCoderID);
         turnMotor = new TalonFX(turnMotorID);
@@ -80,7 +85,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public double getDriveVelocity() {
-        return driveMotor.getVelocity().getValueAsDouble();
+        return driveMotor.getVelocity().getValue();
     }
 
     public void setState(SwerveModuleState state) {
@@ -137,7 +142,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void setDriveWheelsToVoltage(double volt) {
-        driveMotor.setControl(driveVelocity.withVelocity(volt));
+        driveMotor.setControl(volts.withOutput(volt));
     }
 
 }

@@ -1,40 +1,27 @@
 package frc.robot.subsystems;
 
-import org.photonvision.estimation.RotTrlTransform3d;
-
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.PivotConstants;
 
 public class Pivot extends SubsystemBase {
     private static TalonFX pivotMotor;
-    private static DoubleSolenoid brakeSolenoid;
     private static TalonFXConfiguration pivotMotorConfig;
     
    private final PositionVoltage position;
 
    public final InterpolatingDoubleTreeMap pivotLookupTable = Constants.PivotConstants.getPivotMap();
+
+   private double x, y;
     
     public Pivot() {
         pivotMotor = new TalonFX(Constants.PivotConstants.PIVOT_MOTOR_ID);
@@ -53,42 +40,30 @@ public class Pivot extends SubsystemBase {
 
         pivotMotor.getConfigurator().apply(pivotMotorConfig);
 
-        brakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, Constants.PivotConstants.PIVOT_BRAKE_FORWARD_CHANNEL, Constants.PivotConstants.PIVOT_BRAKE_REVERSE_CHANNEL);
-
         position = new PositionVoltage(0);
 
         pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
-
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Arm Degrees", convertRotationsToDegrees(pivotMotor.getPosition().getValue()));
 
-    }
-
-    // Checks to see if the position has been reached
-    public boolean isAtPosition(double rev) {
-        double difference;
-        if (pivotMotor.getPosition().getValueAsDouble() > rev){
-            difference = pivotMotor.getPosition().getValueAsDouble() + Math.abs(convertDegreesToRotations(rev));
+        if (DriverStation.getAlliance().get() == Alliance.Blue){
+            x = RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX() - 0.5;
         } else {
-            difference = Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev));
+            x = 16 - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX();
         }
-        return(difference <= convertDegreesToRotations(Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD));
+
+        y = Math.abs(RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY() - 5.5);
+    }
+    
+    public boolean isAtPosition(double rev) {
+        return(Math.abs(pivotMotor.getPosition().getValue() - rev) <= Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD);
     }
 
     public void moveArmToPosition(double wantedPosition) {
         pivotMotor.setControl(position.withPosition(convertDegreesToRotations(wantedPosition)));
-    }
-
-    public void engageBrake() {
-        pivotMotor.set(0);
-        brakeSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
-
-    public void disengageBrake() {
-        brakeSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public double convertDegreesToRotations(double degrees){
@@ -99,24 +74,11 @@ public class Pivot extends SubsystemBase {
         return (rotations * 360.0);
     }
 
-    public void distanceBasePivot() {
+    public void distanceBasedArmPivot(){
         pivotMotor.setControl(position.withPosition(getDistanceBasedAngle()));
     }
 
-    public double getDistanceBasedAngle() {
-        return pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker());
-    }
-    public double armPivot(Pose2d currentDouble){
-    double x;
-    double y = currentDouble.getY();
-    if (DriverStation.getAlliance().get() == Alliance.Blue){
-          x = currentDouble.getX();
-       } else {
-          x = currentDouble.getX();
-       }
-
-
-    
-    return (Math.atan2(y,x));
+    public double getDistanceBasedAngle(){
+        return pivotLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
     }
 }

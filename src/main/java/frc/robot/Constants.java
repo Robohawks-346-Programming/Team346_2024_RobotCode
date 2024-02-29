@@ -67,30 +67,30 @@ public final class Constants {
   public static final int FRONT_LEFT_TURN_ID                          = 22;
   public static final int FRONT_LEFT_ENCODER_ID                       = 23;
   public static final boolean FRONT_LEFT_DRIVE_MOTOR_INVERT           = true;
-  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromRotations(0.874755859375); // 359 is good
+  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromRotations(-0.306396484375);
 
   // Back left Swerve Module
   public static final int BACK_LEFT_DRIVE_ID                          = 31;  // 31 is og
   public static final int BACK_LEFT_TURN_ID                           = 32;  // 32 is og
   public static final int BACK_LEFT_ENCODER_ID                        = 33;  // 33 is og
   public static final boolean BACK_LEFT_DRIVE_MOTOR_INVERT            = true;
-  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromRotations(0.990234375); // 358.5 is good
+  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromRotations(0.3193359375);
 
   // Front Right Swerve Module
   public static final int FRONT_RIGHT_DRIVE_ID                        = 24;
   public static final int FRONT_RIGHT_TURN_ID                         = 25;
   public static final int FRONT_RIGHT_ENCODER_ID                      = 26;
   public static final boolean FRONT_RIGHT_DRIVE_MOTOR_INVERT          = true;
-  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(-0.65673828125); // 1 is good
+  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(-0.210693359375);
 
   // Back Right Swerve Module
   public static final int BACK_RIGHT_DRIVE_ID                         = 34;  // 34 is og
   public static final int BACK_RIGHT_TURN_ID                          = 35;  // 35 is og
   public static final int BACK_RIGHT_ENCODER_ID                       = 36;  // 36 is og
   public static final boolean BACK_RIGHT_DRIVE_MOTOR_INVERT           = true;
-  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.6787109375); // 0 is good
+  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.072265625);
 
-    public static final double DRIVE_P                                  = 0.1;
+    public static final double DRIVE_P                                  = 0;
     public static final double DRIVE_I                                  = 0;
     public static final double DRIVE_D                                  = 0;
     
@@ -156,11 +156,11 @@ public final class Constants {
 
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = -55;
-        public static final double AMP_PIVOT_ANGLE                            = 90; //off vertical
-        public static final double TRAP_PIVOT_ANGLE                           = 91; //off vertical
-        public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
-        public static final double PIVOT_ANGLE_THRESHOLD                      = 1; // in degrees
+        public static final double HOME_PIVOT_ANGLE                           = 35;
+        public static final double AMP_PIVOT_ANGLE                            = 180; //off vertical
+        public static final double TRAP_PIVOT_ANGLE                           = 181; //off vertical
+        public static final double SOURCE_PIVOT_ANGLE                         = 135; //off vertical
+        public static final double PIVOT_ANGLE_THRESHOLD                      = 0.5; // in degrees
 
         public static final double PIVOT_P                                    = 1;
         public static final double PIVOT_I                                    = 0;

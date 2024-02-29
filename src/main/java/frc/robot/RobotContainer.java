@@ -12,9 +12,9 @@ import frc.robot.commands.Intake.IntakeArm;
 import frc.robot.commands.Pivot.PivotToAngle;
 import frc.robot.commands.Shoot.EjectAmp;
 import frc.robot.commands.Shoot.ShooterSetVoltage;
-// import frc.robot.commands.PivotToAngle;
-import frc.robot.subsystems.LEDs;
-// import frc.robot.subsystems.Climber;
+import frc.robot.commands.Pivot.PivotToAngle;
+//import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Intake;
@@ -57,12 +57,12 @@ public class RobotContainer {
   private Trigger a = driverControl.a();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
-  public static final LEDs leds = new LEDs();
+  //public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
   public static final Indexer indexer = new Indexer();
   public static final Shooter shooter = new Shooter();
   public static final Intake intake = new Intake();
-  // public static final Climber climber = new Climber();
+  public static final Climber climber = new Climber();
   public int isInverted = 1;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
@@ -98,9 +98,9 @@ public class RobotContainer {
           isInverted = -1;
         }
     }
-    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-    Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
-    Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
+    // drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
+    // Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
+    // Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
   }
 
   private void configureBindings() {
@@ -114,10 +114,10 @@ public class RobotContainer {
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
       Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
-    x.whileTrue(new TestShooter());
+    x.onTrue(new PivotToAngle(-55));
     y.whileTrue(new IntakeArm());
-    b.onTrue(new PivotToAngle(10));
-    a.onTrue(new PivotToAngle(-55));
+    b.onTrue(new PivotToAngle(0));
+    a.onTrue(new PivotToAngle(90));
     
     // BUTTON_1.whileTrue(new ShooterSetVoltage(1));
     // BUTTON_2.whileTrue(new ShooterSetVoltage(2));

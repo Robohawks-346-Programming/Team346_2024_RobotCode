@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -105,10 +106,10 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());
         SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
-        //SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
-        //SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
-        //SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
-        //SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
+        SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
+        SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
+        SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
+        SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
 
         poseEstimator.update(getHeading(), getModulePositions());
         odometry.update(getHeading(), getModulePositions());
@@ -116,6 +117,8 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Pose X", poseEstimator.getEstimatedPosition().getX());
         SmartDashboard.putNumber("Pose Y", poseEstimator.getEstimatedPosition().getY());
         SmartDashboard.putNumber("Pose Rotation", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+
+        //backLeft.setDriveWheelsToVoltage(7);
 
     }
 
@@ -245,11 +248,9 @@ public class Drivetrain extends SubsystemBase {
         double y = currentPose2d.getY()-5.5;
         if (DriverStation.getAlliance().get() == Alliance.Blue){
               x = currentPose2d.getX()-0.5;
-           } else {
+        } else {
               x = currentPose2d.getX()-16;
-           }
-     
-
-    return new Pose2d(currentPose2d.getX(),currentPose2d.getY(), new Rotation2d(Math.atan2(x,y)));
+        }
+        return new Pose2d(currentPose2d.getX(),currentPose2d.getY(), new Rotation2d(Math.atan2(y,x)));
     }
 }
