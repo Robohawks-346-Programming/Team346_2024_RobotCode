@@ -5,10 +5,12 @@
 package frc.robot;
 
 import frc.robot.commands.Shoot.TestShooter;
+import frc.robot.commands.States.EfficientIntake;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.TuneDriveFeedForward;
 import frc.robot.commands.Intake.IntakeArm;
+import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Pivot.PivotToAngle;
 import frc.robot.commands.Shoot.EjectAmp;
 import frc.robot.commands.Shoot.ShooterSetVoltage;
@@ -55,6 +57,8 @@ public class RobotContainer {
   private Trigger y = driverControl.y();
   private Trigger b = driverControl.b();
   private Trigger a = driverControl.a();
+  private Trigger leftTrigger = driverControl.leftTrigger();
+  private Trigger leftBumper = driverControl.leftBumper();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
   //public static final LEDs leds = new LEDs();
@@ -98,9 +102,9 @@ public class RobotContainer {
           isInverted = -1;
         }
     }
-    // drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-    // Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
-    // Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
+    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
+    Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
+    Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
   }
 
   private void configureBindings() {
@@ -114,10 +118,14 @@ public class RobotContainer {
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
       Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
-    x.onTrue(new PivotToAngle(-55));
-    y.whileTrue(new IntakeArm());
-    b.onTrue(new PivotToAngle(0));
-    a.onTrue(new PivotToAngle(90));
+    x.whileTrue(new EfficientIntake());
+    y.whileTrue(new TestShooter());
+    b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
+    b.whileFalse(new InstantCommand(indexer::stopIndex));
+    a.whileTrue(new EjectAmp());
+    leftTrigger.onTrue(new PivotToAngle(100));
+    leftBumper.onTrue(new PivotToAngle(45));
+    //leftTrigger.onTrue(new PivotToAngle(180));
     
     // BUTTON_1.whileTrue(new ShooterSetVoltage(1));
     // BUTTON_2.whileTrue(new ShooterSetVoltage(2));
@@ -131,19 +139,6 @@ public class RobotContainer {
     // BUTTON_10.whileTrue(new ShooterSetVoltage(10));
     // BUTTON_11.whileTrue(new ShooterSetVoltage(11));
     // BUTTON_12.whileTrue(new ShooterSetVoltage(12));
-
-    // BUTTON_1.whileTrue(new TuneDriveFeedForward(1));
-    // BUTTON_2.whileTrue(new TuneDriveFeedForward(2));
-    // BUTTON_3.whileTrue(new TuneDriveFeedForward(3));
-    // BUTTON_4.whileTrue(new TuneDriveFeedForward(4));
-    // BUTTON_5.whileTrue(new TuneDriveFeedForward(5));
-    // BUTTON_6.whileTrue(new TuneDriveFeedForward(6));
-    // BUTTON_7.whileTrue(new TuneDriveFeedForward(7));
-    // BUTTON_8.whileTrue(new TuneDriveFeedForward(8));
-    // BUTTON_9.whileTrue(new TuneDriveFeedForward(9));
-    // BUTTON_10.whileTrue(new TuneDriveFeedForward(10));
-    // BUTTON_11.whileTrue(new TuneDriveFeedForward(11));
-    // BUTTON_12.whileTrue(new TuneDriveFeedForward(12));
   }
 
   public Command getAutonomousCommand() {

@@ -49,6 +49,6 @@ public class IntakeArm extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.intake.getCurrent();
+    return RobotContainer.indexer.returnCurrent();
   }
 }

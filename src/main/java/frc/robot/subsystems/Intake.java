@@ -22,6 +22,8 @@ public class Intake extends SubsystemBase {
         intakeMotor.setSmartCurrentLimit(40);
         centeringMotor.setSmartCurrentLimit(40);
 
+        centeringMotor.setInverted(false);
+
         intakeMotor.burnFlash();
         centeringMotor.burnFlash();
 
@@ -57,5 +59,9 @@ public class Intake extends SubsystemBase {
 
     public void toggleHasGamePiece() {
         hasGamePiece = !hasGamePiece;
+    }
+
+    public boolean returnCurrent() {
+        return (intakeMotor.getOutputCurrent() > 20) && timer.hasElapsed(1);
     }
 }

@@ -37,11 +37,13 @@ public class PivotToAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.pivot.stopPivot();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return RobotContainer.pivot.isAtPosition(level);
+    //return RobotContainer.pivot.getArmPosition() >= 12;
   }
 }

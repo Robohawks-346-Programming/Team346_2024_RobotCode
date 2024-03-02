@@ -37,7 +37,7 @@ public class TestShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setVelocity(85);
+    shooter.setVelocity(100, 100);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,7 +45,7 @@ public class TestShooter extends Command {
   public void end(boolean interrupted) {
     new ParallelDeadlineGroup(new WaitCommand(3), new InstantCommand(indexer::startIndex));
     indexer.stopIndex();
-    shooter.setVelocity(0);
+    shooter.setVelocity(0, 0);
   }
 
   // Returns true when the command should end.

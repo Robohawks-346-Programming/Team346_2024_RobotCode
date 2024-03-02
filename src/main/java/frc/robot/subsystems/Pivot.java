@@ -42,27 +42,29 @@ public class Pivot extends SubsystemBase {
 
         position = new PositionVoltage(0);
 
-        pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
+        // pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
+        resetPivotAngle();
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Arm Degrees", convertRotationsToDegrees(pivotMotor.getPosition().getValue()));
 
-        if (DriverStation.getAlliance().get() == Alliance.Blue){
-            x = RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX() - 0.5;
-        } else {
-            x = 16 - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX();
-        }
+        // if (DriverStation.getAlliance().get() == Alliance.Blue){
+        //     x = RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX() - 0.5;
+        // } else {
+        //     x = 16 - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX();
+        // }
 
-        y = Math.abs(RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY() - 5.5);
+        // y = Math.abs(RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY() - 5.5);
     }
     
     public boolean isAtPosition(double rev) {
-        return(Math.abs(pivotMotor.getPosition().getValue() - rev) <= Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD);
+        return(Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev)) <= convertDegreesToRotations(Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD));
     }
 
     public void moveArmToPosition(double wantedPosition) {
+        SmartDashboard.putNumber("wanted position", convertDegreesToRotations(wantedPosition));
         pivotMotor.setControl(position.withPosition(convertDegreesToRotations(wantedPosition)));
     }
 
@@ -80,5 +82,13 @@ public class Pivot extends SubsystemBase {
 
     public double getDistanceBasedAngle(){
         return pivotLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+    }
+
+    public void resetPivotAngle() {
+        pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
+    }
+
+    public void stopPivot() {
+        pivotMotor.stopMotor();
     }
 }

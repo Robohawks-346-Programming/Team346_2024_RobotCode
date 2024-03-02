@@ -42,7 +42,7 @@ public class Indexer extends SubsystemBase{
 
     public void startIndex() {
         feederRoller.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
-        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED);
+        ampRollers.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
     }
 
     public void stopIndex() {
@@ -51,8 +51,8 @@ public class Indexer extends SubsystemBase{
     }
 
     public void ejectAmp() {
-        feederRoller.set(-Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
-        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED);
+        feederRoller.set(-Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_1);
+        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
     }
 
     public void stopAmp() {
@@ -61,7 +61,8 @@ public class Indexer extends SubsystemBase{
     }
 
     public boolean returnCurrent() {
-        return (feederRoller.getOutputCurrent() > 20) && timer.hasElapsed(1);
+        //return (feederRoller.getOutputCurrent() > 15) && timer.hasElapsed(1);
+        return feederRoller.getOutputCurrent() >15;
     }
 
     public void toggleStoringGamepiece() {
@@ -69,7 +70,7 @@ public class Indexer extends SubsystemBase{
     }
 
     public void ejectSpeaker() {
-        feederRoller.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
-        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED);
+        feederRoller.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
+        //ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
     }
 }

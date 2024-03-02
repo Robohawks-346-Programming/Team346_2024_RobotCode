@@ -85,7 +85,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public double getDriveVelocity() {
-        return driveMotor.getVelocity().getValue();
+        return driveMotor.getVelocity().getValue() * Constants.DriveConstants.WHEEL_CIRCUMFERENCE;
     }
 
     public void setState(SwerveModuleState state) {

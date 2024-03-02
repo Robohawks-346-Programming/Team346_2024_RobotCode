@@ -31,9 +31,13 @@ public class Shooter extends SubsystemBase{
 
     private double x, y;
 
+    private DigitalInput laserBreak;
+
     public Shooter() {
         topRoller = new TalonFX(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID);
         bottomRoller = new TalonFX(Constants.ShooterConstants.BOTTOM_SPEAKER_ROLLER_MOTOR_ID);
+
+
 
         shooterConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
@@ -44,6 +48,8 @@ public class Shooter extends SubsystemBase{
 
         bottomRoller.getConfigurator().apply(shooterConfig);
         topRoller.getConfigurator().apply(shooterConfig);
+
+        laserBreak = new DigitalInput(Constants.ShooterConstants.BEAM_BREAK_PORT);
 
         voltage = new VelocityVoltage(0);
 
@@ -64,9 +70,9 @@ public class Shooter extends SubsystemBase{
         }
     }
 
-    public void setVelocity(double velocity) {
+    public void setVelocity(double velocity, double velocity2) {
         topRoller.setControl(voltage.withVelocity(velocity));
-        bottomRoller.setControl(voltage.withVelocity(velocity));
+        bottomRoller.setControl(voltage.withVelocity(velocity2));
     }
 
     public void setVoltage(double volt) {
@@ -85,5 +91,9 @@ public class Shooter extends SubsystemBase{
 
     public boolean isAtVelocity(double rev){
         return Math.abs(topRoller.getVelocity().getValueAsDouble() - rev) < 30;
+    }
+
+    public boolean getLaserBreak() {
+        return !laserBreak.get();
     }
 }

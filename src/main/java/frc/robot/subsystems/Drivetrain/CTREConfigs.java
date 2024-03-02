@@ -31,7 +31,7 @@ public final class CTREConfigs {
         /* Current Limiting */
         swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimit = 25;
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 40;
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 70;
         swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
 
         /* PID Config */

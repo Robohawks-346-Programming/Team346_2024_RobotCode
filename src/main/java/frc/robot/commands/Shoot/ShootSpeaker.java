@@ -40,7 +40,7 @@ public class ShootSpeaker extends Command {
   @Override
   public void end(boolean interrupted) {
     new ParallelDeadlineGroup(new EjectSpeaker(), new WaitCommand(1));
-    RobotContainer.shooter.setVelocity(0);
+    RobotContainer.shooter.setVelocity(0, 0);
   }
 
   // Returns true when the command should end.

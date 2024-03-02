@@ -90,12 +90,12 @@ public final class Constants {
   public static final boolean BACK_RIGHT_DRIVE_MOTOR_INVERT           = true;
   public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.072265625);
 
-    public static final double DRIVE_P                                  = 0;
+    public static final double DRIVE_P                                  = 0.3;
     public static final double DRIVE_I                                  = 0;
     public static final double DRIVE_D                                  = 0;
     
     public static final double DRIVE_kS                                 = 0;
-    public static final double DRIVE_kV                                 = 0;
+    public static final double DRIVE_kV                                 = 1.85;
     public static final double DRIVE_kA                                 = 0;
 
     public static final double TURN_P                                   = 10;
@@ -157,15 +157,14 @@ public final class Constants {
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
         public static final double HOME_PIVOT_ANGLE                           = 35;
-        public static final double AMP_PIVOT_ANGLE                            = 180; //off vertical
         public static final double TRAP_PIVOT_ANGLE                           = 181; //off vertical
         public static final double SOURCE_PIVOT_ANGLE                         = 135; //off vertical
-        public static final double PIVOT_ANGLE_THRESHOLD                      = 0.5; // in degrees
+        public static final double PIVOT_ANGLE_THRESHOLD                      = 0.2; // in degrees
 
-        public static final double PIVOT_P                                    = 1;
+        public static final double PIVOT_P                                    = 10;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
-        public static final double PIVOT_kS                                   = 0.1;
+        public static final double PIVOT_kS                                   = 0;
         public static final double PIVOT_kG                                   = 0;
 
         public static final int PIVOT_BRAKE_FORWARD_CHANNEL                   = 4;
@@ -199,6 +198,8 @@ public final class Constants {
         public static final double SPEAKER_SHOOTER_I                      = 0;
         public static final double SPEAKER_SHOOTER_D                      = 0;
 
+        public static final int BEAM_BREAK_PORT                        = 9;
+
         public static InterpolatingDoubleTreeMap getShooterMap() {
             InterpolatingDoubleTreeMap shooterMap = new InterpolatingDoubleTreeMap();
             shooterMap.put(0.0, 0.0);
@@ -216,8 +217,9 @@ public final class Constants {
         public static final int FEEDER_ROLLER_MOTOR_ID                        = 6;
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
-        public static final double FEEDER_ROLLER_SPEED                        = 0.5;
-        public static final double AMP_ROLLERS_ROLLER_SPEED                   = 0.5;
+        public static final double FEEDER_ROLLER_SPEED                        = 0.25;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.5;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.75;
     }
 
     public static final class ClimberConstants {
