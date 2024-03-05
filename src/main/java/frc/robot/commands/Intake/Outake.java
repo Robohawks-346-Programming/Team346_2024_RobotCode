@@ -1,11 +1,13 @@
-// // Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// // // // Copyright (c) FIRST and other WPILib contributors.
+// // // Open Source Software; you can modify and/or share it under the terms of
+// // // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Shoot;
+package frc.robot.commands.Intake;
 
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -13,17 +15,17 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /** An example command that uses an example subsystem. */
-public class ShooterSetVoltage extends Command {
+public class Outake extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-private double voltage;
+    private Intake intake = RobotContainer.intake;
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterSetVoltage(double volt) {
+  public Outake() {
     // Use addRequirements() here to declare subsystem dependencies.
-    voltage = volt;
   }
 
   // Called when the command is initially scheduled.
@@ -34,13 +36,15 @@ private double voltage;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooter.setVoltage(voltage);
+    intake.runOutake();
+    RobotContainer.indexer.reverseIndex();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.shooter.setVoltage(0);
+    intake.stopIntake();
+    RobotContainer.indexer.stopIndex();
   }
 
   // Returns true when the command should end.

@@ -31,8 +31,8 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 
     public static final class DriveConstants {
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(32);
-    public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(28);
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(20.5);
+    public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(20.5);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
     public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(4);
     public static final double WHEEL_CIRCUMFERENCE                      = Math.PI * WHEEL_DIAMETER;
@@ -81,7 +81,7 @@ public final class Constants {
   public static final int FRONT_RIGHT_TURN_ID                         = 25;
   public static final int FRONT_RIGHT_ENCODER_ID                      = 26;
   public static final boolean FRONT_RIGHT_DRIVE_MOTOR_INVERT          = true;
-  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(-0.210693359375);
+  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(0.91552734375);
 
   // Back Right Swerve Module
   public static final int BACK_RIGHT_DRIVE_ID                         = 34;  // 34 is og
@@ -90,7 +90,7 @@ public final class Constants {
   public static final boolean BACK_RIGHT_DRIVE_MOTOR_INVERT           = true;
   public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.072265625);
 
-    public static final double DRIVE_P                                  = 0.3;
+    public static final double DRIVE_P                                  = 0;
     public static final double DRIVE_I                                  = 0;
     public static final double DRIVE_D                                  = 0;
     
@@ -118,10 +118,10 @@ public final class Constants {
         };
 
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
-            new Transform3d(new Translation3d(0.03, 0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(-10))),
-            new Transform3d(new Translation3d(0.03, -0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(10))),
-            new Transform3d(new Translation3d(-0.03, 0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(-175))),
-            new Transform3d(new Translation3d(-0.03, -0.146, Units.inchesToMeters(31.5)), new Rotation3d(0, Units.degreesToRadians(-5), Units.degreesToRadians(175)))
+            new Transform3d(new Translation3d(Units.inchesToMeters(-12), Units.inchesToMeters(5.75), Units.inchesToMeters(26.375)), new Rotation3d(0, 0, 0)),
+            new Transform3d(new Translation3d(Units.inchesToMeters(12), Units.inchesToMeters(5.75), Units.inchesToMeters(26.375)), new Rotation3d(0, 0, 0)),
+            new Transform3d(new Translation3d(Units.inchesToMeters(-9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.6666666666)), new Rotation3d(0, 0, 0)),
+            new Transform3d(new Translation3d(Units.inchesToMeters(9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.66666666)), new Rotation3d(0, 0, 0))
         };
 
         public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.05;
@@ -132,7 +132,7 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double AUTO_DRIVE_P                                  = 5;
+        public static final double AUTO_DRIVE_P                                  = 7;
         public static final double AUTO_DRIVE_I                                  = 0;
         public static final double AUTO_DRIVE_D                                  = 0;
 
@@ -156,19 +156,24 @@ public final class Constants {
 
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = 35;
-        public static final double TRAP_PIVOT_ANGLE                           = 181; //off vertical
-        public static final double SOURCE_PIVOT_ANGLE                         = 135; //off vertical
-        public static final double PIVOT_ANGLE_THRESHOLD                      = 0.2; // in degrees
+        public static final double HOME_PIVOT_ANGLE                           = -55;
+        public static final double TRAP_PIVOT_ANGLE                           = 90; //off vertical
+        public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
+        public static final double PIVOT_ANGLE_THRESHOLD                      = 5; // in degrees
 
-        public static final double PIVOT_P                                    = 10;
+        public static final double PIVOT_P                                    = 13;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
-        public static final double PIVOT_kS                                   = 0;
-        public static final double PIVOT_kG                                   = 0;
 
-        public static final int PIVOT_BRAKE_FORWARD_CHANNEL                   = 4;
-        public static final int PIVOT_BRAKE_REVERSE_CHANNEL                   = 5;
+        public static final double PIVOT_kS                                   = 0.4;
+        public static final double PIVOT_kG                                   = 0.6;
+        public static final double PIVOT_kV                                   = 0.2;
+        public static final double PIVOT_kA                                   = 0;
+
+        public static final double PIVOT_FINAL_UP_SPEED                       = 0.3;
+        public static final double PIVOT_FINAL_DOWN_SPEED                     = 0.2;
+        public static final double PIVOT_INITIAL_UP_SPEED                     = 1;
+        public static final double PIVOT_INITIAL_DOWN_SPEED                   = 1;
 
         public static InterpolatingDoubleTreeMap getPivotMap() {
             InterpolatingDoubleTreeMap pivotMap = new InterpolatingDoubleTreeMap();
@@ -187,7 +192,7 @@ public final class Constants {
         public static final int INTAKE_MOTOR_ID                               = 15;
         public static final int CENTERING_MOTOR_ID                            = 16;
 
-        public static final double INTAKE_MOTOR_SPEED                         = 0.5;
+        public static final double INTAKE_MOTOR_SPEED                         = 0.75;
     }
 
     public static final class ShooterConstants {
@@ -197,6 +202,8 @@ public final class Constants {
         public static final double SPEAKER_SHOOTER_P                      = 0.5;
         public static final double SPEAKER_SHOOTER_I                      = 0;
         public static final double SPEAKER_SHOOTER_D                      = 0;
+
+        public static final double SPEAKER_SHOOTER_kV                     = 0;
 
         public static final int BEAM_BREAK_PORT                        = 9;
 
@@ -218,7 +225,7 @@ public final class Constants {
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
         public static final double FEEDER_ROLLER_SPEED                        = 0.25;
-        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.5;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.75;
         public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.75;
     }
 
@@ -226,7 +233,7 @@ public final class Constants {
         public static final int LEFT_HOOK_MOTOR_ID                            = 2;
         public static final int RIGHT_HOOK_MOTOR_ID                           = 3;
 
-        public static final double HOOK_P                                     = 0;
+        public static final double HOOK_P                                     = 0.05;
         public static final double HOOK_I                                     = 0;
         public static final double HOOK_D                                     = 0;
 

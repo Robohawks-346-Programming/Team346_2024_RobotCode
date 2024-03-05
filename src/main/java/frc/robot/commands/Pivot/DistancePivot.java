@@ -33,7 +33,7 @@ public class DistancePivot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.pivot.distanceBasedArmPivot();
+    RobotContainer.pivot.distanceBasedArmPivot(0, 0);
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +44,6 @@ public class DistancePivot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.pivot.isAtPosition(RobotContainer.pivot.getDistanceBasedAngle());
+    return RobotContainer.pivot.isAtPosition(RobotContainer.pivot.getDistanceBasedAngle(0, 0));
   }
 }

@@ -80,7 +80,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public SwerveModuleState getState() {
-        return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble(), 
+        return new SwerveModuleState(driveMotor.getVelocity().getValueAsDouble() * Constants.DriveConstants.WHEEL_CIRCUMFERENCE, 
         Rotation2d.fromRotations(turnMotor.getPosition().getValue()));
     }
 
@@ -106,7 +106,7 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble(), 
+        return new SwerveModulePosition(driveMotor.getPosition().getValueAsDouble() * Constants.DriveConstants.WHEEL_CIRCUMFERENCE, 
         Rotation2d.fromRotations(turnMotor.getPosition().getValue()));
     }
 
@@ -117,7 +117,7 @@ public class SwerveModule extends SubsystemBase {
     public double getMetersDriven() {
         // The formula for calculating meters from total rotation is:
         // (Total Rotations * 2PI * Wheel Radius)
-        return (driveMotor.getPosition().getValueAsDouble());
+        return (driveMotor.getPosition().getValueAsDouble()) * Constants.DriveConstants.WHEEL_CIRCUMFERENCE;
     }
 
     public Rotation2d getCANcoder(){

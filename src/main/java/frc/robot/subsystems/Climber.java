@@ -28,16 +28,23 @@ public class Climber extends SubsystemBase{
         leftHookEncoder = leftHook.getEncoder();
         rightHookEncoder = rightHook.getEncoder();
 
+        rightHook.setInverted(true);
+
         leftHookPIDController.setP(Constants.ClimberConstants.HOOK_P);
         leftHookPIDController.setI(Constants.ClimberConstants.HOOK_I);
         leftHookPIDController.setD(Constants.ClimberConstants.HOOK_D);
+        leftHookPIDController.setFF(0.1);
 
         rightHookPIDController.setP(Constants.ClimberConstants.HOOK_P);
         rightHookPIDController.setI(Constants.ClimberConstants.HOOK_I);
         rightHookPIDController.setD(Constants.ClimberConstants.HOOK_D);
+        leftHookPIDController.setFF(0.1);
 
         leftHook.burnFlash();
         rightHook.burnFlash();
+
+        leftHookEncoder.setPosition(0);
+        rightHookEncoder.setPosition(0);
 
     }
 
@@ -46,13 +53,26 @@ public class Climber extends SubsystemBase{
         SmartDashboard.putBoolean("Left hook Good", leftHookGood);
         SmartDashboard.putBoolean("Right hook Good", rightHookGood);
 
-        SmartDashboard.putNumber("Left hook rev", leftHookEncoder.getVelocity());
-        SmartDashboard.putNumber("Right hook rev", rightHookEncoder.getVelocity());
+        SmartDashboard.putNumber("Left hook rev", leftHookEncoder.getPosition());
+        SmartDashboard.putNumber("Right hook rev", rightHookEncoder.getPosition());
     }
 
-    public void moveHooks(double setpoint) {
-        leftHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
-        rightHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
+    public void moveHooksUp() {
+        // leftHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
+        // rightHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
+
+        leftHook.set(0.2);
+        rightHook.set(0.2);
+    }
+
+    public void moveHooksDown() {
+        leftHook.set(-0.2);
+        rightHook.set(-0.2);
+    }
+
+    public void stopHooks(){
+        leftHook.set(0);
+        rightHook.set(0);
     }
 
     public boolean getHooksGood(double setpoint) {

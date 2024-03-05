@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -31,13 +32,13 @@ public class Shooter extends SubsystemBase{
 
     private double x, y;
 
+    private final CoastOut coast = new CoastOut();
+
     private DigitalInput laserBreak;
 
     public Shooter() {
         topRoller = new TalonFX(Constants.ShooterConstants.TOP_SPEAKER_ROLLER_MOTOR_ID);
         bottomRoller = new TalonFX(Constants.ShooterConstants.BOTTOM_SPEAKER_ROLLER_MOTOR_ID);
-
-
 
         shooterConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
@@ -45,6 +46,8 @@ public class Shooter extends SubsystemBase{
         shooterConfig.Slot0.kP = Constants.ShooterConstants.SPEAKER_SHOOTER_P;
         shooterConfig.Slot0.kI = Constants.ShooterConstants.SPEAKER_SHOOTER_I;
         shooterConfig.Slot0.kD = Constants.ShooterConstants.SPEAKER_SHOOTER_D;
+
+        shooterConfig.Slot0.kV = Constants.ShooterConstants.SPEAKER_SHOOTER_kV;
 
         bottomRoller.getConfigurator().apply(shooterConfig);
         topRoller.getConfigurator().apply(shooterConfig);
@@ -61,13 +64,6 @@ public class Shooter extends SubsystemBase{
     public void periodic() {
         SmartDashboard.putNumber("Top Roller RPM", topRoller.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Bottom Roller RPM", bottomRoller.getVelocity().getValueAsDouble());
-
-        y = Math.abs(RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY() - 5.5);
-        if (DriverStation.getAlliance().get() == Alliance.Blue){
-            x = RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX() - 0.5;
-        } else {
-            x = 16 - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX();
-        }
     }
 
     public void setVelocity(double velocity, double velocity2) {
@@ -95,5 +91,10 @@ public class Shooter extends SubsystemBase{
 
     public boolean getLaserBreak() {
         return !laserBreak.get();
+    }
+    
+    public void stopShooter() {
+        topRoller.setControl(coast);
+        bottomRoller.setControl(coast);
     }
 }

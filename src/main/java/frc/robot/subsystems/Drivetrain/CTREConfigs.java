@@ -31,8 +31,11 @@ public final class CTREConfigs {
         /* Current Limiting */
         swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         swerveAngleFXConfig.CurrentLimits.SupplyCurrentLimit = 25;
-        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 70;
-        swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.1;
+        swerveAngleFXConfig.CurrentLimits.SupplyCurrentThreshold = 60;
+        swerveAngleFXConfig.CurrentLimits.SupplyTimeThreshold = 0.4;
+
+
+        swerveAngleFXConfig.CurrentLimits.StatorCurrentLimitEnable = false;
 
         /* PID Config */
         swerveAngleFXConfig.Slot0.kP = Constants.DriveConstants.TURN_P;
@@ -41,7 +44,7 @@ public final class CTREConfigs {
 
          /** Swerve Drive Motor Configuration */
         /* Motor Inverts and Neutral Mode */
-        swerveDriveFXConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        swerveDriveFXConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         swerveDriveFXConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
         /* Gear Ratio Config */
@@ -51,7 +54,7 @@ public final class CTREConfigs {
         swerveDriveFXConfig.CurrentLimits.SupplyCurrentLimitEnable = false;
 
         swerveDriveFXConfig.CurrentLimits.StatorCurrentLimitEnable = true;
-        swerveDriveFXConfig.CurrentLimits.StatorCurrentLimit = 300;
+        swerveDriveFXConfig.CurrentLimits.StatorCurrentLimit = 100;
 
         /* PID Config */
         swerveDriveFXConfig.Slot0.kP = Constants.DriveConstants.DRIVE_P;

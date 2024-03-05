@@ -4,16 +4,15 @@
 
 package frc.robot;
 
-import frc.robot.commands.Shoot.TestShooter;
 import frc.robot.commands.States.EfficientIntake;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TeleopDrive;
-import frc.robot.commands.TuneDriveFeedForward;
 import frc.robot.commands.Intake.IntakeArm;
 import frc.robot.commands.Intake.IntakeFull;
+import frc.robot.commands.Intake.Outake;
 import frc.robot.commands.Pivot.PivotToAngle;
 import frc.robot.commands.Shoot.EjectAmp;
-import frc.robot.commands.Shoot.ShooterSetVoltage;
+import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.commands.Pivot.PivotToAngle;
 //import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.Climber;
@@ -95,7 +94,7 @@ public class RobotContainer {
 
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
-        if (ally.get() == Alliance.Blue) {
+        if (ally.get().equals(Alliance.Blue)) {
           isInverted = 1;
         }
         else {
@@ -118,27 +117,20 @@ public class RobotContainer {
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
       Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
       Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
-    x.whileTrue(new EfficientIntake());
-    y.whileTrue(new TestShooter());
+    BUTTON_1.whileTrue(new EfficientIntake());
+    BUTTON_2.whileTrue(new ShootSpeaker());
+    BUTTON_3.whileTrue(new Outake());
+    BUTTON_6.onTrue(pivot.testArm());
+    BUTTON_7.onTrue(pivot.testArm1());
+    BUTTON_8.onTrue(pivot.testArm2());
+    BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksUp));
+    BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksDown));
+    BUTTON_13.whileFalse(new InstantCommand(climber::stopHooks));
     b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
     b.whileFalse(new InstantCommand(indexer::stopIndex));
     a.whileTrue(new EjectAmp());
-    leftTrigger.onTrue(new PivotToAngle(100));
-    leftBumper.onTrue(new PivotToAngle(45));
-    //leftTrigger.onTrue(new PivotToAngle(180));
-    
-    // BUTTON_1.whileTrue(new ShooterSetVoltage(1));
-    // BUTTON_2.whileTrue(new ShooterSetVoltage(2));
-    // BUTTON_3.whileTrue(new ShooterSetVoltage(3));
-    // BUTTON_4.whileTrue(new ShooterSetVoltage(4));
-    // BUTTON_5.whileTrue(new ShooterSetVoltage(5));
-    // BUTTON_6.whileTrue(new ShooterSetVoltage(6));
-    // BUTTON_7.whileTrue(new ShooterSetVoltage(7));
-    // BUTTON_8.whileTrue(new ShooterSetVoltage(8));
-    // BUTTON_9.whileTrue(new ShooterSetVoltage(9));
-    // BUTTON_10.whileTrue(new ShooterSetVoltage(10));
-    // BUTTON_11.whileTrue(new ShooterSetVoltage(11));
-    // BUTTON_12.whileTrue(new ShooterSetVoltage(12));
+    a.whileFalse(new InstantCommand(indexer::stopIndex));
   }
 
   public Command getAutonomousCommand() {
