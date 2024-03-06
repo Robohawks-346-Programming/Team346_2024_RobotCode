@@ -12,18 +12,18 @@ import frc.robot.Constants.LEDConstants;
 
 public class LEDs extends SubsystemBase {
 
-        private final AddressableLED ledFR = new AddressableLED(Constants.LEDConstants.LED_FR_PORT);
-        private final AddressableLED ledFL = new AddressableLED(Constants.LEDConstants.LED_FL_PORT);
+        // private final AddressableLED ledFR = new AddressableLED(Constants.LEDConstants.LED_FR_PORT);
+        // private final AddressableLED ledFL = new AddressableLED(Constants.LEDConstants.LED_FL_PORT);
         //private final AddressableLED ledBR = new AddressableLED(Constants.LEDConstants.LED_BR_PORT);
-        // private final AddressableLED ledBL = new AddressableLED(Constants.LEDConstants.LED_BL_PORT);
+        private final AddressableLED ledBL = new AddressableLED(Constants.LEDConstants.LED_BL_PORT);
 
 
-        private final AddressableLEDBuffer ledBufferFR = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_FR);
-        private final AddressableLEDBuffer ledBufferFL = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_FL);
-        private final AddressableLEDBuffer ledBufferBR = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_BR);
+        // private final AddressableLEDBuffer ledBufferFR = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_FR);
+        // private final AddressableLEDBuffer ledBufferFL = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_FL);
+        // private final AddressableLEDBuffer ledBufferBR = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_BR);
         private final AddressableLEDBuffer ledBufferBL = new AddressableLEDBuffer(Constants.LEDConstants.NUMBER_OF_LEDS_BL);
 
-    private final AddressableLEDBuffer[] buffers = {ledBufferBR, ledBufferFR, ledBufferFL, ledBufferBL};
+    //private final AddressableLEDBuffer[] buffers = {ledBufferBR, ledBufferFR, ledBufferFL, ledBufferBL};
     //private final AddressableLED[] leds = {ledFR, ledFL, ledBR, ledBL};
 
 
@@ -35,20 +35,20 @@ public class LEDs extends SubsystemBase {
 
     public LEDs() {
 
-        ledFR.setLength(ledBufferFR.getLength());
-        ledFL.setLength(ledBufferFL.getLength());
+        // ledFR.setLength(ledBufferFR.getLength());
+        // ledFL.setLength(ledBufferFL.getLength());
         //ledBR.setLength(ledBufferBR.getLength());
-        // ledBL.setLength(ledBufferBL.getLength());
+        ledBL.setLength(ledBufferBL.getLength());
 
-        ledFR.setData(ledBufferFR);
-        ledFL.setData(ledBufferFL);
+        // ledFR.setData(ledBufferFR);
+        // ledFL.setData(ledBufferFL);
         //ledBR.setData(ledBufferBR);
-        // ledBL.setData(ledBufferBL);
+        ledBL.setData(ledBufferBL);
 
-        ledFR.start();
-        ledFL.start();
+        // ledFR.start();
+        // ledFL.start();
         //ledBR.start();
-        // ledBL.start();
+        ledBL.start();
 
         flashTimer.reset();
         flashTimer.start();
@@ -57,34 +57,21 @@ public class LEDs extends SubsystemBase {
 
     @Override
     public void periodic() {
-            // if (DriverStation.isDisabled()){
-            //     for (AddressableLEDBuffer buffer: buffers){
-            //         rainbow(buffer);
-            //     }
-            // } else if (RobotContainer.intake.isIntaking){
-            //     for (AddressableLEDBuffer buffer: buffers){
-            //         flashColor(Color.kIndianRed, buffer);
-            //     }
-            // } else if (RobotContainer.intake.hasGamePiece){
-            //     for (AddressableLEDBuffer buffer: buffers){
-            //         flashColor(Color.kSeaGreen, buffer);
-            //     }
-            // } else if (RobotContainer.indexer.storingGamePiece){
-            //     for (AddressableLEDBuffer buffer: buffers){
-            //         flashColor(Color.kOrange, buffer);
-            //     }
-            // } else {
-            //     for (AddressableLEDBuffer buffer: buffers){
-            //         setLED(buffer, rainbowFirstPixelHue, Color.kAliceBlue);
-            //     }
-            // }
-            
-            setColor(ledBufferFR, Color.kAquamarine);
-            setColor(ledBufferBR, Color.kAquamarine);
-        ledFR.setData(ledBufferFR);
-        ledFL.setData(ledBufferFL);
+            if (DriverStation.isDisabled()){
+                rainbow(ledBufferBL);
+            } else if (RobotContainer.intake.isIntaking){
+                flashColor(Color.kIndianRed, ledBufferBL);
+            } else if (RobotContainer.intake.hasGamePiece){
+                flashColor(Color.kSeaGreen, ledBufferBL);
+            } else if (RobotContainer.indexer.storingGamePiece){
+                flashColor(Color.kOrange, ledBufferBL);
+            } else {
+                setLED(ledBufferBL, rainbowFirstPixelHue, Color.kAliceBlue);
+            }
+        // ledFR.setData(ledBufferFR);
+        // ledFL.setData(ledBufferFL);
         //ledBR.setData(ledBufferBR);
-        // ledBL.setData(ledBufferBL);
+        ledBL.setData(ledBufferBL);
     }
 
     private void setRGB(AddressableLEDBuffer buffer, int i, int r, int g, int b) {
