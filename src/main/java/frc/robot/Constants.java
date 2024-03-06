@@ -57,8 +57,8 @@ public final class Constants {
 
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
-    public static final double MAX_MOVE_VELOCITY                        = 4; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 4; // for testing
+    public static final double MAX_MOVE_VELOCITY                        = 3.5; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 3.5; // for testing
     public static final double MAX_MOVE_VELOCITY_FAST                   = 5.5;
     public static final double MAX_TURN_VELOCITY_FAST                   = 5.5;
     
@@ -67,30 +67,30 @@ public final class Constants {
   public static final int FRONT_LEFT_TURN_ID                          = 22;
   public static final int FRONT_LEFT_ENCODER_ID                       = 23;
   public static final boolean FRONT_LEFT_DRIVE_MOTOR_INVERT           = true;
-  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromRotations(-0.306396484375);
+  public static final Rotation2d FRONT_LEFT_TURN_OFFSET               = Rotation2d.fromRotations(0.68212890625);
 
   // Back left Swerve Module
   public static final int BACK_LEFT_DRIVE_ID                          = 31;  // 31 is og
   public static final int BACK_LEFT_TURN_ID                           = 32;  // 32 is og
   public static final int BACK_LEFT_ENCODER_ID                        = 33;  // 33 is og
   public static final boolean BACK_LEFT_DRIVE_MOTOR_INVERT            = true;
-  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromRotations(0.3193359375);
+  public static final Rotation2d BACK_LEFT_TURN_OFFSET                = Rotation2d.fromRotations(0.31982421875);
 
   // Front Right Swerve Module
   public static final int FRONT_RIGHT_DRIVE_ID                        = 24;
   public static final int FRONT_RIGHT_TURN_ID                         = 25;
   public static final int FRONT_RIGHT_ENCODER_ID                      = 26;
   public static final boolean FRONT_RIGHT_DRIVE_MOTOR_INVERT          = true;
-  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(0.91552734375);
+  public static final Rotation2d FRONT_RIGHT_TURN_OFFSET              = Rotation2d.fromRotations(0.916259765625);
 
   // Back Right Swerve Module
   public static final int BACK_RIGHT_DRIVE_ID                         = 34;  // 34 is og
   public static final int BACK_RIGHT_TURN_ID                          = 35;  // 35 is og
   public static final int BACK_RIGHT_ENCODER_ID                       = 36;  // 36 is og
   public static final boolean BACK_RIGHT_DRIVE_MOTOR_INVERT           = true;
-  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.072265625);
+  public static final Rotation2d BACK_RIGHT_TURN_OFFSET               = Rotation2d.fromRotations(0.071533203125);
 
-    public static final double DRIVE_P                                  = 0;
+    public static final double DRIVE_P                                  = 1.5;
     public static final double DRIVE_I                                  = 0;
     public static final double DRIVE_D                                  = 0;
     
@@ -98,7 +98,7 @@ public final class Constants {
     public static final double DRIVE_kV                                 = 1.85;
     public static final double DRIVE_kA                                 = 0;
 
-    public static final double TURN_P                                   = 10;
+    public static final double TURN_P                                   = 14;
     public static final double TURN_I                                   = 0;
     public static final double TURN_D                                   = 0;
     public static final double TURN_FF                                  = 0;
@@ -132,11 +132,11 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double AUTO_DRIVE_P                                  = 7;
+        public static final double AUTO_DRIVE_P                                  = 1.85;
         public static final double AUTO_DRIVE_I                                  = 0;
         public static final double AUTO_DRIVE_D                                  = 0;
 
-        public static final double AUTO_TURN_P                                   = 9;
+        public static final double AUTO_TURN_P                                   = 11;
         public static final double AUTO_TURN_I                                   = 0;
         public static final double AUTO_TURN_D                                   = 0;
 
@@ -245,14 +245,14 @@ public final class Constants {
     }
 
     public static final class LEDConstants {
-        public static final int LED_BR_PORT                                    = 1;
+        public static final int LED_BR_PORT                                    = 3;
         public static final int LED_FR_PORT                                    = 2;
-        public static final int LED_FL_PORT                                    = 3;
+        public static final int LED_FL_PORT                                    = 1;
         public static final int LED_BL_PORT                                    = 4;
 
-        public static final int NUMBER_OF_LEDS_BR                              = 50;
-        public static final int NUMBER_OF_LEDS_FR                              = 50;
-        public static final int NUMBER_OF_LEDS_FL                              = 50;
-        public static final int NUMBER_OF_LEDS_BL                              = 50;
+        public static final int NUMBER_OF_LEDS_BR                              = 17;
+        public static final int NUMBER_OF_LEDS_FR                              = 22;
+        public static final int NUMBER_OF_LEDS_FL                              = 22;
+        public static final int NUMBER_OF_LEDS_BL                              = 17;
     }
 }

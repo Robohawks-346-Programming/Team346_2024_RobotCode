@@ -2,6 +2,7 @@ package frc.robot.commands.States;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Intake.IntakeArm;
@@ -20,10 +21,14 @@ public class AutoShoot extends SequentialCommandGroup {
   public AutoShoot() {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
-        new ParallelCommandGroup(
+      new SequentialCommandGroup(
+        new ParallelRaceGroup(
                 new ShootSpeaker(),
-                new SequentialCommandGroup(new WaitCommand(0.5),
-                new EjectSpeaker()))
+                new WaitCommand(0.25)),
+        new ParallelRaceGroup(
+                new EjectSpeaker(),
+                new WaitCommand(0.25))
+      )
     );
   }
 

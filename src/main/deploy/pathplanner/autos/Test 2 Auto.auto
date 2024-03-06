@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.43,
-      "y": 5.49
+      "x": 1.44,
+      "y": 5.55
     },
     "rotation": 0
   },
@@ -20,13 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Test 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Test 2"
+            "pathName": "2 1"
           }
         },
         {
@@ -38,13 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Test 3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Test 4"
+            "pathName": "2 2"
           }
         },
         {
@@ -56,13 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Test 5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Test 6"
+            "pathName": "2 3"
           }
         },
         {
@@ -74,7 +56,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Test 7"
+            "pathName": "2 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

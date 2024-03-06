@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 /** An example command that uses an example subsystem. */
 public class Outake extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private Intake intake = RobotContainer.intake;
 
   /**
    * Creates a new ExampleCommand.
@@ -36,14 +35,14 @@ public class Outake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.runOutake();
+    RobotContainer.intake.runOutake();
     RobotContainer.indexer.reverseIndex();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stopIntake();
+    RobotContainer.intake.stopIntake();
     RobotContainer.indexer.stopIndex();
   }
 

@@ -83,18 +83,10 @@ public class Pivot extends SubsystemBase {
         return (rotations * 360.0);
     }
 
-    public Command testArm() {
-        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(0))));
+    public Command moveArm(double pos) {
+        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(pos))));
     }
-
-    public Command testArm1() {
-        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(-60))));
-    }
-
-    public Command testArm2() {
-        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(90))));
-    }
-
+    
     public void distanceBasedArmPivot(double x, double y){
         pivotMotor.setControl(position.withPosition(getDistanceBasedAngle(x, y)));
     }

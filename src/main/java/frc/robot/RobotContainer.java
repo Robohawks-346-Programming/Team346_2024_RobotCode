@@ -14,7 +14,7 @@ import frc.robot.commands.Pivot.PivotToAngle;
 import frc.robot.commands.Shoot.EjectAmp;
 import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.commands.Pivot.PivotToAngle;
-//import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Pivot;
@@ -60,7 +60,7 @@ public class RobotContainer {
   private Trigger leftBumper = driverControl.leftBumper();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final Autos autos = new Autos();
-  //public static final LEDs leds = new LEDs();
+  public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
   public static final Indexer indexer = new Indexer();
   public static final Shooter shooter = new Shooter();
@@ -108,10 +108,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     rightBumper.onTrue(new InstantCommand(() -> {
-      drivetrain.zeroHeading(); 
-      drivetrain.setFieldToVehicle(
-        new Pose2d(drivetrain.poseEstimator.getEstimatedPosition().getTranslation(),
-        new Rotation2d(0)));
+      drivetrain.resetEncoders();
+      drivetrain.zeroHeading();
     }));
     rightTrigger.whileTrue(
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
@@ -120,9 +118,9 @@ public class RobotContainer {
     BUTTON_1.whileTrue(new EfficientIntake());
     BUTTON_2.whileTrue(new ShootSpeaker());
     BUTTON_3.whileTrue(new Outake());
-    BUTTON_6.onTrue(pivot.testArm());
-    BUTTON_7.onTrue(pivot.testArm1());
-    BUTTON_8.onTrue(pivot.testArm2());
+    BUTTON_6.onTrue(pivot.moveArm(-60));
+    BUTTON_7.onTrue(pivot.moveArm(0));
+    BUTTON_8.onTrue(pivot.moveArm(90));
     BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksUp));
     BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
     BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksDown));
@@ -134,6 +132,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autos.getAutos();
+    return autos.returnAuto();
   }
 }

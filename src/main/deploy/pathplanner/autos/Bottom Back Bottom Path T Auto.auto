@@ -2,15 +2,21 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.31,
-      "y": 4.14
+      "x": 0.68,
+      "y": 4.44
     },
-    "rotation": 0
+    "rotation": -61.18920625702696
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
         {
           "type": "path",
           "data": {
@@ -39,30 +45,6 @@
           "type": "path",
           "data": {
             "pathName": "Bottom Back Bottom Path T 4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom Back Bottom Path T 5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bottom Back Bottom Path T 6"
           }
         },
         {

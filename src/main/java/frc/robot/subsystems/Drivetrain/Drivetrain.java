@@ -105,11 +105,11 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());
-        // SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
-        // SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
-        // SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
-        // SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
-        // SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
+        SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
+        SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
+        SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
+        SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
+        SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
 
         poseEstimator.update(getHeading(), getModulePositions());
         odometry.update(getHeading(), getModulePositions());

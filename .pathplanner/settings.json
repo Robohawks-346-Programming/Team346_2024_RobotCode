@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.92,
+  "robotLength": 0.92,
   "holonomicMode": true,
   "pathFolders": [
     "2631",
@@ -8,6 +8,8 @@
     "783",
     "Bottom Back Bottom Path T",
     "Bottom start bottom NT path",
+    "Test 2",
+    "Test",
     "Top start top auto T"
   ],
   "autoFolders": [
@@ -17,8 +19,8 @@
     "NO Teammates",
     "1 and full teammate"
   ],
-  "defaultMaxVel": 4.5,
-  "defaultMaxAccel": 4.5,
+  "defaultMaxVel": 3.5,
+  "defaultMaxAccel": 2.8,
   "defaultMaxAngVel": 180.0,
   "defaultMaxAngAccel": 180.0,
   "maxModuleSpeed": 4.5

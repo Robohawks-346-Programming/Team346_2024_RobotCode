@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.51,
-        "y": 5.55
+        "x": 2.75,
+        "y": 5.52
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.513469069871951,
-        "y": 5.565873600441298
+        "x": 2.76817768344908,
+        "y": 5.5410316277334815
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.388388169421654,
-        "y": 4.343233929646981
+        "x": 8.114445457835163,
+        "y": 7.537361124544314
       },
       "prevControl": {
-        "x": 2.3918572392936053,
-        "y": 4.343233929646981
+        "x": 7.1144454578351635,
+        "y": 7.537361124544314
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,12 +32,25 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Pivot Far"
+              }
+            }
+          ]
         }
       }
     }
@@ -50,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -26.980230718222952,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Bottom start bottom NT path",
+  "folder": "Test 2",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -1.9210507522246738,
     "velocity": 0
   },
   "useDefaultConstraints": true

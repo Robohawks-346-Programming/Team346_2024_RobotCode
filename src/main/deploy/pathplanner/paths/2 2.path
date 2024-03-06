@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.51,
-        "y": 5.55
+        "x": 2.86,
+        "y": 5.49
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.513469069871951,
-        "y": 5.565873600441298
+        "x": 1.463259866021512,
+        "y": 6.845949445161049
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.388388169421654,
-        "y": 4.343233929646981
+        "x": 2.748701298114341,
+        "y": 6.962807757169489
       },
       "prevControl": {
-        "x": 2.3918572392936053,
-        "y": 4.343233929646981
+        "x": 2.77373729357186,
+        "y": 6.914116793832639
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,12 +32,25 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.35,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Pivot Close"
+              }
+            }
+          ]
         }
       }
     }
@@ -50,11 +63,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -26.980230718222952,
+    "rotation": 30.256437163529295,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Bottom start bottom NT path",
+  "folder": "Test 2",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

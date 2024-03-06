@@ -31,9 +31,9 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double doubleX = Math.abs(x.getAsDouble()) < 0.05 ? 0 : x.getAsDouble();
-    double doubleY = Math.abs(y.getAsDouble()) < 0.05 ? 0 : y.getAsDouble();
-    double doubleTheta = Math.abs(theta.getAsDouble()) < 0.05 ? 0 : theta.getAsDouble();
+    double doubleX = Math.abs(x.getAsDouble()) < 0.07 ? 0 : x.getAsDouble();
+    double doubleY = Math.abs(y.getAsDouble()) < 0.07 ? 0 : y.getAsDouble();
+    double doubleTheta = Math.abs(theta.getAsDouble()) < 0.07 ? 0 : theta.getAsDouble();
 
     double vx = doubleX * moveVelocity;
     double vy = doubleY * moveVelocity;

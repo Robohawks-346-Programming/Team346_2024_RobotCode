@@ -18,10 +18,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Shoot.EjectSpeaker;
@@ -30,15 +33,18 @@ import frc.robot.commands.States.AutoShoot;
 import frc.robot.commands.States.DistanceBasedFullShoot;
 import frc.robot.commands.States.EfficientIntake;
 import frc.robot.commands.Intake.IntakeFull;
+import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 public final class Autos {
   Drivetrain drivetrain;
+  Pivot pivot;
   private final SendableChooser<Command> autoChooser;
 
 
   public Autos() {
     drivetrain = RobotContainer.drivetrain;
+    pivot = RobotContainer.pivot;
     AutoBuilder.configureHolonomic(
       drivetrain::getPose, 
       drivetrain::resetPose, 
@@ -86,10 +92,12 @@ public final class Autos {
     public void registerCommands(){
       NamedCommands.registerCommand("Intake", new EfficientIntake());
      NamedCommands.registerCommand("Shoot", new AutoShoot());
+     NamedCommands.registerCommand("Pivot Close", Commands.runOnce(() -> pivot.moveArm(-35)));
+     NamedCommands.registerCommand("Pivot Far", Commands.runOnce(() -> pivot.moveArm(-25)));
     }
 
     public Command returnAuto() {
-      return new PathPlannerAuto("Test Auto");
+      return new PathPlannerAuto("Bottom Back Bottom Path T Auto");
     }
 
     

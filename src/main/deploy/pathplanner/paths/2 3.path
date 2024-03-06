@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.51,
-        "y": 5.49
+        "x": 2.75,
+        "y": 6.96
       },
       "prevControl": null,
       "nextControl": {
         "x": 1.3950925173499227,
-        "y": 6.9433313718347485
+        "y": 6.339563426457815
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1,
-        "y": 6.75
+        "x": 2.75,
+        "y": 4.099779112962734
       },
       "prevControl": {
-        "x": 2.350159164612516,
-        "y": 6.818167348671588
+        "x": 1.7500000000000022,
+        "y": 4.099779112962734
+      },
+      "nextControl": {
+        "x": 2.8266068394532997,
+        "y": 4.099779112962734
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.75,
+        "y": 5.52155524239874
+      },
+      "prevControl": {
+        "x": 2.446817325425873,
+        "y": 4.908049104354437
       },
       "nextControl": null,
       "isLocked": false,
@@ -35,13 +51,19 @@
       "name": "New Event Marker",
       "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
                 "name": "Intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Pivot Close"
               }
             }
           ]
@@ -57,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -1.40173868650599,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Test",
+  "folder": "Test 2",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 29.07586751433805,
     "velocity": 0
   },
   "useDefaultConstraints": true

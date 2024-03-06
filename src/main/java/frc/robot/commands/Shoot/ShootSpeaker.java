@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 /** An example command that uses an example subsystem. */
 public class ShootSpeaker extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    private Shooter shooter = RobotContainer.shooter;
 
 
   /**
@@ -36,13 +35,13 @@ public class ShootSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setVelocity(100, 100);
+    RobotContainer.shooter.setVelocity(110, 110);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopShooter();
+    RobotContainer.shooter.stopShooter();
   }
 
   // Returns true when the command should end.
