@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.83,
-      "y": 4.33
+      "x": 1.37,
+      "y": 5.54
     },
-    "rotation": -60.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage 5"
+            "pathName": "C 4 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage 6"
+            "pathName": "C 4 2"
           }
         },
         {
@@ -38,24 +38,30 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage 7"
+            "pathName": "C 4 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage 8"
+            "pathName": "C 4 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage 9"
+            "pathName": "C 4 5"
           }
         }
       ]
     }
   },
-  "folder": "Stage",
+  "folder": "Center",
   "choreoAuto": false
 }

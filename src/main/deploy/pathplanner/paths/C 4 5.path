@@ -1,0 +1,102 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.61,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.8904036723907955,
+        "y": 5.703177397795595
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.956089798056913,
+        "y": 4.333009521939157
+      },
+      "prevControl": {
+        "x": 4.1480420763979895,
+        "y": 5.082503060869175
+      },
+      "nextControl": {
+        "x": 5.830393112904852,
+        "y": 3.5220615197613587
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.759558626107266,
+        "y": 4.8248646568619815
+      },
+      "prevControl": {
+        "x": 6.754558876088517,
+        "y": 4.324889654987139
+      },
+      "nextControl": {
+        "x": 6.7712694626530485,
+        "y": 5.995948311440133
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.04775064614323,
+        "y": 5.7500207439787205
+      },
+      "prevControl": {
+        "x": 7.8036060644161225,
+        "y": 5.767586998797393
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 2.35,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Center 26 Loaded",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
