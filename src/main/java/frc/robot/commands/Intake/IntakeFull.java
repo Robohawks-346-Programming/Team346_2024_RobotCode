@@ -5,14 +5,8 @@
 package frc.robot.commands.Intake;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /** An example command that uses an example subsystem. */
 public class IntakeFull extends Command {
@@ -38,8 +32,10 @@ public class IntakeFull extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.intake.runIntake();
-    RobotContainer.indexer.startIndex();
+    if(Math.abs(RobotContainer.pivot.getPosition() - Constants.PivotConstants.HOME_PIVOT_ANGLE) < Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD) {
+      RobotContainer.intake.runIntake();
+      RobotContainer.indexer.startIndex();
+    }
   }
 
   // Called once the command ends or is interrupted.
