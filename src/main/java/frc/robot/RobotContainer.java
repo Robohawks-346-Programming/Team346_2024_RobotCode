@@ -66,7 +66,7 @@ public class RobotContainer {
   public static final Shooter shooter = new Shooter();
   public static final Intake intake = new Intake();
   public static final Climber climber = new Climber();
-  public int isInverted = 1;
+  public boolean isInverted = false;
   
     public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
     public DoubleSupplier yAxis = () -> (driverControl.getLeftX());
@@ -94,16 +94,14 @@ public class RobotContainer {
 
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
-        if (ally.get().equals(Alliance.Blue)) {
-          isInverted = 1;
+        if (ally.get() == DriverStation.Alliance.Blue) {
+          isInverted = false;
         }
         else {
-          isInverted = -1;
+          isInverted = true;
         }
     }
-    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-    Constants.DriveConstants.MAX_MOVE_VELOCITY * isInverted, 
-    Constants.DriveConstants.MAX_TURN_VELOCITY * isInverted));
+    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, false, isInverted));
   }
 
   private void configureBindings() {
@@ -113,8 +111,7 @@ public class RobotContainer {
     }));
     rightTrigger.whileTrue(
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-      Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * isInverted, 
-      Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * isInverted));
+      true, isInverted));
     BUTTON_1.whileTrue(new EfficientIntake());
     BUTTON_2.whileTrue(new ShootSpeaker());
     BUTTON_3.whileTrue(new Outake());

@@ -13,14 +13,15 @@ public class TeleopDrive extends Command {
   Drivetrain drivetrain;
   DoubleSupplier x,y,theta;
   double moveVelocity, turnVelocity;
+  boolean speedBoost, isInverted;
 
-  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier theta, double moveVelocity, double turnVelocity) {
+  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier theta, boolean speedBoost, boolean isInverted) {
     this.drivetrain = drivetrain;
     this.x = x;
     this.y = y;
     this.theta = theta;
-    this.moveVelocity = moveVelocity;
-    this.turnVelocity = turnVelocity;
+    this.speedBoost = speedBoost;
+    this.isInverted = isInverted;
     addRequirements(drivetrain);
   }
 
@@ -31,6 +32,28 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(speedBoost) {
+      if(isInverted) {
+        moveVelocity = -Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST;
+        turnVelocity = -Constants.DriveConstants.MAX_TURN_VELOCITY_FAST;
+      }
+      else {
+        moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST;
+        turnVelocity = Constants.DriveConstants.MAX_TURN_VELOCITY_FAST;
+      }
+    }
+
+    else {
+      if(isInverted) {
+        moveVelocity = -Constants.DriveConstants.MAX_MOVE_VELOCITY;
+        turnVelocity = -Constants.DriveConstants.MAX_TURN_VELOCITY;
+      }
+      else {
+        moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY;
+        turnVelocity = Constants.DriveConstants.MAX_TURN_VELOCITY;
+      }
+    }
+    
     double doubleX = Math.abs(x.getAsDouble()) < 0.07 ? 0 : x.getAsDouble();
     double doubleY = Math.abs(y.getAsDouble()) < 0.07 ? 0 : y.getAsDouble();
     double doubleTheta = Math.abs(theta.getAsDouble()) < 0.07 ? 0 : theta.getAsDouble();

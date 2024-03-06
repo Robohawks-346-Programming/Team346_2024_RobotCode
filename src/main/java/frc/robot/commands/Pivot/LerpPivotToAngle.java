@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Pivot;
 
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /** An example command that uses an example subsystem. */
-public class Lerp extends Command {
+public class LerpPivotToAngle extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     public double wantedRevs;
     public double currentRevs;
@@ -24,7 +24,7 @@ public class Lerp extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public Lerp(double setpoint) {
+  public LerpPivotToAngle(double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
     wantedRevs = RobotContainer.pivot.convertDegreesToRotations(setpoint);
   }

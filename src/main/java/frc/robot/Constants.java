@@ -156,7 +156,7 @@ public final class Constants {
 
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = -55;
+        public static final double HOME_PIVOT_ANGLE                           = -60;
         public static final double TRAP_PIVOT_ANGLE                           = 90; //off vertical
         public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
         public static final double PIVOT_ANGLE_THRESHOLD                      = 5; // in degrees
