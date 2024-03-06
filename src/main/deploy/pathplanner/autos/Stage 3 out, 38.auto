@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage one"
+            "pathName": "Stage 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage two"
+            "pathName": "Stage 2"
           }
         },
         {
@@ -38,24 +38,30 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage three"
+            "pathName": "Stage 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage four"
+            "pathName": "Stage 4"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage 5"
           }
         }
       ]
     }
   },
-  "folder": "Stage side 3",
+  "folder": "Stage",
   "choreoAuto": false
 }

@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8,
+      "x": 0.83,
       "y": 4.33
     },
     "rotation": -60.0
@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage one"
+            "pathName": "Stage 5"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage two"
+            "pathName": "Stage 6"
           }
         },
         {
@@ -38,30 +38,24 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Stage three"
+            "pathName": "Stage 7"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage four"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "pathName": "Stage 8"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Stage five"
+            "pathName": "Stage 9"
           }
         }
       ]
     }
   },
-  "folder": "Stage side 3",
+  "folder": "Stage",
   "choreoAuto": false
 }
