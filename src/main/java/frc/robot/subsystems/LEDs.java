@@ -55,24 +55,24 @@ public class LEDs extends SubsystemBase {
 
     }
 
-    @Override
-    public void periodic() {
-            if (DriverStation.isDisabled()){
-                rainbow(ledBufferBL);
-            } else if (RobotContainer.intake.isIntaking){
-                flashColor(Color.kIndianRed, ledBufferBL);
-            } else if (RobotContainer.intake.hasGamePiece){
-                flashColor(Color.kSeaGreen, ledBufferBL);
-            } else if (RobotContainer.indexer.storingGamePiece){
-                flashColor(Color.kOrange, ledBufferBL);
-            } else {
-                setLED(ledBufferBL, rainbowFirstPixelHue, Color.kAliceBlue);
-            }
-        // ledFR.setData(ledBufferFR);
-        // ledFL.setData(ledBufferFL);
-        //ledBR.setData(ledBufferBR);
-        ledBL.setData(ledBufferBL);
-    }
+    // @Override
+    // public void periodic() {
+    //         if (DriverStation.isDisabled()){
+    //             rainbow(ledBufferBL);
+    //         } else if (RobotContainer.intake.isIntaking){
+    //             flashColor(Color.kIndianRed, ledBufferBL);
+    //         } else if (RobotContainer.intake.hasGamePiece){
+    //             flashColor(Color.kSeaGreen, ledBufferBL);
+    //         } else if (RobotContainer.indexer.storingGamePiece){
+    //             flashColor(Color.kOrange, ledBufferBL);
+    //         } else {
+    //             setLED(ledBufferBL, rainbowFirstPixelHue, Color.kAliceBlue);
+    //         }
+    //     // ledFR.setData(ledBufferFR);
+    //     // ledFL.setData(ledBufferFL);
+    //     //ledBR.setData(ledBufferBR);
+    //     ledBL.setData(ledBufferBL);
+    // }
 
     private void setRGB(AddressableLEDBuffer buffer, int i, int r, int g, int b) {
         buffer.setRGB(i, r, g, b);

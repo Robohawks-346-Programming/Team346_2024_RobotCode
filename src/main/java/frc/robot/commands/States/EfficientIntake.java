@@ -21,13 +21,13 @@ public class EfficientIntake extends SequentialCommandGroup {
    */
   public EfficientIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
-    if(Math.abs(RobotContainer.pivot.getPosition() - Constants.PivotConstants.HOME_PIVOT_ANGLE) < Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD) {
+    // if(Math.abs(RobotContainer.pivot.getPosition() - Constants.PivotConstants.HOME_PIVOT_ANGLE) < Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD) {
       addCommands(
           new SequentialCommandGroup(
         new IntakeFull(),
         new IntakeArm()
         )
       );
-    }
+    // }
   }
 }

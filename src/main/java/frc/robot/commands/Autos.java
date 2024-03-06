@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -93,13 +94,17 @@ public final class Autos {
     public void registerCommands(){
       NamedCommands.registerCommand("Intake", new EfficientIntake());
      NamedCommands.registerCommand("Shoot", new AutoShoot());
-     NamedCommands.registerCommand("Test Shoot", new SequentialCommandGroup(new AutoShoot(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))));
-     NamedCommands.registerCommand("Pivot Close", new SequentialCommandGroup(new EfficientIntake(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new WaitCommand(0.5))));
-     NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new EfficientIntake(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new WaitCommand(0.5))));
+     NamedCommands.registerCommand("Test Shoot", new SequentialCommandGroup(new AutoShoot()));
+     //new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))
+    //  NamedCommands.registerCommand("Pivot Close", new SequentialCommandGroup(new EfficientIntake(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new WaitCommand(0.5))));
+    //  NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new EfficientIntake(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new WaitCommand(0.5))));
+    NamedCommands.registerCommand("Pivot Close", new AutoShoot());
+    NamedCommands.registerCommand("Pivot Far", new AutoShoot());
+    NamedCommands.registerCommand("Rev", new ShootSpeaker());
     }
 
     public Command returnAuto() {
-      return new PathPlannerAuto("Bottom Back Bottom Path T Auto");
+      return new PathPlannerAuto("Center Full");
     }
 
     

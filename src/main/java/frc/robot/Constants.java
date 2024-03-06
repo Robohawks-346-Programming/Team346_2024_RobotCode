@@ -57,8 +57,8 @@ public final class Constants {
 
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
-    public static final double MAX_MOVE_VELOCITY                        = 3.5; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 3.5; // for testing
+    public static final double MAX_MOVE_VELOCITY                        = 5; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 5; // for testing
     public static final double MAX_MOVE_VELOCITY_FAST                   = 5.5;
     public static final double MAX_TURN_VELOCITY_FAST                   = 5.5;
     
@@ -98,7 +98,7 @@ public final class Constants {
     public static final double DRIVE_kV                                 = 1.85;
     public static final double DRIVE_kA                                 = 0;
 
-    public static final double TURN_P                                   = 14;
+    public static final double TURN_P                                   = 10;
     public static final double TURN_I                                   = 0;
     public static final double TURN_D                                   = 0;
     public static final double TURN_FF                                  = 0;
@@ -136,7 +136,7 @@ public final class Constants {
         public static final double AUTO_DRIVE_I                                  = 0;
         public static final double AUTO_DRIVE_D                                  = 0;
 
-        public static final double AUTO_TURN_P                                   = 11;
+        public static final double AUTO_TURN_P                                   = 10;
         public static final double AUTO_TURN_I                                   = 0;
         public static final double AUTO_TURN_D                                   = 0;
 
