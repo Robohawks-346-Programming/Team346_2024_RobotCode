@@ -9,12 +9,12 @@
     "Amp side start",
     "Bottom Back Bottom Path T",
     "Bottom start bottom NT path",
+    "Center Full",
+    "Center Left",
+    "Center Stage",
     "Stage side start",
     "Test",
     "Test 2",
-    "Center Auto 1",
-    "Center Auto 2",
-    "Center Auto 3",
     "Test 2",
     "Tests",
     "Top start top auto T"
@@ -26,11 +26,13 @@
     "Amp side 3",
     "Full Team",
     "NO Teammates",
+    "Center",
     "Stage side 3",
     "Tests"
   ],
   "defaultMaxVel": 3.5,
   "defaultMaxAccel": 2.8,
   "defaultMaxAngVel": 180.0,
+  "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.5
 }
