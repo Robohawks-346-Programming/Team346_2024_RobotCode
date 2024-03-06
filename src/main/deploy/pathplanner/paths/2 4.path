@@ -23,6 +23,22 @@
         "x": 7.1144454578351635,
         "y": 7.537361124544314
       },
+      "nextControl": {
+        "x": 9.114445457835163,
+        "y": 7.537361124544314
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.2416786209610375,
+        "y": 6.388254389794664
+      },
+      "prevControl": {
+        "x": 7.070941920057032,
+        "y": 6.8313421561599945
+      },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
@@ -38,12 +54,6 @@
         "type": "sequential",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -63,7 +73,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 12.26477372789235,
     "rotateFast": false
   },
   "reversed": false,

@@ -8,16 +8,20 @@
     "783",
     "Bottom Back Bottom Path T",
     "Bottom start bottom NT path",
+    "Center Auto 1",
+    "Center Auto 2",
+    "Center Auto 3",
     "Test 2",
-    "Test",
+    "Tests",
     "Top start top auto T"
   ],
   "autoFolders": [
+    "1 and full teammate",
     "1 and no teammate",
     "1 teammate",
     "Full Team",
     "NO Teammates",
-    "1 and full teammate"
+    "Tests"
   ],
   "defaultMaxVel": 3.5,
   "defaultMaxAccel": 2.8,

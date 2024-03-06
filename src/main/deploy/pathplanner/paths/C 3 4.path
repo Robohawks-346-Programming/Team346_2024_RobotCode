@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.11,
-        "y": 7.54
+        "x": 8.26,
+        "y": 4.08
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.046278109163573,
-        "y": 7.488670161207463
+        "x": 4.832674528931501,
+        "y": 3.0091015342173035
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.881365492268351,
-        "y": 6.164275958445155
+        "x": 1.6288091413668007,
+        "y": 5.511817049731372
       },
       "prevControl": {
-        "x": 4.891103684935722,
-        "y": 6.144799573110416
+        "x": 4.97874741894205,
+        "y": 5.930559334428278
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 10.539183728628297,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Test 2",
+  "folder": "Center Auto 3",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

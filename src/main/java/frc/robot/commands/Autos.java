@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -92,8 +93,9 @@ public final class Autos {
     public void registerCommands(){
       NamedCommands.registerCommand("Intake", new EfficientIntake());
      NamedCommands.registerCommand("Shoot", new AutoShoot());
-     NamedCommands.registerCommand("Pivot Close", Commands.runOnce(() -> pivot.moveArm(-35)));
-     NamedCommands.registerCommand("Pivot Far", Commands.runOnce(() -> pivot.moveArm(-25)));
+     NamedCommands.registerCommand("Test Shoot", new SequentialCommandGroup(new AutoShoot(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))));
+     NamedCommands.registerCommand("Pivot Close", new SequentialCommandGroup(new EfficientIntake(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new WaitCommand(0.5))));
+     NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new EfficientIntake(), new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new WaitCommand(0.5))));
     }
 
     public Command returnAuto() {

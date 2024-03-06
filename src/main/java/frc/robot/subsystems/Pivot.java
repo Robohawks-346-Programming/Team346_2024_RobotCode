@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -117,7 +119,7 @@ public class Pivot extends SubsystemBase {
            pivotMotor.set(0);
         }
     }
-
+    
     public double getPosition() {
         return pivotMotor.getPosition().getValue();
     }
