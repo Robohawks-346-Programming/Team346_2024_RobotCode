@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,28 +30,34 @@ public class LEDs extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(RobotContainer.shooter.getLaserBreak()) {
-            setRGB(ledBuffer, 0, 200, 0);
+        if(DriverStation.isDisabled()) {
+            rainbow(ledBuffer);
         }
         else {
-            setRGB(ledBuffer, 200, 0, 0);
+            if(RobotContainer.shooter.getLaserBreak()) {
+                setRGB(ledBuffer, 0, 200, 0);
+            }
+            else {
+                setRGB(ledBuffer, 200, 0, 0);
+            }
         }
+        led.setData(ledBuffer);
     }
 
     private void setRGB(AddressableLEDBuffer buffer, int r, int g, int b) {
-        for(int i = 0; i <= buffer.getLength(); i++) {
+        for(int i = 0; i < buffer.getLength(); i++) {
             buffer.setRGB(i, r, g, b);
         }
     }
 
     private void setHSV(AddressableLEDBuffer buffer, int h, int s, int v) {
-        for(int i = 0; i <= buffer.getLength(); i++) {
+        for(int i = 0; i < buffer.getLength(); i++) {
             buffer.setHSV(i, h, s, v);
         }
     }
 
     private void setLED(AddressableLEDBuffer buffer, Color color) {
-        for(int i = 0; i <= buffer.getLength(); i++) {
+        for(int i = 0; i < buffer.getLength(); i++) {
             buffer.setLED(i, color);
         }
     }
@@ -79,7 +86,7 @@ public class LEDs extends SubsystemBase {
     }
 
     private void setColor(AddressableLEDBuffer buffer, Color color){
-        for (int i = 0; i <= buffer.getLength(); i++) {
+        for (int i = 0; i < buffer.getLength(); i++) {
             setLED(buffer, color);
         }
     }
