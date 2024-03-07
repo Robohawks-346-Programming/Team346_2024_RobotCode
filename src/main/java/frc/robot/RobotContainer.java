@@ -97,6 +97,9 @@ public class RobotContainer {
     rightTrigger.whileTrue(
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
       true, true));
+      rightTrigger.whileFalse(
+      new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
+      false, true));
     BUTTON_1.whileTrue(new EfficientIntake());
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());

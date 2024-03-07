@@ -56,8 +56,8 @@ public final class Constants {
 
     public static final double MAX_MOVE_VELOCITY                        = 5; // for testing
     public static final double MAX_TURN_VELOCITY                        = 5; // for testing
-    public static final double MAX_MOVE_VELOCITY_FAST                   = 2;
-    public static final double MAX_TURN_VELOCITY_FAST                   = 2;
+    public static final double MAX_MOVE_VELOCITY_FAST                   = 5;
+    public static final double MAX_TURN_VELOCITY_FAST                   = 5;
     
   // Front left Swerve Module
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
