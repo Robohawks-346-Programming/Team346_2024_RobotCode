@@ -242,14 +242,7 @@ public final class Constants {
     }
 
     public static final class LEDConstants {
-        public static final int LED_BR_PORT                                    = 3;
-        public static final int LED_FR_PORT                                    = 2;
-        public static final int LED_FL_PORT                                    = 1;
-        public static final int LED_BL_PORT                                    = 4;
-
-        public static final int NUMBER_OF_LEDS_BR                              = 17;
-        public static final int NUMBER_OF_LEDS_FR                              = 22;
-        public static final int NUMBER_OF_LEDS_FL                              = 22;
-        public static final int NUMBER_OF_LEDS_BL                              = 17;
+        public static final int LED_PORT                                    = 3;
+        public static final int NUMBER_OF_LEDS                              = 34;
     }
 }
