@@ -17,9 +17,12 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Shoot.EjectSpeaker;
 import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.commands.States.AutoShoot;
 import frc.robot.commands.States.EfficientIntake;
@@ -89,10 +92,11 @@ public final class Autos {
     NamedCommands.registerCommand("Pivot Close", new AutoShoot());
     NamedCommands.registerCommand("Pivot Far", new AutoShoot());
     NamedCommands.registerCommand("Rev", new ShootSpeaker());
+    NamedCommands.registerCommand("Eject",  new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.3)));
     }
 
     public Command returnAuto() {
-      return new PathPlannerAuto("Amp 3 out, 15");
+      return new PathPlannerAuto("Center Full");
     }
 
     
