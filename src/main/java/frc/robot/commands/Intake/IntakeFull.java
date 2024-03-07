@@ -32,7 +32,7 @@ public class IntakeFull extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(RobotContainer.pivot.getPosition() - Constants.PivotConstants.HOME_PIVOT_ANGLE) < Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD) {
+    if(Math.abs(RobotContainer.pivot.getDegrees() - Constants.PivotConstants.HOME_PIVOT_ANGLE) < Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD) {
       RobotContainer.intake.runIntake();
       RobotContainer.indexer.startIndex();
     }

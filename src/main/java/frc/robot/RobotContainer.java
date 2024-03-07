@@ -96,17 +96,18 @@ public class RobotContainer {
     }));
     rightTrigger.whileTrue(
       new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-      true, isInverted));
+      true, true));
     BUTTON_1.whileTrue(new EfficientIntake());
-    BUTTON_2.whileTrue(new ShootSpeaker());
-    BUTTON_3.whileTrue(new Outake());
-    BUTTON_6.onTrue(pivot.moveArm(-60));
-    BUTTON_7.onTrue(pivot.moveArm(0));
-    BUTTON_8.onTrue(pivot.moveArm(90));
-    BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksUp));
-    BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
-    BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksDown));
+    BUTTON_3.whileTrue(new ShootSpeaker());
+    BUTTON_2.whileTrue(new Outake());
+    BUTTON_8.onTrue(pivot.moveArm(-60));
+    BUTTON_5.onTrue(pivot.moveArm(55));
+    BUTTON_6.onTrue(pivot.moveArm(0));
+    BUTTON_7.onTrue(pivot.moveArm(90));
+    BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksUp));
     BUTTON_13.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksDown));
+    BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
     b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
     b.whileFalse(new InstantCommand(indexer::stopIndex));
     a.whileTrue(new EjectAmp());

@@ -56,8 +56,8 @@ public final class Constants {
 
     public static final double MAX_MOVE_VELOCITY                        = 5; // for testing
     public static final double MAX_TURN_VELOCITY                        = 5; // for testing
-    public static final double MAX_MOVE_VELOCITY_FAST                   = 5.5;
-    public static final double MAX_TURN_VELOCITY_FAST                   = 5.5;
+    public static final double MAX_MOVE_VELOCITY_FAST                   = 2;
+    public static final double MAX_TURN_VELOCITY_FAST                   = 2;
     
   // Front left Swerve Module
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
@@ -133,7 +133,7 @@ public final class Constants {
         public static final double AUTO_DRIVE_I                                  = 0;
         public static final double AUTO_DRIVE_D                                  = 0;
 
-        public static final double AUTO_TURN_P                                   = 10;
+        public static final double AUTO_TURN_P                                   = 11;
         public static final double AUTO_TURN_I                                   = 0;
         public static final double AUTO_TURN_D                                   = 0;
 
@@ -153,17 +153,17 @@ public final class Constants {
 
         public static final double PIVOT_GEAR_RATIO                           = 55.6; // 55.6 motor rev : 1 arm rev
 
-        public static final double HOME_PIVOT_ANGLE                           = -60;
+        public static final double HOME_PIVOT_ANGLE                           = -55;
         public static final double TRAP_PIVOT_ANGLE                           = 90; //off vertical
         public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
-        public static final double PIVOT_ANGLE_THRESHOLD                      = 5; // in degrees
+        public static final double PIVOT_ANGLE_THRESHOLD                      = 10; // in degrees
 
-        public static final double PIVOT_P                                    = 13;
+        public static final double PIVOT_P                                    = 15;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
 
         public static final double PIVOT_kS                                   = 0.4;
-        public static final double PIVOT_kG                                   = 0.6;
+        public static final double PIVOT_kG                                   = 0.55;
         public static final double PIVOT_kV                                   = 0.2;
         public static final double PIVOT_kA                                   = 0;
 

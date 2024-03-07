@@ -115,4 +115,8 @@ public class Pivot extends SubsystemBase {
     public double getPosition() {
         return pivotMotor.getPosition().getValue();
     }
+
+    public double getDegrees(){
+        return convertRotationsToDegrees(pivotMotor.getPosition().getValue());
+    }
 }

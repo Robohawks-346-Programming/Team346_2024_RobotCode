@@ -92,7 +92,7 @@ public final class Autos {
     }
 
     public Command returnAuto() {
-      return new PathPlannerAuto("Center Full");
+      return new PathPlannerAuto("Center Stage");
     }
 
     

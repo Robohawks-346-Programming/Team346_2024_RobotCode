@@ -3,45 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.787031987758696,
-        "y": 6.780574360007493
+        "x": 1.21,
+        "y": 6.53
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1759246595416282,
-        "y": 7.094331880971454
+        "x": 1.256401554013073,
+        "y": 6.51909113315261
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.8730388230007247,
-        "y": 6.975928567241751
+        "x": 2.8363450321206702,
+        "y": 7.001760527838968
       },
       "prevControl": {
-        "x": 2.123151169379263,
-        "y": 7.005529395674177
+        "x": 2.7779158761164506,
+        "y": 6.933593179167379
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -1.3639275316028547,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.7,
+      "name": "Intake",
+      "waypointRelativePos": 0.0,
       "command": {
-        "type": "race",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -69,7 +63,7 @@
   "reversed": false,
   "folder": "Amp",
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": 42.59328946262916,
     "velocity": 0
   },
   "useDefaultConstraints": true
