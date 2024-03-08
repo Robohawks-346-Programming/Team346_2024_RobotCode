@@ -4,60 +4,126 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.States.EfficientIntake;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.Intake.Outake;
+import frc.robot.commands.Shoot.EjectAmp;
+import frc.robot.commands.Shoot.ShootSpeaker;
+import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain.Drivetrain;
+
+import java.util.Optional;
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and trigger mappings) should be declared here.
- */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
+  public static final Joystick operatorControl = new Joystick(Constants.DriveConstants.OPERATOR_CONTROLLER_PORT);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  private Trigger rightTrigger = driverControl.rightTrigger();
+  private Trigger rightBumper = driverControl.rightBumper();
+  private Trigger x = driverControl.x();
+  private Trigger y = driverControl.y();
+  private Trigger b = driverControl.b();
+  private Trigger a = driverControl.a();
+  private Trigger leftTrigger = driverControl.leftTrigger();
+  private Trigger leftBumper = driverControl.leftBumper();
+  public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Autos autos = new Autos();
+  public static final LEDs leds = new LEDs();
+  public static final Pivot pivot = new Pivot();
+  public static final Indexer indexer = new Indexer();
+  public static final Shooter shooter = new Shooter();
+  public static final Intake intake = new Intake();
+  public static final Climber climber = new Climber();
+  public boolean isInverted = false;
+  
+    public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
+    public DoubleSupplier yAxis = () -> (driverControl.getLeftX());
+    public DoubleSupplier thetaAxis = () -> (driverControl.getRightX());
+
+    public static final JoystickButton BUTTON_1 = new JoystickButton(operatorControl, 1),
+      BUTTON_2 = new JoystickButton(operatorControl, 2),
+      BUTTON_3 = new JoystickButton(operatorControl, 3),
+      BUTTON_4 = new JoystickButton(operatorControl, 4),
+      BUTTON_5 = new JoystickButton(operatorControl, 5),
+      BUTTON_6 = new JoystickButton(operatorControl, 6),
+      BUTTON_7 = new JoystickButton(operatorControl, 7),
+      BUTTON_8 = new JoystickButton(operatorControl, 8),
+      BUTTON_9 = new JoystickButton(operatorControl, 9),
+      BUTTON_10 = new JoystickButton(operatorControl, 10),
+      BUTTON_11 = new JoystickButton(operatorControl, 11),
+      BUTTON_12 = new JoystickButton(operatorControl, 12),
+      BUTTON_13 = new JoystickButton(operatorControl, 13),
+      BUTTON_14 = new JoystickButton(operatorControl, 14),
+      BUTTON_15 = new JoystickButton(operatorControl, 15),
+      BUTTON_16 = new JoystickButton(operatorControl, 16);
+
   public RobotContainer() {
-    // Configure the trigger bindings
     configureBindings();
+
+    Optional<Alliance> ally = DriverStation.getAlliance();
+    if (ally.isPresent()) {
+        if (ally.get() == DriverStation.Alliance.Blue) {
+          isInverted = false;
+        }
+        else {
+          isInverted = true;
+        }
+    }
+    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, false, isInverted));
   }
 
-  /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
-   * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-   * joysticks}.
-   */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    rightBumper.onTrue(new InstantCommand(() -> {
+      drivetrain.resetEncoders();
+      drivetrain.zeroHeading();
+    }));
+    BUTTON_1.whileTrue(new ParallelCommandGroup(new EfficientIntake(), new InstantCommand(pivot::setPercent)));
+    BUTTON_3.whileTrue(new ShootSpeaker());
+    BUTTON_2.whileTrue(new Outake());
+    BUTTON_4.onTrue(pivot.moveArm(-35));
+    BUTTON_8.onTrue(pivot.moveArm(-60));
+    BUTTON_5.onTrue(pivot.moveArm(55));
+    BUTTON_6.onTrue(pivot.moveArm(0));
+    BUTTON_7.onTrue(pivot.moveArm(90));
+    BUTTON_11.whileTrue(new InstantCommand(climber::leftHookUp));
+    BUTTON_11.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_14.whileTrue(new InstantCommand(climber::rightHookUp));
+    BUTTON_14.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksUp));
+    BUTTON_13.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksDown));
+    BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_10.whileTrue(new InstantCommand(indexer::ejectSpeaker));
+    BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
+    BUTTON_16.whileTrue(new InstantCommand(indexer::ejectAmp));
+    BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
+    BUTTON_15.whileTrue(new InstantCommand(indexer::reverseIndex));
+    BUTTON_15.whileFalse(new InstantCommand(indexer::stopIndex));
+    b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
+    b.whileFalse(new InstantCommand(indexer::stopIndex));
+    a.whileTrue(new EjectAmp());
+    a.whileFalse(new InstantCommand(indexer::stopIndex));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return autos.getAutos();
   }
 }

@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.4,
+      "y": 4.05
+    },
+    "rotation": 0.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage Initial"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage 6"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage 7"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage 8"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Stage",
+  "choreoAuto": false
+}

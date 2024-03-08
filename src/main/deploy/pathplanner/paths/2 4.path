@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.75,
+        "y": 5.52
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.76817768344908,
+        "y": 5.5410316277334815
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.114445457835163,
+        "y": 7.537361124544314
+      },
+      "prevControl": {
+        "x": 7.1144454578351635,
+        "y": 7.537361124544314
+      },
+      "nextControl": {
+        "x": 9.114445457835163,
+        "y": 7.537361124544314
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.2416786209610375,
+        "y": 6.388254389794664
+      },
+      "prevControl": {
+        "x": 7.070941920057032,
+        "y": 6.8313421561599945
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Pivot Far"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 540.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 12.26477372789235,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Test 2",
+  "previewStartingState": {
+    "rotation": -1.9210507522246738,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

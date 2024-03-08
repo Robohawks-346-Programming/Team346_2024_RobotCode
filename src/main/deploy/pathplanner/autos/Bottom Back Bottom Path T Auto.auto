@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.68,
+      "y": 4.44
+    },
+    "rotation": -61.18920625702696
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Back Bottom Path T 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Back Bottom Path T 2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Back Bottom Path T 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Bottom Back Bottom Path T 4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "1 and no teammate",
+  "choreoAuto": false
+}

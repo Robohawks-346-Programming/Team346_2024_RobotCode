@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.75,
+        "y": 6.96
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.3950925173499227,
+        "y": 6.339563426457815
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.75,
+        "y": 4.099779112962734
+      },
+      "prevControl": {
+        "x": 1.7500000000000022,
+        "y": 4.099779112962734
+      },
+      "nextControl": {
+        "x": 2.8266068394532997,
+        "y": 4.099779112962734
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.75,
+        "y": 5.52155524239874
+      },
+      "prevControl": {
+        "x": 2.446817325425873,
+        "y": 4.908049104354437
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Pivot Close"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 540.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -1.40173868650599,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Test 2",
+  "previewStartingState": {
+    "rotation": 29.07586751433805,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
