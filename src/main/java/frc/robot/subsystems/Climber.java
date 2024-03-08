@@ -91,4 +91,12 @@ public class Climber extends SubsystemBase{
 
         return leftHookGood && rightHookGood;
     }
+
+    public void rightHookUp(){
+        rightHook.set(0.4);
+    }
+
+    public void leftHookUp(){
+        leftHook.set(0.4);
+    }
 }

@@ -119,4 +119,8 @@ public class Pivot extends SubsystemBase {
     public double getDegrees(){
         return convertRotationsToDegrees(pivotMotor.getPosition().getValue());
     }
+
+    public void setPercent(){
+        pivotMotor.set(-0.03);
+    }
 }

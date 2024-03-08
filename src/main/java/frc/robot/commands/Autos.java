@@ -95,10 +95,6 @@ public final class Autos {
     NamedCommands.registerCommand("Eject",  new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.3)));
     }
 
-    public Command returnAuto() {
-      return new PathPlannerAuto("Center Full");
-    }
-
     
 
        

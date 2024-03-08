@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -94,23 +95,28 @@ public class RobotContainer {
       drivetrain.resetEncoders();
       drivetrain.zeroHeading();
     }));
-    rightTrigger.whileTrue(
-      new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-      true, true));
-      rightTrigger.whileFalse(
-      new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, 
-      false, true));
-    BUTTON_1.whileTrue(new EfficientIntake());
+    BUTTON_1.whileTrue(new ParallelCommandGroup(new EfficientIntake(), new InstantCommand(pivot::setPercent)));
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());
+    BUTTON_4.onTrue(pivot.moveArm(-35));
     BUTTON_8.onTrue(pivot.moveArm(-60));
     BUTTON_5.onTrue(pivot.moveArm(55));
     BUTTON_6.onTrue(pivot.moveArm(0));
     BUTTON_7.onTrue(pivot.moveArm(90));
+    BUTTON_11.whileTrue(new InstantCommand(climber::leftHookUp));
+    BUTTON_11.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_14.whileTrue(new InstantCommand(climber::rightHookUp));
+    BUTTON_14.whileFalse(new InstantCommand(climber::stopHooks));
     BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksUp));
     BUTTON_13.whileFalse(new InstantCommand(climber::stopHooks));
     BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksDown));
     BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
+    BUTTON_10.whileTrue(new InstantCommand(indexer::ejectSpeaker));
+    BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
+    BUTTON_16.whileTrue(new InstantCommand(indexer::ejectAmp));
+    BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
+    BUTTON_15.whileTrue(new InstantCommand(indexer::reverseIndex));
+    BUTTON_15.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
     b.whileFalse(new InstantCommand(indexer::stopIndex));
     a.whileTrue(new EjectAmp());
@@ -118,6 +124,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return autos.returnAuto();
+    return autos.getAutos();
   }
 }
