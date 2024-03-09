@@ -182,7 +182,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void zeroHeading() {
         gyro.zeroYaw();
-    }   
+    }
 
     public void resetFrontLeftAbsoluteEncoder() {
         modules[0].resetAbsoluteEncoder();

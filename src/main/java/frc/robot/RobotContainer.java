@@ -54,9 +54,9 @@ public class RobotContainer {
   public static final Climber climber = new Climber();
   public boolean isInverted = false;
   
-    public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
-    public DoubleSupplier yAxis = () -> (driverControl.getLeftX());
-    public DoubleSupplier thetaAxis = () -> (driverControl.getRightX());
+    public DoubleSupplier xAxis = () -> (driverControl.getLeftY() * 1);
+    public DoubleSupplier yAxis = () -> (driverControl.getLeftX() * 1);
+    public DoubleSupplier thetaAxis = () -> (driverControl.getRightX() * -1);
 
     public static final JoystickButton BUTTON_1 = new JoystickButton(operatorControl, 1),
       BUTTON_2 = new JoystickButton(operatorControl, 2),
@@ -81,10 +81,10 @@ public class RobotContainer {
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
         if (ally.get() == DriverStation.Alliance.Blue) {
-          isInverted = false;
+          isInverted = true;
         }
         else {
-          isInverted = true;
+          isInverted = false;
         }
     }
     drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, false, isInverted));
