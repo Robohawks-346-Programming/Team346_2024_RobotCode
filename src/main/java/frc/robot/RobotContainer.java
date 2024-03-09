@@ -81,10 +81,10 @@ public class RobotContainer {
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
         if (ally.get() == DriverStation.Alliance.Blue) {
-          isInverted = true;
+          isInverted = false;
         }
         else {
-          isInverted = false;
+          isInverted = true;
         }
     }
     drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, false, isInverted));

@@ -34,8 +34,8 @@ public class TeleopDrive extends Command {
   public void execute() {
     if(speedBoost) {
       if(isInverted) {
-        moveVelocity = -Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST;
-        turnVelocity = -Constants.DriveConstants.MAX_TURN_VELOCITY_FAST;
+        moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST * -1;
+        turnVelocity = Constants.DriveConstants.MAX_TURN_VELOCITY_FAST * -1;
       }
       else {
         moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST;
@@ -45,8 +45,8 @@ public class TeleopDrive extends Command {
 
     else {
       if(isInverted) {
-        moveVelocity = -Constants.DriveConstants.MAX_MOVE_VELOCITY;
-        turnVelocity = -Constants.DriveConstants.MAX_TURN_VELOCITY;
+        moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY * -1;
+        turnVelocity = Constants.DriveConstants.MAX_TURN_VELOCITY * -1;
       }
       else {
         moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY;

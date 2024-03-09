@@ -83,6 +83,9 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.shooter.stopShooter();
+    RobotContainer.drivetrain.setFieldToVehicle(
+      new Pose2d(RobotContainer.drivetrain.returnTranslation(), 
+      AllianceFlipUtil.apply(Rotation2d.fromDegrees(180))));
   }
 
   /** This function is called periodically during operator control. */
