@@ -88,7 +88,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), new Rotation2d(180)));
   }
 
   @Override
