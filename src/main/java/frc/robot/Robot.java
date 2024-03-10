@@ -4,12 +4,17 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.TeleopDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private boolean inverted = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -83,14 +89,26 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.shooter.stopShooter();
+    RobotContainer.drivetrain.zeroHeading();
     RobotContainer.drivetrain.setFieldToVehicle(
       new Pose2d(RobotContainer.drivetrain.returnTranslation(), 
       AllianceFlipUtil.apply(Rotation2d.fromDegrees(0))));
+    
+    //RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), new Rotation2d(180)));
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    Optional<Alliance> ally = DriverStation.getAlliance();
+    if (ally.isPresent()) {
+        if (ally.get() == DriverStation.Alliance.Blue) {
+        m_robotContainer.setDriveCommand(true);
+        }
+        else {
+          m_robotContainer.setDriveCommand(false);
+        }
+    }
   }
 
   @Override

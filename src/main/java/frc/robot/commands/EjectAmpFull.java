@@ -1,24 +1,26 @@
-package frc.robot.commands.States;
+package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Intake.IntakeArm;
 import frc.robot.commands.Intake.IntakeFull;
+import frc.robot.commands.Shoot.EjectAmp;
+import frc.robot.commands.States.EfficientIntake;
 
-public class EfficientIntake extends SequentialCommandGroup {
+public class EjectAmpFull extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public EfficientIntake() {
+  public EjectAmpFull() {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
       new SequentialCommandGroup(
-      new IntakeFull(),
-      new IntakeArm()
-      //new WaitCommand(0.1)
+      new ParallelRaceGroup(new EfficientIntake(), new WaitCommand(0.3)),
+      new EjectAmp()
       )
     );
   }

@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -21,6 +22,9 @@ public class Intake extends SubsystemBase {
 
         intakeMotor.setSmartCurrentLimit(40);
         centeringMotor.setSmartCurrentLimit(40);
+
+        intakeMotor.setIdleMode(IdleMode.kBrake);
+        centeringMotor.setIdleMode(IdleMode.kBrake);
 
         centeringMotor.setInverted(false);
 

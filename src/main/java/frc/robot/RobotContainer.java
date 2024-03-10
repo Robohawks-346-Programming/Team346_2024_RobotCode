@@ -4,8 +4,10 @@
 
 package frc.robot;
 
+import frc.robot.commands.States.AutoShoot;
 import frc.robot.commands.States.EfficientIntake;
 import frc.robot.commands.Autos;
+import frc.robot.commands.EjectAmpFull;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.Intake.Outake;
 import frc.robot.commands.Shoot.EjectAmp;
@@ -20,6 +22,7 @@ import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -27,6 +30,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -52,11 +58,10 @@ public class RobotContainer {
   public static final Shooter shooter = new Shooter();
   public static final Intake intake = new Intake();
   public static final Climber climber = new Climber();
-  public boolean isInverted = false;
   
-    public DoubleSupplier xAxis = () -> (driverControl.getLeftY() * 1);
-    public DoubleSupplier yAxis = () -> (driverControl.getLeftX() * 1);
-    public DoubleSupplier thetaAxis = () -> (driverControl.getRightX() * -1);
+    public Supplier<Double> xAxis = () -> (driverControl.getLeftY());
+    public Supplier<Double> yAxis = () -> (driverControl.getLeftX());
+    public Supplier<Double> thetaAxis = () -> (driverControl.getRightX() *-1);
 
     public static final JoystickButton BUTTON_1 = new JoystickButton(operatorControl, 1),
       BUTTON_2 = new JoystickButton(operatorControl, 2),
@@ -77,17 +82,6 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-
-    Optional<Alliance> ally = DriverStation.getAlliance();
-    if (ally.isPresent()) {
-        if (ally.get() == DriverStation.Alliance.Blue) {
-          isInverted = false;
-        }
-        else {
-          isInverted = true;
-        }
-    }
-    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, false, isInverted));
   }
 
   private void configureBindings() {
@@ -96,6 +90,7 @@ public class RobotContainer {
       drivetrain.zeroHeading();
     }));
     BUTTON_1.whileTrue(new ParallelCommandGroup(new EfficientIntake(), new InstantCommand(pivot::setPercent)));
+    BUTTON_1.whileFalse(new InstantCommand(pivot::stopPivot));
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());
     BUTTON_4.onTrue(pivot.moveArm(-35));
@@ -113,17 +108,23 @@ public class RobotContainer {
     BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
     BUTTON_10.whileTrue(new InstantCommand(indexer::ejectSpeaker));
     BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
-    BUTTON_16.whileTrue(new InstantCommand(indexer::ejectAmp));
+    BUTTON_16.whileTrue(new EjectAmpFull());
     BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
     BUTTON_15.whileTrue(new InstantCommand(indexer::reverseIndex));
     BUTTON_15.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
     b.whileFalse(new InstantCommand(indexer::stopIndex));
-    a.whileTrue(new EjectAmp());
+    a.whileTrue(new EjectAmpFull());
     a.whileFalse(new InstantCommand(indexer::stopIndex));
   }
 
   public Command getAutonomousCommand() {
     return autos.getAutos();
   }
+
+  public void setDriveCommand(boolean invert){
+    drivetrain.setDefaultCommand(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, invert));
+  }
+
+
 }

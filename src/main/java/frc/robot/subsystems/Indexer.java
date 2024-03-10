@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -21,6 +22,9 @@ public class Indexer extends SubsystemBase{
 
         feederRoller.setSmartCurrentLimit(40);
         ampRollers.setSmartCurrentLimit(40);
+
+        feederRoller.setIdleMode(IdleMode.kBrake);
+        ampRollers.setIdleMode(IdleMode.kBrake);
 
         feederRoller.setInverted(true);
         ampRollers.setInverted(false);
