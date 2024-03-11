@@ -113,6 +113,8 @@ public class RobotContainer {
     BUTTON_15.whileTrue(new InstantCommand(indexer::reverseIndex));
     BUTTON_15.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
+    BUTTON_9.whileTrue(new InstantCommand(indexer::startIndex));
+    BUTTON_9.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileFalse(new InstantCommand(indexer::stopIndex));
     a.whileTrue(new EjectAmpFull());
     a.whileFalse(new InstantCommand(indexer::stopIndex));

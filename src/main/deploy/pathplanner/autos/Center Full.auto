@@ -78,12 +78,6 @@
                       "data": {
                         "pathName": "Test 7"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Shoot"
-                      }
                     }
                   ]
                 }

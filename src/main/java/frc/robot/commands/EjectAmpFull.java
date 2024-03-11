@@ -1,8 +1,10 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Intake.IntakeArm;
 import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Shoot.EjectAmp;
@@ -19,9 +21,10 @@ public class EjectAmpFull extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
       new SequentialCommandGroup(
-      new ParallelRaceGroup(new EfficientIntake(), new WaitCommand(0.3)),
+      new ParallelRaceGroup(new InstantCommand(RobotContainer.indexer::startIndex), new WaitCommand(1)),
       new EjectAmp()
       )
     );
   }
+  
 }
