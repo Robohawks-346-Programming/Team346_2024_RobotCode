@@ -60,13 +60,13 @@ public class Climber extends SubsystemBase{
         // leftHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
         // rightHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
 
-        leftHook.set(0.6);
-        rightHook.set(0.6);
+        leftHook.set(0.8);
+        rightHook.set(0.8);
     }
 
     public void moveHooksDown() {
-        leftHook.set(-0.4);
-        rightHook.set(-0.4);
+        leftHook.set(-0.6);
+        rightHook.set(-0.6);
     }
 
     public void stopHooks(){

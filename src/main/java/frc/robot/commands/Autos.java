@@ -8,6 +8,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -58,6 +60,13 @@ public final class Autos {
     autoChooser = AutoBuilder.buildAutoChooser();
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    // Load a Choreo trajectory as a PathPlannerPath
+PathPlannerPath traj1 = PathPlannerPath.fromChoreoTrajectory("NewPath");
+PathPlannerPath traj2 = PathPlannerPath.fromChoreoTrajectory("NewPath.1");
+PathPlannerPath traj3 = PathPlannerPath.fromChoreoTrajectory("NewPath.2");
+PathPlannerPath traj4 = PathPlannerPath.fromChoreoTrajectory("NewPath.3");
+PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("NewPath.4");
       }
 
     public Command getAutos(){
@@ -93,6 +102,10 @@ public final class Autos {
     NamedCommands.registerCommand("Pivot Far", new AutoShoot());
     NamedCommands.registerCommand("Rev", new ShootSpeaker());
     NamedCommands.registerCommand("Eject",  new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.3)));
+    }
+
+    public Command getChoreoAuto(){
+      return new PathPlannerAuto("Choreo Auto");
     }
 
     

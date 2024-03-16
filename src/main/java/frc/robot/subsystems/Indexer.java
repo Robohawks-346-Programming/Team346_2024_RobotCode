@@ -72,6 +72,6 @@ public class Indexer extends SubsystemBase{
 
     public void ejectSpeaker() {
         feederRoller.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
-        //ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
+        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
     }
 }

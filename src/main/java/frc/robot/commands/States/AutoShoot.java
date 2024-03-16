@@ -19,10 +19,10 @@ public class AutoShoot extends SequentialCommandGroup {
       new SequentialCommandGroup(
         new ParallelRaceGroup(
                 new ShootSpeaker(),
-                new WaitCommand(0.3)),
+                new WaitCommand(0.4)),
         new ParallelRaceGroup(
                 new EjectSpeaker(),
-                new WaitCommand(0.3))
+                new WaitCommand(0.4))
       )
     );
   }
