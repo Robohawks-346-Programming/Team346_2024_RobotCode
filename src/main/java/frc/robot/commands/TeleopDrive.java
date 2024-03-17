@@ -53,7 +53,7 @@ public class TeleopDrive extends Command {
     curXSpeed *= DriveConstants.MAX_MOVE_VELOCITY;
     curYSpeed *= DriveConstants.MAX_MOVE_VELOCITY;
     curZRotation *= DriveConstants.MAX_TURN_VELOCITY;
-    if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
+    if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
 
       curXSpeed *=-1;
       curYSpeed *=-1;

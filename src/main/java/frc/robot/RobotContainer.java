@@ -84,6 +84,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+    setDriveCommand(false);
   }
 
   private void configureBindings() {
@@ -95,7 +96,7 @@ public class RobotContainer {
     BUTTON_1.whileFalse(new InstantCommand(pivot::stopPivot));
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());
-    BUTTON_4.onTrue(pivot.moveArm(-35));
+    BUTTON_4.onTrue(pivot.moveArm(-33.5));
     BUTTON_8.onTrue(pivot.moveArm(-60));
     BUTTON_5.onTrue(pivot.moveArm(55));
     BUTTON_6.onTrue(pivot.moveArm(0));

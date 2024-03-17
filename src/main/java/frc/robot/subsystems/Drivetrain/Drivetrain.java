@@ -257,7 +257,14 @@ public class Drivetrain extends SubsystemBase {
     public Translation2d returnTranslation() {
         return odometry.getPoseMeters().getTranslation();
     }
- 
 
+    public Rotation2d getHeadingInverse() {
+        float rawYaw = gyro.getYaw() + 180;
+        float calcYaw = rawYaw;
+        if(0.0 > rawYaw) {
+            calcYaw +=360.0;
+        }
+        return Rotation2d.fromDegrees(-calcYaw);
+    }
 
 }

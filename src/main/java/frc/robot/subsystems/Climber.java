@@ -65,8 +65,8 @@ public class Climber extends SubsystemBase{
     }
 
     public void moveHooksDown() {
-        leftHook.set(-0.6);
-        rightHook.set(-0.6);
+        leftHook.set(-0.75);
+        rightHook.set(-0.75);
     }
 
     public void stopHooks(){

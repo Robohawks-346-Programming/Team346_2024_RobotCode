@@ -58,6 +58,7 @@ public final class Autos {
         registerCommands();
 
     autoChooser = AutoBuilder.buildAutoChooser();
+    autoChooser.addOption("Shoot Only", new SequentialCommandGroup(new ParallelRaceGroup(new WaitCommand(1), new ShootSpeaker()), new ParallelRaceGroup(new WaitCommand(1), new EjectSpeaker()) ));
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 

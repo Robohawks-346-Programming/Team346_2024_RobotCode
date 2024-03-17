@@ -55,9 +55,9 @@ public final class Constants {
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
     public static final double MAX_MOVE_VELOCITY                        = 6; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 6; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 4.5; // for testing
     public static final double MAX_MOVE_VELOCITY_FAST                   = 6;
-    public static final double MAX_TURN_VELOCITY_FAST                   = 6;
+    public static final double MAX_TURN_VELOCITY_FAST                   = 4.5;
     
   // Front left Swerve Module
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
@@ -221,7 +221,7 @@ public final class Constants {
         public static final int FEEDER_ROLLER_MOTOR_ID                        = 6;
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
-        public static final double FEEDER_ROLLER_SPEED                        = 0.25;
+        public static final double FEEDER_ROLLER_SPEED                        = 0.3;
         public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.75;
         public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.9;
     }

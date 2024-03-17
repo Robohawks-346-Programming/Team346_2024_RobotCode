@@ -74,4 +74,9 @@ public class Indexer extends SubsystemBase{
         feederRoller.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
         ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
     }
+
+    public void indexSlow(){
+        feederRoller.set(0.25);
+        ampRollers.set(0.25);
+    }
 }
