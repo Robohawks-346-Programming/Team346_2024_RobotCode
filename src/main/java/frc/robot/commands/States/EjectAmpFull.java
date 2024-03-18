@@ -25,7 +25,7 @@ public class EjectAmpFull extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
       new SequentialCommandGroup(
-      new ParallelRaceGroup(new IndexSlow(), new WaitCommand(0.1)),
+      new ParallelRaceGroup(new Index(), new WaitCommand(0.1)),
       new EjectAmp()
       ),
       new RunReverse()
