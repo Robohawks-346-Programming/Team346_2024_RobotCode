@@ -82,9 +82,7 @@ public class Drivetrain extends SubsystemBase {
             Constants.DriveConstants.DRIVE_KINEMATICS,
             getHeading(),
             getModulePositions(),
-            new Pose2d(),
-            VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-            VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)) // doesn't matter
+            new Pose2d()
         );
 
         mainField.setRobotPose(new Pose2d(1.9, 4.99, Rotation2d.fromDegrees(0)));

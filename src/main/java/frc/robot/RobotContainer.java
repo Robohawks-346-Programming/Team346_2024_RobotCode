@@ -5,11 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.States.AutoShoot;
-import frc.robot.commands.States.EfficientIntake;
 import frc.robot.commands.States.EjectAmpFull;
 import frc.robot.commands.States.EjectSpeakerFull;
 import frc.robot.commands.Autos;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Intake.Outake;
 import frc.robot.commands.Shoot.EjectAmp;
 import frc.robot.commands.Shoot.EjectSpeaker;
@@ -21,6 +21,7 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
+import frc.robot.subsystems.Vision.Vision;
 
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
@@ -60,6 +61,7 @@ public class RobotContainer {
   public static final Shooter shooter = new Shooter();
   public static final Intake intake = new Intake();
   public static final Climber climber = new Climber();
+  public static final Vision vision = new Vision();
   
     public Supplier<Double> xAxis = () -> (driverControl.getLeftY());
     public Supplier<Double> yAxis = () -> (driverControl.getLeftX());
@@ -92,7 +94,7 @@ public class RobotContainer {
       drivetrain.resetEncoders();
       drivetrain.zeroHeading();
     }));
-    BUTTON_1.whileTrue(new ParallelCommandGroup(new EfficientIntake(), new InstantCommand(pivot::setPercent)));
+    BUTTON_1.whileTrue(new ParallelCommandGroup(new IntakeFull(), new InstantCommand(pivot::setPercent)));
     BUTTON_1.whileFalse(new InstantCommand(pivot::stopPivot));
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());

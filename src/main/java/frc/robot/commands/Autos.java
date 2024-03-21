@@ -24,10 +24,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Shoot.EjectSpeaker;
 import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.commands.States.AutoShoot;
-import frc.robot.commands.States.EfficientIntake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
@@ -93,7 +93,7 @@ PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("NewPath.4");
     }
 
     public void registerCommands(){
-      NamedCommands.registerCommand("Intake", new EfficientIntake());
+      NamedCommands.registerCommand("Intake", new IntakeFull());
      NamedCommands.registerCommand("Shoot", new AutoShoot());
      NamedCommands.registerCommand("Test Shoot", new SequentialCommandGroup(new AutoShoot()));
      //new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))

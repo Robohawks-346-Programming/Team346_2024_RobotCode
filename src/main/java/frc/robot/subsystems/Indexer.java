@@ -37,8 +37,8 @@ public class Indexer extends SubsystemBase{
     }
 
     public void startIndex() {
-        feederRoller.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
-        ampRollers.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
+        feederRoller.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_1);
+        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_1);
     }
 
     public void reverseIndex() {
