@@ -48,6 +48,7 @@ public class Arducam {
         if (!camera.isConnected()) return;
 
         PhotonPipelineResult result = camera.getLatestResult(); 
+        camera.setPipelineIndex(0);
         Optional<EstimatedRobotPose> estimatedPose = poseEstimator.update(result);
         if (estimatedPose.isEmpty()) return;
         EstimatedRobotPose estimation = estimatedPose.get();
