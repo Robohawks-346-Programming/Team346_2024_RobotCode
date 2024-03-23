@@ -49,11 +49,11 @@ public class Climber extends SubsystemBase{
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Left hook Good", leftHookGood);
-        SmartDashboard.putBoolean("Right hook Good", rightHookGood);
+        // SmartDashboard.putBoolean("Left hook Good", leftHookGood);
+        // SmartDashboard.putBoolean("Right hook Good", rightHookGood);
 
-        SmartDashboard.putNumber("Left hook rev", leftHookEncoder.getPosition());
-        SmartDashboard.putNumber("Right hook rev", rightHookEncoder.getPosition());
+        // SmartDashboard.putNumber("Left hook rev", leftHookEncoder.getPosition());
+        // SmartDashboard.putNumber("Right hook rev", rightHookEncoder.getPosition());
     }
 
     public void moveHooksUp() {

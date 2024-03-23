@@ -20,10 +20,10 @@ public class Vision extends SubsystemBase {
     public Vision() {
 
         cameras = new Arducam[] {
-            new Arducam(Constants.VisionConstants.cameraNames[0], VisionConstants.vehicleToCameras[0], flCount),
-            new Arducam(Constants.VisionConstants.cameraNames[1], VisionConstants.vehicleToCameras[1], frCount),
-            new Arducam(Constants.VisionConstants.cameraNames[2], VisionConstants.vehicleToCameras[2], blCount),
-            new Arducam(Constants.VisionConstants.cameraNames[3], VisionConstants.vehicleToCameras[3], brCount)
+            new Arducam(Constants.VisionConstants.cameraNames[0], VisionConstants.vehicleToCameras[0]),
+            new Arducam(Constants.VisionConstants.cameraNames[1], VisionConstants.vehicleToCameras[1]),
+            new Arducam(Constants.VisionConstants.cameraNames[2], VisionConstants.vehicleToCameras[2]),
+            new Arducam(Constants.VisionConstants.cameraNames[3], VisionConstants.vehicleToCameras[3])
         };
 
         notifier = new Notifier(() -> {
@@ -39,14 +39,10 @@ public class Vision extends SubsystemBase {
     public void periodic() {
 
         RobotContainer.drivetrain.poseEstimator.getEstimatedPosition();
-        SmartDashboard.putNumber("FL", flCount);
-        SmartDashboard.putNumber("BL", blCount);
-        SmartDashboard.putNumber("FR", frCount);
-        SmartDashboard.putNumber("BR", brCount);
 
-        for (int i = 0; i < 3; i++) {
-            if (cameras[i].hasNewObservation()) {
-                cameras[i].recordVisionObservation();
+        for (Arducam cam: cameras) {
+            if (cam.hasNewObservation()) {
+                cam.recordVisionObservation();
             }
         }
 

@@ -63,11 +63,11 @@ public final class Autos {
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     // Load a Choreo trajectory as a PathPlannerPath
-PathPlannerPath traj1 = PathPlannerPath.fromChoreoTrajectory("NewPath");
-PathPlannerPath traj2 = PathPlannerPath.fromChoreoTrajectory("NewPath.1");
-PathPlannerPath traj3 = PathPlannerPath.fromChoreoTrajectory("NewPath.2");
-PathPlannerPath traj4 = PathPlannerPath.fromChoreoTrajectory("NewPath.3");
-PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("NewPath.4");
+PathPlannerPath traj1 = PathPlannerPath.fromChoreoTrajectory("5 Piece");
+PathPlannerPath traj2 = PathPlannerPath.fromChoreoTrajectory("5 Piece.1");
+PathPlannerPath traj3 = PathPlannerPath.fromChoreoTrajectory("5 Piece.2");
+PathPlannerPath traj4 = PathPlannerPath.fromChoreoTrajectory("5 Piece.3");
+PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("5 Piece.4");
       }
 
     public Command getAutos(){

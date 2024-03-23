@@ -109,8 +109,8 @@ public final class Constants {
         public static final String[] cameraNames = {
             "FL", 
             "FR", 
-            "BL", 
-            "BR",
+            "BR", 
+            "BL",
             "Camera_Module_v1"
         };
 

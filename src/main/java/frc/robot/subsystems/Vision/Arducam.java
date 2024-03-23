@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
@@ -33,22 +34,23 @@ public class Arducam {
     private volatile Pose3d intermediatePose = new Pose3d();
     private volatile double timestamp = 1;
     private double count;
+    private String name;
 
 
 
-    public Arducam(String cameraName, Transform3d vehicleToCamera, double c) {
+    public Arducam(String cameraName, Transform3d vehicleToCamera) {
         camera = new PhotonCamera(cameraName);
         poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, vehicleToCamera);
         poseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
-        count = c;
+        name = cameraName;
     }
 
     public void periodic() {
-
+        SmartDashboard.putBoolean(name, camera.isConnected());
+       // SmartDashboard.putNumber(name, count);
         if (!camera.isConnected()) return;
 
-        PhotonPipelineResult result = camera.getLatestResult(); 
-        camera.setPipelineIndex(0);
+        PhotonPipelineResult result = camera.getLatestResult();
         Optional<EstimatedRobotPose> estimatedPose = poseEstimator.update(result);
         if (estimatedPose.isEmpty()) return;
         EstimatedRobotPose estimation = estimatedPose.get();
@@ -74,6 +76,7 @@ public class Arducam {
         timestamp = estimation.timestampSeconds;
         hasNewPose = true;
         count ++;
+        SmartDashboard.putBoolean(name+"Works", true);
 
     }
 
