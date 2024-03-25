@@ -5,7 +5,7 @@
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
-package frc.robot;
+package frc.robot.util;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,7 +13,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.FieldConstants;
 
 /** Utility functions for flipping from the blue to red alliance. */
 public class AllianceFlipUtil {
@@ -61,10 +60,6 @@ public class AllianceFlipUtil {
       return translation3d;
     }
   }
-
-  /**
-   * Flips a trajectory state to the correct side of the field based on the current alliance color.
-   */
 
   public static boolean shouldFlip() {
     return DriverStation.getAlliance().isPresent()

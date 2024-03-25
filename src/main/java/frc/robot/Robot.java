@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.Optional;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -37,6 +39,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     RobotContainer.pivot.resetPivotAngle();
+    // UsbCamera camera =  CameraServer.startAutomaticCapture();
+    // camera.setResolution(800, 600);
+    // camera.setFPS(20);
   }
 
   /**

@@ -8,11 +8,13 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Pivot extends SubsystemBase {
     private static TalonFX pivotMotor;
@@ -81,14 +83,10 @@ public class Pivot extends SubsystemBase {
         return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(pos))));
     }
     
-    public void distanceBasedArmPivot(double x, double y){
-        pivotMotor.setControl(position.withPosition(getDistanceBasedAngle(x, y)));
+    public Command distanceBasedArmPivot(){
+        return Commands.run(() -> pivotMotor.setControl(position.withPosition(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()))));
     }
-
-    public double getDistanceBasedAngle(double x, double y){
-        return pivotLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-    }
-
+    
     public void resetPivotAngle() {
         pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
     }

@@ -1,7 +1,9 @@
 package frc.robot.commands.States;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Pivot.DistancePivot;
+import frc.robot.RobotContainer;
+import frc.robot.commands.RotateToHeading;
 import frc.robot.commands.Shoot.ShootSpeaker;
 
 public class DistanceBasedFullShoot extends SequentialCommandGroup {
@@ -15,8 +17,11 @@ public class DistanceBasedFullShoot extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
         new SequentialCommandGroup(
-          new DistancePivot(),
-          new ShootSpeaker()
+          new ParallelCommandGroup(
+          new ShootSpeaker(),
+          new RotateToHeading(),
+          RobotContainer.pivot.distanceBasedArmPivot()
+          )
       )
       
     );

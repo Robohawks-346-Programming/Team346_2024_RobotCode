@@ -109,22 +109,19 @@ public final class Constants {
         public static final String[] cameraNames = {
             "FL", 
             "FR", 
-            "BR", 
-            "BL",
+            "BL", 
+            "BR",
             "Camera_Module_v1"
         };
 
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
-            new Transform3d(new Translation3d(Units.inchesToMeters(-12), Units.inchesToMeters(5.75), Units.inchesToMeters(26.375)), new Rotation3d(0, 0, 0)),
-            new Transform3d(new Translation3d(Units.inchesToMeters(12), Units.inchesToMeters(5.75), Units.inchesToMeters(26.375)), new Rotation3d(0, 0, 0)),
+            new Transform3d(new Translation3d(Units.inchesToMeters(-12), Units.inchesToMeters(5.75), Units.inchesToMeters(25.5)), new Rotation3d(0, 0, 0)),
+            new Transform3d(new Translation3d(Units.inchesToMeters(12), Units.inchesToMeters(5.75), Units.inchesToMeters(25.5)), new Rotation3d(0, 0, 0)),
             new Transform3d(new Translation3d(Units.inchesToMeters(-9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.6666666666)), new Rotation3d(0, 0, 0)),
             new Transform3d(new Translation3d(Units.inchesToMeters(9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.66666666)), new Rotation3d(0, 0, 0))
         };
 
-        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.05;
-        public static final double MINIMUM_STANDARD_DEVIATION                   = 0.3;
-        public static final double EULER_MULTIPLIER                             = 0.25;
-        public static final double DISTANCE_MULTIPLIER                          = 0.4;
+        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.025;
 
     }
 
@@ -174,13 +171,14 @@ public final class Constants {
 
         public static InterpolatingDoubleTreeMap getPivotMap() {
             InterpolatingDoubleTreeMap pivotMap = new InterpolatingDoubleTreeMap();
-            pivotMap.put(0.0, 0.0);
-            pivotMap.put(1.0, 0.0);
-            pivotMap.put(2.0, 0.0);
-            pivotMap.put(3.0, 0.0);
-            pivotMap.put(4.0, 0.0);
-            pivotMap.put(5.0, 0.0);
-            pivotMap.put(6.0, 0.0);
+            pivotMap.put(1.0, -55.0);
+            pivotMap.put(1.5, -55.0);
+            pivotMap.put(2.0, -45.0);
+            pivotMap.put(2.5, -38.0);
+            pivotMap.put(3.0, -32.0);
+            pivotMap.put(3.5, -25.25);
+            pivotMap.put(4.0, -23.0);
+            pivotMap.put(4.5, -20.5);
             return pivotMap;
         }
     }
@@ -189,7 +187,7 @@ public final class Constants {
         public static final int INTAKE_MOTOR_ID                               = 15;
         public static final int CENTERING_MOTOR_ID                            = 16;
 
-        public static final double INTAKE_MOTOR_SPEED                         = 0.7;
+        public static final double INTAKE_MOTOR_SPEED                         = 0.95;
     }
 
     public static final class ShooterConstants {
@@ -203,18 +201,6 @@ public final class Constants {
         public static final double SPEAKER_SHOOTER_kV                     = 0;
 
         public static final int BEAM_BREAK_PORT                        = 9;
-
-        public static InterpolatingDoubleTreeMap getShooterMap() {
-            InterpolatingDoubleTreeMap shooterMap = new InterpolatingDoubleTreeMap();
-            shooterMap.put(0.0, 0.0);
-            shooterMap.put(1.0, 0.0);
-            shooterMap.put(2.0, 0.0);
-            shooterMap.put(3.0, 0.0);
-            shooterMap.put(4.0, 0.0);
-            shooterMap.put(5.0, 0.0);
-            shooterMap.put(6.0, 0.0);
-            return shooterMap;
-        }
     }
 
     public static final class IndexerConstants {
@@ -222,8 +208,8 @@ public final class Constants {
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
         public static final double FEEDER_ROLLER_SPEED                        = 0.3;
-        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.7;
-        public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.9;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.5;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.8;
     }
 
     public static final class ClimberConstants {

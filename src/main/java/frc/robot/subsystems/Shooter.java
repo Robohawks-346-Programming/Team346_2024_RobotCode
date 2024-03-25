@@ -22,8 +22,6 @@ public class Shooter extends SubsystemBase{
 
     private final VoltageOut volts;
 
-    public final InterpolatingDoubleTreeMap shooterLookupTable = Constants.ShooterConstants.getShooterMap();
-
     private double x, y;
 
     private final CoastOut coast = new CoastOut();
@@ -68,15 +66,6 @@ public class Shooter extends SubsystemBase{
     public void setVoltage(double volt) {
         topRoller.setControl(volts.withOutput(volt));
         bottomRoller.setControl(volts.withOutput(volt));
-    }
-
-    public void distanceBaseShoot(){
-        topRoller.setControl(voltage.withVelocity(getDistanceBasedVelocity()));
-        bottomRoller.setControl(voltage.withVelocity(getDistanceBasedVelocity()));
-    }
-
-    public double getDistanceBasedVelocity(){
-        return shooterLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
     }
 
     public boolean isAtVelocity(double rev){

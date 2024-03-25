@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -72,9 +73,6 @@ public class Drivetrain extends SubsystemBase {
     public SwerveDrivePoseEstimator poseEstimator;
     public SwerveDriveOdometry odometry;
 
-    private final Field2d mainField = new Field2d();
-    private final Field2d odometryField = new Field2d();
-
     public Drivetrain() {
         gyro.enableBoardlevelYawReset(true);
         
@@ -85,8 +83,6 @@ public class Drivetrain extends SubsystemBase {
             new Pose2d()
         );
 
-        mainField.setRobotPose(new Pose2d(1.9, 4.99, Rotation2d.fromDegrees(0)));
-        SmartDashboard.putData("Field Pose", mainField);
         odometry = new SwerveDriveOdometry(Constants.DriveConstants.DRIVE_KINEMATICS, getHeading(), getModulePositions());
        
         for( SwerveModule module : modules) {
@@ -96,8 +92,7 @@ public class Drivetrain extends SubsystemBase {
 
         lastFPGATimestamp = Timer.getFPGATimestamp();
 
-        PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("Field").setPoses(poses));
-        SmartDashboard.putData("Field", field);
+        //PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("Field").setPoses(poses));
     }
     
     @Override
@@ -115,6 +110,8 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Pose X", poseEstimator.getEstimatedPosition().getX());
         SmartDashboard.putNumber("Pose Y", poseEstimator.getEstimatedPosition().getY());
         SmartDashboard.putNumber("Pose Rotation", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+        field.setRobotPose(poseEstimator.getEstimatedPosition());
+        SmartDashboard.putData("Field Pose", field);
 
         //frontLeft.setDriveWheelsToVoltage(11);
 
@@ -229,11 +226,14 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getDistanceFromSpeaker() {
+        double x, y = 0;
         if (DriverStation.getAlliance().get() == Alliance.Blue){
-            return poseEstimator.getEstimatedPosition().getX();
+            x =  poseEstimator.getEstimatedPosition().getX();
         } else {
-            return 16.5 - poseEstimator.getEstimatedPosition().getX();
+            x =  16.5 - poseEstimator.getEstimatedPosition().getX();
         }
+        y = Math.abs(poseEstimator.getEstimatedPosition().getY() - 5.5);
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
     public void tuneFeedForward(double voltage){
@@ -241,15 +241,16 @@ public class Drivetrain extends SubsystemBase {
             module.setDriveWheelsToVoltage(voltage);
         }
     }
-    public Pose2d automaticRotation(Pose2d currentPose2d){
-        double x;
-        double y = currentPose2d.getY()-5.5;
-        if (DriverStation.getAlliance().get() == Alliance.Blue){
-              x = currentPose2d.getX()-0.5;
+
+    public double automaticRotation(){
+        double x, y = 0;
+        y = poseEstimator.getEstimatedPosition().getY() - 5.5;
+        if (DriverStation.getAlliance().get() == Alliance.Blue) {
+            x = poseEstimator.getEstimatedPosition().getX();
         } else {
-              x = currentPose2d.getX()-16;
+            x = 16.5 - poseEstimator.getEstimatedPosition().getX();
         }
-        return new Pose2d(currentPose2d.getX(),currentPose2d.getY(), new Rotation2d(Math.atan2(y,x)));
+        return Math.atan2(y,x);
     }
 
     public Translation2d returnTranslation() {
@@ -263,6 +264,14 @@ public class Drivetrain extends SubsystemBase {
             calcYaw +=360.0;
         }
         return Rotation2d.fromDegrees(-calcYaw);
+    }
+
+    public double getAutomaticRotationSide(){
+        if (poseEstimator.getEstimatedPosition().getRotation().getRadians() > automaticRotation()){
+            return 0.5;
+        } else {
+            return -0.5;
+        }
     }
 
 }

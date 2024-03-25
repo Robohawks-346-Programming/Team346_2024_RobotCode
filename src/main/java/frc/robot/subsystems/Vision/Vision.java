@@ -10,10 +10,8 @@ import frc.robot.Constants.VisionConstants;
 public class Vision extends SubsystemBase {
 
     private final Arducam[] cameras;
-    private double frCount;
-    private double brCount;
-    private double blCount;
-    private double flCount;
+    private double count;
+
 
     private final Notifier notifier;
 
@@ -27,7 +25,7 @@ public class Vision extends SubsystemBase {
         };
 
         notifier = new Notifier(() -> {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < cameras.length; i++) {
                 cameras[i].periodic();
             }
         });
@@ -39,10 +37,12 @@ public class Vision extends SubsystemBase {
     public void periodic() {
 
         RobotContainer.drivetrain.poseEstimator.getEstimatedPosition();
+        SmartDashboard.putNumber("Vision Count", count);
 
-        for (Arducam cam: cameras) {
-            if (cam.hasNewObservation()) {
-                cam.recordVisionObservation();
+        for (int i = 0; i < cameras.length; i++) {
+            if (cameras[i].hasNewObservation()) {
+                cameras[i].recordVisionObservation();
+                count++;
             }
         }
 

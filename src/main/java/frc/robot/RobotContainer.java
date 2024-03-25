@@ -5,9 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.States.AutoShoot;
+import frc.robot.commands.States.DistanceBasedFullShoot;
 import frc.robot.commands.States.EjectAmpFull;
 import frc.robot.commands.States.EjectSpeakerFull;
 import frc.robot.commands.Autos;
+import frc.robot.commands.RotateToHeading;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Intake.Outake;
@@ -94,6 +96,7 @@ public class RobotContainer {
       drivetrain.resetEncoders();
       drivetrain.zeroHeading();
     }));
+    rightTrigger.onTrue(new DistanceBasedFullShoot());
     BUTTON_1.whileTrue(new ParallelCommandGroup(new IntakeFull(), new InstantCommand(pivot::setPercent)));
     BUTTON_1.whileFalse(new InstantCommand(pivot::stopPivot));
     BUTTON_3.whileTrue(new ShootSpeaker());
@@ -115,7 +118,7 @@ public class RobotContainer {
     BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
     BUTTON_16.whileTrue(new EjectAmpFull());
     BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
-    BUTTON_15.whileTrue(pivot.moveArm(-21));
+    BUTTON_15.whileTrue(pivot.moveArm(-21)); //21
     BUTTON_9.whileTrue(new InstantCommand(indexer::startIndex));
     BUTTON_9.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileTrue(new EjectSpeakerFull());

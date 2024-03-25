@@ -65,12 +65,17 @@ public class Arducam {
             return;
         }
 
-        double distance = 0;
-        for (PhotonTrackedTarget target : estimation.targetsUsed) {
-            distance += target.getBestCameraToTarget().getTranslation().getDistance(new Translation3d());
+        if (Math.abs(Math.toDegrees(intermediatePose.getRotation().getAngle()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 3){
+            return;
         }
 
-        distance /= estimation.targetsUsed.size();
+        if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.1){
+            return;
+        }
+
+        if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.1){
+            return;
+        }
 
         calculatedPose = estimation.estimatedPose;
         timestamp = estimation.timestampSeconds;
