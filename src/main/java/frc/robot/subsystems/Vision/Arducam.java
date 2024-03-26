@@ -65,7 +65,13 @@ public class Arducam {
             return;
         }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getRotation().getAngle()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 3){
+        for (PhotonTrackedTarget est: estimation.targetsUsed){
+            if (est.getPoseAmbiguity() > 0.1){
+                return;
+            }
+        }
+
+        if (Math.abs(Math.toDegrees(intermediatePose.getRotation().getAngle()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 4){
             return;
         }
 

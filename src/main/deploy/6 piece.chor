@@ -1648,26 +1648,26 @@
                     }
                 },
                 {
-                    "name": "Intake",
+                    "name": "Pivot Far",
                     "target": 7,
                     "targetTimestamp": 6.344932897851409,
-                    "offset": -0.3,
+                    "offset": -0.7,
                     "command": {
                         "type": "named",
                         "data": {
-                            "name": "Intake"
+                            "name": "Pivot Far"
                         }
                     }
                 },
                 {
-                    "name": "Intake",
+                    "name": "Pivot Far",
                     "target": 9,
                     "targetTimestamp": 8.391457982079803,
                     "offset": 0.2,
                     "command": {
                         "type": "named",
                         "data": {
-                            "name": "Intake"
+                            "name": "Pivot Far"
                         }
                     }
                 }

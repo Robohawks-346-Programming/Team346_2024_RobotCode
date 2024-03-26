@@ -98,17 +98,9 @@ PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("5 Piece.4");
      NamedCommands.registerCommand("Shoot", new AutoShoot());
      NamedCommands.registerCommand("Test Shoot", new SequentialCommandGroup(new AutoShoot()));
      //new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))
-    NamedCommands.registerCommand("Pivot Close", new SequentialCommandGroup(new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new ShootSpeaker()), new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.25))));
-    NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new ShootSpeaker()), new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.25))));
+    NamedCommands.registerCommand("Pivot Close", new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(0.5))));
+    NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new ShootSpeaker())));
     NamedCommands.registerCommand("Rev", new ShootSpeaker());
-    NamedCommands.registerCommand("Eject",  new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.3)));
+    NamedCommands.registerCommand("Eject",  new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.25)));
     }
-
-    public Command getChoreoAuto(){
-      return new PathPlannerAuto("Choreo Auto");
-    }
-
-    
-
-       
 }

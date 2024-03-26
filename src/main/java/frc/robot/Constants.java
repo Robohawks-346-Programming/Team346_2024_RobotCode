@@ -31,7 +31,7 @@ public final class Constants {
     public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(20.5);
     public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(20.5);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
-    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.9);
+    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(4);
     public static final double WHEEL_CIRCUMFERENCE                      = Math.PI * WHEEL_DIAMETER;
 
     public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));

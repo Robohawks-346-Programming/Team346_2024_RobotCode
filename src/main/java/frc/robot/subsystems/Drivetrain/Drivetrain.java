@@ -1,5 +1,9 @@
 package frc.robot.subsystems.Drivetrain;
 
+import java.util.Optional;
+
+import org.photonvision.PhotonUtils;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
@@ -72,6 +76,9 @@ public class Drivetrain extends SubsystemBase {
 
     public SwerveDrivePoseEstimator poseEstimator;
     public SwerveDriveOdometry odometry;
+
+    private Pose2d redGoal = new Pose2d(new Translation2d(16.579342,5.547868), new Rotation2d());
+    private Pose2d blueGoal = new Pose2d(new Translation2d(0.0381,5.547868), new Rotation2d());
 
     public Drivetrain() {
         gyro.enableBoardlevelYawReset(true);
@@ -220,37 +227,15 @@ public class Drivetrain extends SubsystemBase {
         return odometry.getPoseMeters();
       }
 
-      public void resetPose(Pose2d pose) {
+    public void resetPose(Pose2d pose) {
         poseEstimator.resetPosition(gyro.getRotation2d(), getModulePositions(), pose);
         odometry.resetPosition(gyro.getRotation2d(), getModulePositions(), pose);
-    }
-
-    public double getDistanceFromSpeaker() {
-        double x, y = 0;
-        if (DriverStation.getAlliance().get() == Alliance.Blue){
-            x =  poseEstimator.getEstimatedPosition().getX();
-        } else {
-            x =  16.5 - poseEstimator.getEstimatedPosition().getX();
-        }
-        y = Math.abs(poseEstimator.getEstimatedPosition().getY() - 5.5);
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
     public void tuneFeedForward(double voltage){
         for (SwerveModule module: modules){
             module.setDriveWheelsToVoltage(voltage);
         }
-    }
-
-    public double automaticRotation(){
-        double x, y = 0;
-        y = poseEstimator.getEstimatedPosition().getY() - 5.5;
-        if (DriverStation.getAlliance().get() == Alliance.Blue) {
-            x = poseEstimator.getEstimatedPosition().getX();
-        } else {
-            x = 16.5 - poseEstimator.getEstimatedPosition().getX();
-        }
-        return Math.atan2(y,x);
     }
 
     public Translation2d returnTranslation() {
@@ -266,12 +251,36 @@ public class Drivetrain extends SubsystemBase {
         return Rotation2d.fromDegrees(-calcYaw);
     }
 
+    public double getDistanceFromSpeaker() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = poseEstimator.getEstimatedPosition();
+        double distance = PhotonUtils.getDistanceToPose(target, robot);
+        SmartDashboard.putNumber("Distance To Target", distance);
+        return distance;
+    }
+
     public double getAutomaticRotationSide(){
-        if (poseEstimator.getEstimatedPosition().getRotation().getRadians() > automaticRotation()){
+        if (poseEstimator.getEstimatedPosition().getRotation().getRadians() > getHeadingAngleToSpeaker()){
             return 0.5;
         } else {
             return -0.5;
         }
     }
+
+    private boolean isRedAlliance(){
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if(alliance != null){
+            return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return false;
+    }
+
+    public double getHeadingAngleToSpeaker() {
+        Pose2d target = isRedAlliance()? redGoal: blueGoal;
+        Pose2d robot = poseEstimator.getEstimatedPosition();
+        double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
+        SmartDashboard.putNumber("Heading To Target", headingToTarget);
+        return headingToTarget;
+    }   
 
 }

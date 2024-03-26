@@ -30,7 +30,7 @@ public class RotateToHeading extends Command {
 
   @Override
   public boolean isFinished() {
-    return drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians() == drivetrain.automaticRotation();
+    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians() - drivetrain.getHeadingAngleToSpeaker()) <= 4;
   }
 
 }

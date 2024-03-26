@@ -10,7 +10,7 @@
         "trackWidth": 0.6857996296682,
         "bumperLength": 0.9143995062242666,
         "bumperWidth": 0.8381995473722444,
-        "wheelRadius": 0.04952997325381444
+        "wheelRadius": 0.050799972568014815
     },
     "paths": {
         "5 Piece": {
@@ -1318,7 +1318,7 @@
             "usesDefaultFieldObstacles": true,
             "circleObstacles": [],
             "eventMarkers": [],
-            "isTrajectoryStale": false
+            "isTrajectoryStale": true
         }
     },
     "splitTrajectoriesAtStopPoints": true,

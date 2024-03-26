@@ -38,7 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "Eject"
           }
         },
         {
@@ -54,6 +54,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Eject"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "6 Note.4"
@@ -62,7 +68,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Pivot Far"
+            "name": "Eject"
           }
         },
         {
@@ -74,7 +80,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Pivot Far"
+            "name": "Eject"
           }
         }
       ]
