@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.util.AllianceFlipUtil;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -95,16 +96,16 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.shooter.stopShooter();
     if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
-      heading = RobotContainer.drivetrain.getHeading();
-    } else {
       heading = RobotContainer.drivetrain.getHeadingInverse();
+    } else {
+      heading = RobotContainer.drivetrain.getHeading();
     }
     //RobotContainer.drivetrain.zeroHeading();
     // RobotContainer.drivetrain.setFieldToVehicle(
     //   new Pose2d(RobotContainer.drivetrain.returnTranslation(), 
-    //   AllianceFlipUtil.apply(Rotation2d.fromDegrees(180))));
+    //   AllianceFlipUtil.apply(Rotation2d.fromDegrees(180).plus(RobotContainer.drivetrain.getHeading()))));
     
-    RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), heading));
+    RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), RobotContainer.drivetrain.getHeading()));
   }
 
   /** This function is called periodically during operator control. */

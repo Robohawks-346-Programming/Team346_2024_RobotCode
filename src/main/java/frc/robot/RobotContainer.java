@@ -29,6 +29,9 @@ import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
@@ -56,7 +59,6 @@ public class RobotContainer {
   private Trigger leftTrigger = driverControl.leftTrigger();
   private Trigger leftBumper = driverControl.leftBumper();
   public static final Drivetrain drivetrain = new Drivetrain();
-  public static final Autos autos = new Autos();
   public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
   public static final Indexer indexer = new Indexer();
@@ -64,6 +66,7 @@ public class RobotContainer {
   public static final Intake intake = new Intake();
   public static final Climber climber = new Climber();
   public static final Vision vision = new Vision();
+  public static final Autos autos = new Autos(pivot);
   
     public Supplier<Double> xAxis = () -> (driverControl.getLeftY());
     public Supplier<Double> yAxis = () -> (driverControl.getLeftX());
@@ -118,7 +121,7 @@ public class RobotContainer {
     BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
     BUTTON_16.whileTrue(new EjectAmpFull());
     BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
-    BUTTON_15.whileTrue(pivot.moveArm(-21)); //21
+    BUTTON_15.whileTrue(pivot.moveArm(-22.5)); //21
     BUTTON_9.whileTrue(new InstantCommand(indexer::startIndex));
     BUTTON_9.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileTrue(new EjectSpeakerFull());

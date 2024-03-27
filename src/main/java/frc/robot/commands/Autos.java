@@ -38,9 +38,9 @@ public final class Autos {
   private final SendableChooser<Command> autoChooser;
 
 
-  public Autos() {
+  public Autos(Pivot m_Pivot) {
     drivetrain = RobotContainer.drivetrain;
-    pivot = RobotContainer.pivot;
+    pivot = m_Pivot;
     AutoBuilder.configureHolonomic(
       drivetrain::getPose, 
       drivetrain::resetPose, 
@@ -101,6 +101,6 @@ PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("5 Piece.4");
     NamedCommands.registerCommand("Pivot Close", new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(0.5))));
     NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new ShootSpeaker())));
     NamedCommands.registerCommand("Rev", new ShootSpeaker());
-    NamedCommands.registerCommand("Eject",  new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.25)));
+    NamedCommands.registerCommand("Eject", new SequentialCommandGroup(new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.25)), pivot.moveArm(-55)));
     }
 }

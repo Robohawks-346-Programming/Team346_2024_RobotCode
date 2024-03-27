@@ -117,8 +117,8 @@ public final class Constants {
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
             new Transform3d(new Translation3d(Units.inchesToMeters(-12), Units.inchesToMeters(5.75), Units.inchesToMeters(25.5)), new Rotation3d(0, 0, 0)),
             new Transform3d(new Translation3d(Units.inchesToMeters(12), Units.inchesToMeters(5.75), Units.inchesToMeters(25.5)), new Rotation3d(0, 0, 0)),
-            new Transform3d(new Translation3d(Units.inchesToMeters(-9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.6666666666)), new Rotation3d(0, 0, 0)),
-            new Transform3d(new Translation3d(Units.inchesToMeters(9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.66666666)), new Rotation3d(0, 0, 0))
+            new Transform3d(new Translation3d(Units.inchesToMeters(-9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.6666666666)), new Rotation3d(0, 0, 180)),
+            new Transform3d(new Translation3d(Units.inchesToMeters(9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.66666666)), new Rotation3d(0, 0, 180))
         };
 
         public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.025;
@@ -178,7 +178,8 @@ public final class Constants {
             pivotMap.put(3.0, -32.0);
             pivotMap.put(3.5, -25.25);
             pivotMap.put(4.0, -23.0);
-            pivotMap.put(4.5, -20.5);
+            pivotMap.put(4.5, -21.5);
+            pivotMap.put(6.5, -20.0);
             return pivotMap;
         }
     }

@@ -1,7 +1,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain.*;;
@@ -29,8 +31,14 @@ public class RotateToHeading extends Command {
   }
 
   @Override
+  public void end(boolean interrupted) {
+    drivetrain.brake();
+  }
+
+  @Override
   public boolean isFinished() {
-    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians() - drivetrain.getHeadingAngleToSpeaker()) <= 4;
+    SmartDashboard.putNumber("Finished Rotation", drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians());
+    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians() - drivetrain.getHeadingAngleToSpeaker()) <= 0.2;
   }
 
 }

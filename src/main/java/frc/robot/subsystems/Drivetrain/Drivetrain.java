@@ -260,10 +260,10 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getAutomaticRotationSide(){
-        if (poseEstimator.getEstimatedPosition().getRotation().getRadians() > getHeadingAngleToSpeaker()){
-            return 0.5;
-        } else {
+        if (gyro.getFusedHeading() > getHeadingAngleToSpeaker()){
             return -0.5;
+        } else {
+            return 0.5;
         }
     }
 
@@ -280,7 +280,7 @@ public class Drivetrain extends SubsystemBase {
         Pose2d robot = poseEstimator.getEstimatedPosition();
         double headingToTarget = Math.atan((target.getY() - robot.getY())/(robot.getX() - target.getX()));
         SmartDashboard.putNumber("Heading To Target", headingToTarget);
-        return headingToTarget;
+        return headingToTarget + Math.PI;
     }   
 
 }

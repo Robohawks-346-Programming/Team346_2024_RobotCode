@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,6 +39,9 @@ public class Climber extends SubsystemBase{
         rightHookPIDController.setI(Constants.ClimberConstants.HOOK_I);
         rightHookPIDController.setD(Constants.ClimberConstants.HOOK_D);
         leftHookPIDController.setFF(0.1);
+
+        leftHook.setIdleMode(IdleMode.kBrake);
+        rightHook.setIdleMode(IdleMode.kBrake);
 
         leftHook.burnFlash();
         rightHook.burnFlash();

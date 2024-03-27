@@ -84,6 +84,7 @@ public class Pivot extends SubsystemBase {
     }
     
     public Command distanceBasedArmPivot(){
+        SmartDashboard.putNumber("Wanted Arm Angle", pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()));
         return Commands.run(() -> pivotMotor.setControl(position.withPosition(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()))));
     }
     
