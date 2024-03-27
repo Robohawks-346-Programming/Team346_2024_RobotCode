@@ -9,15 +9,15 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain.*;;
 
 public class RotateToHeading extends Command {
-  //PIDController m_turnController;
+  PIDController m_turnController;
   double turnSpeed;
   Drivetrain drivetrain;
 
   public RotateToHeading() {
     drivetrain = RobotContainer.drivetrain;
     addRequirements(drivetrain);
-    // m_turnController = new PIDController(10, 0, 0);
-    // m_turnController.enableContinuousInput(-180, 180);
+    m_turnController = new PIDController(0.1, 0, 0);
+    m_turnController.enableContinuousInput(-180, 180);
   }
 
   @Override
@@ -26,8 +26,8 @@ public class RotateToHeading extends Command {
         new ChassisSpeeds(
             0,
             0,
-            drivetrain.getAutomaticRotationSide()));
-            //m_turnController.calculate(drivetrain.getAutomaticRotationSide())));
+            //drivetrain.getAutomaticRotationSide()));
+            m_turnController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees(), drivetrain.getHeadingAngleToSpeaker())));
   }
 
   @Override
@@ -37,8 +37,8 @@ public class RotateToHeading extends Command {
 
   @Override
   public boolean isFinished() {
-    SmartDashboard.putNumber("Finished Rotation", drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians());
-    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getRadians() - drivetrain.getHeadingAngleToSpeaker()) <= 0.2;
+    SmartDashboard.putNumber("Finished Rotation", drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees() - drivetrain.getHeadingAngleToSpeaker()) <= 1;
   }
 
 }
