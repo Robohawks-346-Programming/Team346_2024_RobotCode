@@ -278,7 +278,7 @@ public class Drivetrain extends SubsystemBase {
     public double getHeadingAngleToSpeaker() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = poseEstimator.getEstimatedPosition();
-        double headingToTarget = target.getRotation().minus(robot.getRotation()).getDegrees();
+        double headingToTarget = (target.getRotation().minus(robot.getRotation())).getDegrees();
         SmartDashboard.putNumber("Heading To Target", headingToTarget);
         return headingToTarget + 180;
     }   

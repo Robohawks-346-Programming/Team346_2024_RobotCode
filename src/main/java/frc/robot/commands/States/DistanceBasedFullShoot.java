@@ -19,8 +19,8 @@ public class DistanceBasedFullShoot extends SequentialCommandGroup {
         new SequentialCommandGroup(
           new ParallelCommandGroup(
           //new ShootSpeaker(),
-          new RotateToHeading()
-          //RobotContainer.pivot.distanceBasedArmPivot()
+          new RotateToHeading(),
+          RobotContainer.pivot.distanceBasedArmPivot()
           )
       )
       
