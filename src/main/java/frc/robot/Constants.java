@@ -31,7 +31,7 @@ public final class Constants {
     public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(20.5);
     public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(20.5);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
-    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(4);
+    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.9);
     public static final double WHEEL_CIRCUMFERENCE                      = Math.PI * WHEEL_DIAMETER;
 
     public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));
@@ -121,20 +121,16 @@ public final class Constants {
             new Transform3d(new Translation3d(Units.inchesToMeters(9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.66666666)), new Rotation3d(0, 0, Units.degreesToRadians(180)))
         };
 
-        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.025;
-        public static final double singleTagAmbiguityCutoff = 0.05;
-        public static final double minimumStdDev = 0.3;
-        public static final double stdDevEulerMultiplier = 0.25;
-        public static final double stdDevDistanceMultiplier = 0.4;
+        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.1;
 
     }
 
     public static final class AutoConstants {
-        public static final double AUTO_DRIVE_P                                  = 1.85;
+        public static final double AUTO_DRIVE_P                                  = 1.9;
         public static final double AUTO_DRIVE_I                                  = 0;
         public static final double AUTO_DRIVE_D                                  = 0;
 
-        public static final double AUTO_TURN_P                                   = 10;
+        public static final double AUTO_TURN_P                                   = 3;
         public static final double AUTO_TURN_I                                   = 0;
         public static final double AUTO_TURN_D                                   = 0;
 
@@ -159,7 +155,7 @@ public final class Constants {
         public static final double SOURCE_PIVOT_ANGLE                         = 45; //off vertical
         public static final double PIVOT_ANGLE_THRESHOLD                      = 10; // in degrees
 
-        public static final double PIVOT_P                                    = 15;
+        public static final double PIVOT_P                                    = 17;
         public static final double PIVOT_I                                    = 0;
         public static final double PIVOT_D                                    = 0;
 
@@ -175,14 +171,15 @@ public final class Constants {
 
         public static InterpolatingDoubleTreeMap getPivotMap() {
             InterpolatingDoubleTreeMap pivotMap = new InterpolatingDoubleTreeMap();
-            pivotMap.put(1.0, -55.0);
-            pivotMap.put(1.5, -55.0);
-            pivotMap.put(2.0, -45.0);
-            pivotMap.put(2.5, -38.0);
-            pivotMap.put(3.0, -32.0);
-            pivotMap.put(3.5, -25.25);
-            pivotMap.put(4.0, -23.0);
-            pivotMap.put(4.5, -20.5);
+            pivotMap.put(Units.inchesToMeters(57), -55.0);
+            pivotMap.put(Units.inchesToMeters(77), -44.0);
+            pivotMap.put(Units.inchesToMeters(96.5), -37.0);
+            pivotMap.put(Units.inchesToMeters(116.5), -31.0);
+            pivotMap.put(Units.inchesToMeters(136.5), -27.25);
+            pivotMap.put(Units.inchesToMeters(156.5), -25.0);
+            pivotMap.put(Units.inchesToMeters(176.5), -22.75);
+            pivotMap.put(Units.inchesToMeters(196.5), -21.5);
+            pivotMap.put(Units.inchesToMeters(216.5), -20.75);
             return pivotMap;
         }
     }
@@ -211,7 +208,7 @@ public final class Constants {
         public static final int FEEDER_ROLLER_MOTOR_ID                        = 6;
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
-        public static final double FEEDER_ROLLER_SPEED                        = 0.3;
+        public static final double FEEDER_ROLLER_SPEED                        = 0.45;
         public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.6;
         public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.9;
     }

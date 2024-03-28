@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Unit;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -88,9 +89,7 @@ public class Drivetrain extends SubsystemBase {
             Constants.DriveConstants.DRIVE_KINEMATICS,
             getHeading(),
             getModulePositions(),
-            new Pose2d(),
-            VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-            VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30))
+            new Pose2d()
         );
 
         odometry = new SwerveDriveOdometry(Constants.DriveConstants.DRIVE_KINEMATICS, getHeading(), getModulePositions());
@@ -280,8 +279,8 @@ public class Drivetrain extends SubsystemBase {
 
     public double getHeadingAngleToSpeaker() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = (poseEstimator.getEstimatedPosition()).plus(new Transform2d(new Translation2d(), new Rotation2d(Units.degreesToRadians(180))));
-        Rotation2d robotYaw = Rotation2d.fromRadians(Math.atan2(target.getY()-robot.getTranslation().getY(), target.getX()-robot.getTranslation().getX()));
+        Pose2d robot = (poseEstimator.getEstimatedPosition());
+        Rotation2d robotYaw = Rotation2d.fromRadians(Math.atan2(target.getY()-robot.getTranslation().getY(), target.getX()-robot.getTranslation().getX())).plus(new Rotation2d(Units.degreesToRadians(180)));
         SmartDashboard.putNumber("Heading To Target", robotYaw.getDegrees());
         return robotYaw.getDegrees();
     }   

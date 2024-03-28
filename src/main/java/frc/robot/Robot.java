@@ -41,8 +41,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     RobotContainer.pivot.resetPivotAngle();
     UsbCamera camera =  CameraServer.startAutomaticCapture();
-    camera.setResolution(800, 600);
-    camera.setFPS(20);
+    //camera.setResolution(800, 600);
+    //camera.setFPS(20);
   }
 
   /**

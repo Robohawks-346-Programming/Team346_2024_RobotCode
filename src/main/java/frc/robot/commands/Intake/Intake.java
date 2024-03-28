@@ -24,7 +24,7 @@ public class Intake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.shooter.stopShooter();
+    RobotContainer.shooter.setVelocity(0, 0);
     RobotContainer.intake.toggleIsIntaking();
     RobotContainer.indexer.timer.reset();
     RobotContainer.indexer.timer.start();

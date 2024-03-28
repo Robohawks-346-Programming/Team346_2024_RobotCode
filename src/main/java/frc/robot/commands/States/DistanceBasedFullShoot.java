@@ -2,9 +2,12 @@ package frc.robot.commands.States;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.RotateToHeading;
+import frc.robot.commands.Shoot.EjectSpeaker;
 import frc.robot.commands.Shoot.ShootSpeaker;
 
 public class DistanceBasedFullShoot extends SequentialCommandGroup {
@@ -18,13 +21,25 @@ public class DistanceBasedFullShoot extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
         new SequentialCommandGroup(
-          RobotContainer.pivot.distanceBasedArmPivot(),
-          //new InstantCommand(RobotContainer.pivot::stopPivot),
           new ParallelCommandGroup(
-          new ShootSpeaker(),
-          new RotateToHeading()
-          
+          new RotateToHeading(),
+          RobotContainer.pivot.distanceBasedArmPivot()
+          ),
+          new SequentialCommandGroup(
+        new ParallelRaceGroup(
+                new ShootSpeaker(),
+                new WaitCommand(1)),
+        new ParallelRaceGroup(
+                new EjectSpeaker(),
+                new WaitCommand(1))
+      ),
+          new InstantCommand(RobotContainer.indexer::stopIndex),
+          new ParallelCommandGroup(
+            new InstantCommand(RobotContainer.shooter::stopShooter),
+            RobotContainer.pivot.moveArm(-55)
           )
+          
+
       )
       
     );

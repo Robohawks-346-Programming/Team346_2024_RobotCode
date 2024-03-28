@@ -5,7 +5,7 @@
       "x": 1.4,
       "y": 5.5
     },
-    "rotation": 1.4103088434415333e-28
+    "rotation": 4.5555483755779977e-29
   },
   "command": {
     "type": "sequential",
@@ -26,12 +26,6 @@
                 "data": {
                   "pathName": "5 Piece.1"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
               }
             ]
           }
@@ -50,12 +44,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "5 Piece.2"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
                 }
               }
             ]
@@ -76,12 +64,6 @@
                 "data": {
                   "pathName": "5 Piece.3"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
               }
             ]
           }
@@ -100,12 +82,6 @@
                 "type": "path",
                 "data": {
                   "pathName": "5 Piece.4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
                 }
               }
             ]

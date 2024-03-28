@@ -21,7 +21,7 @@ public class EjectSpeakerFull extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
       new SequentialCommandGroup(
-      new ParallelRaceGroup(new ReverseIndex(), new WaitCommand(0.05)),
+      new ParallelRaceGroup(new ReverseIndex(), new WaitCommand(0.07)),
       new InstantCommand(RobotContainer.indexer::startIndex)
       )
     );

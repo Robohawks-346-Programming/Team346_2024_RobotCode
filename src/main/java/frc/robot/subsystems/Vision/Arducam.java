@@ -34,7 +34,6 @@ public class Arducam {
     private volatile Pose3d calculatedPose = new Pose3d();
     private volatile Pose3d intermediatePose = new Pose3d();
     private volatile double timestamp = 1;
-    private volatile Matrix<N3, N1> stdDevs = VecBuilder.fill(1000, 1000, 1000);
     private String name;
 
 
@@ -66,15 +65,15 @@ public class Arducam {
             return;
         }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getRotation().getAngle()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 2){
+        if (Math.abs(Math.toDegrees(intermediatePose.getRotation().getAngle()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 1){
             return;
         }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.025){
+        if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.01){
             return;
         }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.025){
+        if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.01){
             return;
         }
 
@@ -88,7 +87,6 @@ public class Arducam {
         }
 
         distance /= estimation.targetsUsed.size();
-        stdDevs = computeStdDevs(distance);
         SmartDashboard.putBoolean(name+"Works", true);
 
     }
@@ -98,16 +96,8 @@ public class Arducam {
     }
 
     public void recordVisionObservation() {
-        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp, stdDevs);
+        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp);
         hasNewPose = false;
-    }
-
-    private Matrix<N3, N1> computeStdDevs(double distance) {
-        double stdDev = Math.max(
-            VisionConstants.minimumStdDev, 
-            VisionConstants.stdDevEulerMultiplier * Math.exp(distance * VisionConstants.stdDevDistanceMultiplier)
-        );
-        return VecBuilder.fill(stdDev, stdDev, 1000);
     }
     
 }

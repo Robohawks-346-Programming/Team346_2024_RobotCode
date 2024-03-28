@@ -122,7 +122,7 @@ public class RobotContainer {
     BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
     BUTTON_16.whileTrue(new EjectAmpFull());
     BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
-    BUTTON_15.whileTrue(pivot.moveArm(-21)); //21
+    BUTTON_15.whileTrue(pivot.moveArm(-20.55));
     BUTTON_9.whileTrue(new InstantCommand(indexer::startIndex));
     BUTTON_9.whileFalse(new InstantCommand(indexer::stopIndex));
     b.whileTrue(new EjectSpeakerFull());
