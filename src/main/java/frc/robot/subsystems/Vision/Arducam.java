@@ -20,6 +20,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.RobotContainer;
 
 public class Arducam {
@@ -33,7 +34,7 @@ public class Arducam {
     private volatile Pose3d calculatedPose = new Pose3d();
     private volatile Pose3d intermediatePose = new Pose3d();
     private volatile double timestamp = 1;
-    private double count;
+    private volatile Matrix<N3, N1> stdDevs = VecBuilder.fill(1000, 1000, 1000);
     private String name;
 
 
@@ -80,7 +81,14 @@ public class Arducam {
         calculatedPose = estimation.estimatedPose;
         timestamp = estimation.timestampSeconds;
         hasNewPose = true;
-        count ++;
+
+        double distance = 0;
+        for (PhotonTrackedTarget target : estimation.targetsUsed) {
+            distance += target.getBestCameraToTarget().getTranslation().getDistance(new Translation3d());
+        }
+
+        distance /= estimation.targetsUsed.size();
+        stdDevs = computeStdDevs(distance);
         SmartDashboard.putBoolean(name+"Works", true);
 
     }
@@ -90,8 +98,16 @@ public class Arducam {
     }
 
     public void recordVisionObservation() {
-        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp);
+        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp, stdDevs);
         hasNewPose = false;
+    }
+
+    private Matrix<N3, N1> computeStdDevs(double distance) {
+        double stdDev = Math.max(
+            VisionConstants.minimumStdDev, 
+            VisionConstants.stdDevEulerMultiplier * Math.exp(distance * VisionConstants.stdDevDistanceMultiplier)
+        );
+        return VecBuilder.fill(stdDev, stdDev, 1000);
     }
     
 }

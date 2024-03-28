@@ -122,6 +122,10 @@ public final class Constants {
         };
 
         public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.025;
+        public static final double singleTagAmbiguityCutoff = 0.05;
+        public static final double minimumStdDev = 0.3;
+        public static final double stdDevEulerMultiplier = 0.25;
+        public static final double stdDevDistanceMultiplier = 0.4;
 
     }
 
