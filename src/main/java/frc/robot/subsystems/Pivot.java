@@ -62,9 +62,8 @@ public class Pivot extends SubsystemBase {
         SmartDashboard.putNumber("Arm Degrees", convertRotationsToDegrees(pivotMotor.getPosition().getValue()));
     }
     
-    public boolean isAtPosition(double rev) {
-        return(Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev)) <= convertDegreesToRotations(Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD));
-        //return convertRotationsToDegrees(pivotMotor.getPosition().getValue()) == convertDegreesToRotations(rev);
+    public boolean isAtPosition() {
+        return(Math.abs(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()) - convertRotationsToDegrees(pivotMotor.getPosition().getValueAsDouble())) < 2);
     }
 
     public void moveArmToPosition(double wantedPosition) {
@@ -85,7 +84,7 @@ public class Pivot extends SubsystemBase {
     
     public Command distanceBasedArmPivot(){
         SmartDashboard.putNumber("Wanted Arm Angle", pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()));
-        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()))));
+        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker())))));
     }
     
     public void resetPivotAngle() {

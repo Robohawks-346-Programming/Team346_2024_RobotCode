@@ -40,9 +40,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     RobotContainer.pivot.resetPivotAngle();
-    // UsbCamera camera =  CameraServer.startAutomaticCapture();
-    // camera.setResolution(800, 600);
-    // camera.setFPS(20);
+    UsbCamera camera =  CameraServer.startAutomaticCapture();
+    camera.setResolution(800, 600);
+    camera.setFPS(20);
   }
 
   /**

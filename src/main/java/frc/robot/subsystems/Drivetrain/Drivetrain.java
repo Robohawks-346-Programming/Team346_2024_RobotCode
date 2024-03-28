@@ -12,6 +12,7 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -277,10 +278,10 @@ public class Drivetrain extends SubsystemBase {
 
     public double getHeadingAngleToSpeaker() {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
-        Pose2d robot = poseEstimator.getEstimatedPosition();
-        double headingToTarget = (target.getRotation().minus(robot.getRotation())).getDegrees();
-        SmartDashboard.putNumber("Heading To Target", headingToTarget);
-        return headingToTarget + 180;
+        Pose2d robot = (poseEstimator.getEstimatedPosition()).plus(new Transform2d(new Translation2d(), new Rotation2d(Units.degreesToRadians(180))));
+        Rotation2d robotYaw = Rotation2d.fromRadians(Math.atan2(target.getY()-robot.getTranslation().getY(), target.getX()-robot.getTranslation().getX()));
+        SmartDashboard.putNumber("Heading To Target", robotYaw.getDegrees());
+        return robotYaw.getDegrees();
     }   
 
 }
