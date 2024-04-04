@@ -5,92 +5,84 @@
       "x": 1.4,
       "y": 5.5
     },
-    "rotation": 4.5555483755779977e-29
+    "rotation": 1.4705299299381235e-29
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "5 Piece.1"
+                  "name": "Rev"
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
+              },
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "5 Piece.2"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5 Piece.1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Test Shoot"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5 Piece.2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Test Shoot"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5 Piece.3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Test Shoot"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5 Piece.4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Test Shoot"
+                      }
+                    }
+                  ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "5 Piece.3"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "5 Piece.4"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
           }
         }
       ]

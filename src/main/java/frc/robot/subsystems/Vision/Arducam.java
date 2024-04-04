@@ -87,7 +87,7 @@ public class Arducam {
         }
 
         distance /= estimation.targetsUsed.size();
-        SmartDashboard.putBoolean(name+"Works", true);
+        //SmartDashboard.putBoolean(name+"Works", true);
 
     }
 

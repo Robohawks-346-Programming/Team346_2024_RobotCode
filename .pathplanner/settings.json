@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.92,
-  "robotLength": 0.92,
+  "robotWidth": 0.84,
+  "robotLength": 0.95,
   "holonomicMode": true,
   "pathFolders": [
     "2631",
@@ -18,7 +18,8 @@
     "Test 2",
     "Test 2",
     "Tests",
-    "Top start top auto T"
+    "Top start top auto T",
+    "Worst Cases"
   ],
   "autoFolders": [
     "1 and full teammate",
@@ -26,11 +27,12 @@
     "1 teammate",
     "Amp",
     "Center",
+    "Choreo Autos",
     "Full Team",
     "NO Teammates",
-    "Choreo Autos",
     "Stage",
-    "Tests"
+    "Tests",
+    "Worst Cases"
   ],
   "defaultMaxVel": 4.0,
   "defaultMaxAccel": 4.0,

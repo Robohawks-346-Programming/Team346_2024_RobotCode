@@ -10,21 +10,21 @@ import frc.robot.commands.RotateToHeading;
 import frc.robot.commands.Shoot.EjectSpeaker;
 import frc.robot.commands.Shoot.ShootSpeaker;
 
-public class DistanceBasedFullShoot extends SequentialCommandGroup {
+public class ShootFarAuto extends SequentialCommandGroup {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DistanceBasedFullShoot() {
+  public ShootFarAuto() {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
         new SequentialCommandGroup(
           new ParallelCommandGroup(
           new RotateToHeading(),
-          RobotContainer.pivot.distanceBasedArmPivot(),
-          new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(1))
+          RobotContainer.pivot.moveArm(-21),
+          new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(1.25))
           ),
         new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.4)),
           new InstantCommand(RobotContainer.indexer::stopIndex),

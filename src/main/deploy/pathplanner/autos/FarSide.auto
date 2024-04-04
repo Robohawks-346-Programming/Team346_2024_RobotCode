@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4632285833358765,
-      "y": 5.495075225830078
+      "x": 0.8066813349723816,
+      "y": 4.409570693969727
     },
-    "rotation": -7.882084041717614e-22
+    "rotation": -61.55705088809531
   },
   "command": {
     "type": "sequential",
@@ -28,37 +28,25 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "AaronSpecial.1"
+                        "pathName": "FarSide.1"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Eject Far"
+                        "name": "Eject"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "AaronSpecial.2"
+                        "pathName": "FarSide.2"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Eject Far"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "AaronSpecial.3"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake"
+                        "name": "Eject"
                       }
                     }
                   ]

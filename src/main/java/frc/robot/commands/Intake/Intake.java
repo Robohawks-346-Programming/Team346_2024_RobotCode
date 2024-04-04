@@ -36,6 +36,7 @@ public class Intake extends Command {
     if(Math.abs(RobotContainer.pivot.getDegrees() - Constants.PivotConstants.HOME_PIVOT_ANGLE) < Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD) {
       RobotContainer.intake.runIntake();
       RobotContainer.indexer.startIndex();
+      RobotContainer.pivot.setPercent();
     }
   }
 
@@ -46,6 +47,7 @@ public class Intake extends Command {
     RobotContainer.intake.stopIntake();
     RobotContainer.intake.toggleIsIntaking();
     RobotContainer.intake.toggleHasGamePiece();
+    RobotContainer.pivot.stopPivot();
   }
 
   // Returns true when the command should end.

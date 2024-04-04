@@ -257,7 +257,7 @@ public class Drivetrain extends SubsystemBase {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = poseEstimator.getEstimatedPosition();
         double distance = PhotonUtils.getDistanceToPose(target, robot);
-        SmartDashboard.putNumber("Distance To Target", distance);
+        //SmartDashboard.putNumber("Distance To Target", distance);
         return distance;
     }
 
@@ -281,7 +281,7 @@ public class Drivetrain extends SubsystemBase {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = (poseEstimator.getEstimatedPosition());
         Rotation2d robotYaw = Rotation2d.fromRadians(Math.atan2(target.getY()-robot.getTranslation().getY(), target.getX()-robot.getTranslation().getX())).plus(new Rotation2d(Units.degreesToRadians(180)));
-        SmartDashboard.putNumber("Heading To Target", robotYaw.getDegrees());
+        //SmartDashboard.putNumber("Heading To Target", robotYaw.getDegrees());
         return robotYaw.getDegrees();
     }   
 

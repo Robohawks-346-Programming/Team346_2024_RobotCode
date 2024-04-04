@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -29,18 +30,21 @@ import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Shoot.EjectSpeaker;
 import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.commands.States.AutoShoot;
+import frc.robot.commands.States.DistanceBasedFullShoot;
+import frc.robot.commands.States.ShootCloseAuto;
+import frc.robot.commands.States.ShootFarAuto;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 public final class Autos {
   Drivetrain drivetrain;
-  Pivot pivot;
+  Pivot m_pivot;
   private final SendableChooser<Command> autoChooser;
 
 
-  public Autos(Pivot m_Pivot) {
+  public Autos(Pivot pivot) {
     drivetrain = RobotContainer.drivetrain;
-    pivot = m_Pivot;
+    m_pivot = pivot;
     AutoBuilder.configureHolonomic(
       drivetrain::getPose, 
       drivetrain::resetPose, 
@@ -96,11 +100,13 @@ PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("5 Piece.4");
     public void registerCommands(){
       NamedCommands.registerCommand("Intake", new IntakeFull());
      NamedCommands.registerCommand("Shoot", new AutoShoot());
-     NamedCommands.registerCommand("Test Shoot", new SequentialCommandGroup(new AutoShoot()));
+     NamedCommands.registerCommand("Test Shoot", new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.4)));
      //new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))
-    NamedCommands.registerCommand("Pivot Close", new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-35)), new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(0.5))));
-    NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(Commands.runOnce(() -> pivot.moveArm(-25)), new ShootSpeaker())));
+    NamedCommands.registerCommand("Pivot Close", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(m_pivot.moveArm(-35), new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(0.5)))));
+    NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(m_pivot.moveArm(-30), new ShootSpeaker())));
     NamedCommands.registerCommand("Rev", new ShootSpeaker());
-    NamedCommands.registerCommand("Eject", new SequentialCommandGroup(new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.25)), pivot.moveArm(-55)));
+    //NamedCommands.registerCommand("Eject", new SequentialCommandGroup(new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.5)), m_pivot.moveArm(-55)));
+    NamedCommands.registerCommand("Eject", new ShootCloseAuto());
+    NamedCommands.registerCommand("Eject Far", new ShootFarAuto());
     }
 }

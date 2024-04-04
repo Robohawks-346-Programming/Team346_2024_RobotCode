@@ -28,7 +28,7 @@ public class Climber extends SubsystemBase{
         leftHookEncoder = leftHook.getEncoder();
         rightHookEncoder = rightHook.getEncoder();
 
-        rightHook.setInverted(true);
+        rightHook.setInverted(false);
 
         leftHookPIDController.setP(Constants.ClimberConstants.HOOK_P);
         leftHookPIDController.setI(Constants.ClimberConstants.HOOK_I);
