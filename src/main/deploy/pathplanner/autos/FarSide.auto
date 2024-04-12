@@ -38,6 +38,12 @@
                       }
                     },
                     {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot"
+                      }
+                    },
+                    {
                       "type": "path",
                       "data": {
                         "pathName": "FarSide.2"
@@ -47,6 +53,12 @@
                       "type": "named",
                       "data": {
                         "name": "Eject"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot"
                       }
                     }
                   ]

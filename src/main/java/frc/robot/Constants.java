@@ -31,7 +31,7 @@ public final class Constants {
     public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(27);
     public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(27);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
-    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.94);
+    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.97);
     public static final double WHEEL_CIRCUMFERENCE                      = Math.PI * WHEEL_DIAMETER;
 
     public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));
@@ -121,7 +121,7 @@ public final class Constants {
             new Transform3d(new Translation3d(Units.inchesToMeters(9.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(20.66666666)), new Rotation3d(0, 0, Units.degreesToRadians(180)))
         };
 
-        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.1;
+        public static final double SINGLE_TAG_AMBIGUITY_CUTOFF                  = 0.02;
 
     }
 
@@ -174,12 +174,12 @@ public final class Constants {
             pivotMap.put(Units.inchesToMeters(57), -55.0);
             pivotMap.put(Units.inchesToMeters(77), -43.5);
             pivotMap.put(Units.inchesToMeters(96.5), -38.0);
-            pivotMap.put(Units.inchesToMeters(116.5), -30.5);
-            pivotMap.put(Units.inchesToMeters(136.5), -27.25);
-            pivotMap.put(Units.inchesToMeters(156.5), -23.25);
+            pivotMap.put(Units.inchesToMeters(116.5), -29.0);
+            pivotMap.put(Units.inchesToMeters(136.5), -28.0);
+            pivotMap.put(Units.inchesToMeters(156.5), -24.0);
             pivotMap.put(Units.inchesToMeters(176.5), -21.0);
-            pivotMap.put(Units.inchesToMeters(196.5), -20.5);
-            pivotMap.put(Units.inchesToMeters(216.5), -20.25);
+            pivotMap.put(Units.inchesToMeters(196.5), -20.75);
+            pivotMap.put(Units.inchesToMeters(216.5), -20.5);
             return pivotMap;
         }
     }
@@ -209,7 +209,7 @@ public final class Constants {
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
         public static final double FEEDER_ROLLER_SPEED                        = 0.45;
-        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.5;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.6;
         public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.9;
     }
 

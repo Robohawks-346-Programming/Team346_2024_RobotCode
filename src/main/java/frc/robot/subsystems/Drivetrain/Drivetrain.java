@@ -89,7 +89,9 @@ public class Drivetrain extends SubsystemBase {
             Constants.DriveConstants.DRIVE_KINEMATICS,
             getHeading(),
             getModulePositions(),
-            new Pose2d()
+            new Pose2d(),
+            VecBuilder.fill(0.1, 0.1, 999999),
+            VecBuilder.fill(0.5, 0.5, 999999)
         );
 
         odometry = new SwerveDriveOdometry(Constants.DriveConstants.DRIVE_KINEMATICS, getHeading(), getModulePositions());

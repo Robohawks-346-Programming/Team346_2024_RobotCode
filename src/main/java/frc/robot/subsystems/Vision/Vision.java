@@ -10,6 +10,7 @@ import frc.robot.Constants.VisionConstants;
 public class Vision extends SubsystemBase {
 
     private final Arducam[] cameras;
+    private final Limelight limelight;
     private double count;
 
 
@@ -23,11 +24,13 @@ public class Vision extends SubsystemBase {
             new Arducam(Constants.VisionConstants.cameraNames[2], VisionConstants.vehicleToCameras[2]),
             new Arducam(Constants.VisionConstants.cameraNames[3], VisionConstants.vehicleToCameras[3])
         };
+        limelight = new Limelight();
 
         notifier = new Notifier(() -> {
             for (int i = 0; i < cameras.length; i++) {
                 cameras[i].periodic();
             }
+            limelight.periodic();
         });
         notifier.startPeriodic(0.02);
 
@@ -46,6 +49,18 @@ public class Vision extends SubsystemBase {
             }
         }
 
+    }
+
+    public boolean getNoteVisible(){
+        return limelight.getSeesNote();
+    }
+
+    public double getNoteX(){
+        return limelight.getForwardDistance();
+    }
+
+    public double getNoteY(){
+        return limelight.getSideDistance();
     }
 
 }

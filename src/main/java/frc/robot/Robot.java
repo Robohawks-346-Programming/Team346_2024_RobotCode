@@ -97,17 +97,17 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.shooter.stopShooter();
     RobotContainer.pivot.stopPivot();
-    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
-      heading = RobotContainer.drivetrain.getHeadingInverse();
-    } else {
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
       heading = RobotContainer.drivetrain.getHeading();
+    } else {
+      heading = RobotContainer.drivetrain.getHeadingInverse();
     }
     //RobotContainer.drivetrain.zeroHeading();
     // RobotContainer.drivetrain.setFieldToVehicle(
     //   new Pose2d(RobotContainer.drivetrain.returnTranslation(), 
-    //   AllianceFlipUtil.apply(Rotation2d.fromDegrees(180).plus(RobotContainer.drivetrain.getHeading()))));
+    //   AllianceFlipUtil.apply(RobotContainer.drivetrain.getHeading())));
     
-    RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), RobotContainer.drivetrain.getHeading()));
+    RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), heading));
   }
 
   /** This function is called periodically during operator control. */

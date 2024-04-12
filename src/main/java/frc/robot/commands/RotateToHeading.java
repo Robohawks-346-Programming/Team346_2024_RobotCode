@@ -16,7 +16,7 @@ public class RotateToHeading extends Command {
   public RotateToHeading() {
     drivetrain = RobotContainer.drivetrain;
     addRequirements(drivetrain);
-    m_turnController = new PIDController(0.2, 0, 0);
+    m_turnController = new PIDController(0.15, 0, 0);
     m_turnController.enableContinuousInput(-180, 180);
   }
 

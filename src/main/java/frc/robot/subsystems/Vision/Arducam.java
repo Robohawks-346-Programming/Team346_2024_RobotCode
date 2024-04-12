@@ -55,8 +55,7 @@ public class Arducam {
         if (estimatedPose.isEmpty()) return;
         EstimatedRobotPose estimation = estimatedPose.get();
         if (estimation.timestampSeconds == timestamp) return;
-        if (estimation.targetsUsed.size() == 1 && 
-            (estimation.targetsUsed.get(0).getPoseAmbiguity() > Constants.VisionConstants.SINGLE_TAG_AMBIGUITY_CUTOFF || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
+        if (estimation.targetsUsed.size() == 1)
             return;
 
         intermediatePose = estimation.estimatedPose;
