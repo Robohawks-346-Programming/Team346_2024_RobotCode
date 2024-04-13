@@ -71,7 +71,7 @@ public class RobotContainer {
   private Trigger b = driverControl.circle();
   private Trigger a = driverControl.cross();
   private Trigger leftTrigger = driverControl.L2();
-  private Trigger leftBumper = driverControl.R2();
+  private Trigger leftBumper = driverControl.L1();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
@@ -115,8 +115,9 @@ public class RobotContainer {
     }));
     rightTrigger.onTrue(new DistanceBasedFullShoot());
     leftTrigger.onTrue(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, false));
-    leftBumper.onTrue(new AutoLockNote());
+    leftBumper.onTrue(new ParallelRaceGroup(new AutoLockNote(), new IntakeFull()));
     BUTTON_1.whileTrue(new IntakeFull());
+    BUTTON_1.whileFalse(new InstantCommand(pivot::driveDown));
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());
     BUTTON_4.onTrue(pivot.moveArm(-32));

@@ -41,7 +41,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     RobotContainer.pivot.resetPivotAngle();
-    UsbCamera camera =  CameraServer.startAutomaticCapture();
     //camera.setResolution(800, 600);
     //camera.setFPS(20);
   }
@@ -97,7 +96,7 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.shooter.stopShooter();
     RobotContainer.pivot.stopPivot();
-    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
       heading = RobotContainer.drivetrain.getHeading();
     } else {
       heading = RobotContainer.drivetrain.getHeadingInverse();

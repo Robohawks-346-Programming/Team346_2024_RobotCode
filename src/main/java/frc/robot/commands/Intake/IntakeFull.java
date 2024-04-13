@@ -20,6 +20,7 @@ public class IntakeFull extends SequentialCommandGroup {
     addCommands(
       new SequentialCommandGroup(
         new Intake()
+        //new ParallelRaceGroup(new ReverseIndex(), new WaitCommand(0.1))
       )
     );
   }

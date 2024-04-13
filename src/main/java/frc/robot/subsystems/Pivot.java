@@ -121,4 +121,8 @@ public class Pivot extends SubsystemBase {
     public void setPercent(){
         pivotMotor.set(-0.06);
     }
+
+    public void driveDown(){
+        pivotMotor.set(-0.02);
+    }
 }

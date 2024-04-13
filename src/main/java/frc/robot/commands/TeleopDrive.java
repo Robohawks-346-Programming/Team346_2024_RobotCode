@@ -60,7 +60,7 @@ public class TeleopDrive extends Command {
     }
 
     speeds = ChassisSpeeds.fromFieldRelativeSpeeds(curXSpeed, curYSpeed, curZRotation,
-        m_drive.getEstimatorPose().getRotation());
+        m_drive.getOdometryPose().getRotation());
     m_drive.drive(speeds);
   }
 }
