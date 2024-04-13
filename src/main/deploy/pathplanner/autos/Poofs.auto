@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3436743021011353,
-      "y": 5.590953826904297
+      "x": 1.3472529649734497,
+      "y": 3.3133108615875244
     },
-    "rotation": -2.5247861301948996e-24
+    "rotation": 3.8179989470440175e-26
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "Eject"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle piece .1"
+            "pathName": "Poofs.1"
           }
         },
         {
@@ -32,7 +32,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle piece .2"
+            "pathName": "Poofs.2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Poofs.3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Poofs.4"
           }
         },
         {

@@ -17,8 +17,8 @@ public class Limelight {
     public void periodic() {
         if (limeLightTable.getEntry("tv").getDouble(0) == 1){
             seesNote = true;
-            forwardDistance = Units.inchesToMeters(5) * 
-            Math.tan(Units.degreesToRadians(6 + limeLightTable.getEntry("ty").getDouble(0)));
+            forwardDistance = Units.inchesToMeters(11.5) * 
+            Math.tan(Units.degreesToRadians(10 + limeLightTable.getEntry("ty").getDouble(0)));
             sideDistance = forwardDistance / Math.tan(Units.degreesToRadians(limeLightTable.getEntry("tx").getDouble(0)));
         } else {
             seesNote = false;

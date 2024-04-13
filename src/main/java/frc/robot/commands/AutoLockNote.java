@@ -33,7 +33,7 @@ public class AutoLockNote extends Command {
             m_driveController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getX(), wantedX),
             m_driveController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getY(), wantedY),
             0,
-            drivetrain.poseEstimator.getEstimatedPosition().getRotation()));
+            drivetrain.getHeading()));
   }
   @Override
   public void end(boolean interrupted) {

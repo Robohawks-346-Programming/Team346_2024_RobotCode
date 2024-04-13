@@ -110,10 +110,10 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Velocity Output", backLeft.getDriveVelocity());
         SmartDashboard.putNumber("Gyro Heading", gyro.getRotation2d().getDegrees());
-        // SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
-        // SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
-        // SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
-        // SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
+        SmartDashboard.putNumber("Front Right", frontRight.canCoderRotations());
+        SmartDashboard.putNumber("Front Left", frontLeft.canCoderRotations());
+        SmartDashboard.putNumber("Back Right", backRight.canCoderRotations());
+        SmartDashboard.putNumber("Back Left", backLeft.canCoderRotations());
 
         poseEstimator.update(getHeading(), getModulePositions());
         odometry.update(getHeading(), getModulePositions());
@@ -227,8 +227,12 @@ public class Drivetrain extends SubsystemBase {
         return Constants.DriveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleState());
       }
 
-      public Pose2d getPose() {
+      public Pose2d getOdometryPose() {
         return odometry.getPoseMeters();
+      }
+
+      public Pose2d getEstimatorPose(){
+        return poseEstimator.getEstimatedPosition();
       }
 
     public void resetPose(Pose2d pose) {

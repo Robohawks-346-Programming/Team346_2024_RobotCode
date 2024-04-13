@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3436743021011353,
-      "y": 5.590953826904297
+      "x": 1.3472535610198977,
+      "y": 5.586578369140625
     },
-    "rotation": -2.5247861301948996e-24
+    "rotation": 2.172140496542368e-28
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle piece .1"
+            "pathName": "Stage Auto.1"
           }
         },
         {
@@ -32,7 +32,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle piece .2"
+            "pathName": "Stage Auto.2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage Auto.3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Stage Auto.4"
           }
         },
         {

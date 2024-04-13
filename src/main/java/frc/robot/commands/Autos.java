@@ -46,7 +46,7 @@ public final class Autos {
     drivetrain = RobotContainer.drivetrain;
     m_pivot = pivot;
     AutoBuilder.configureHolonomic(
-      drivetrain::getPose, 
+      drivetrain::getEstimatorPose, 
       drivetrain::resetPose, 
       drivetrain::getSpeeds, 
       drivetrain::drive, 
