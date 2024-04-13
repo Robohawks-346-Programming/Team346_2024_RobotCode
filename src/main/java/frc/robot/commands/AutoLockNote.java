@@ -29,11 +29,10 @@ public class AutoLockNote extends Command {
   @Override
   public void execute() {
     drivetrain.drive(
-        ChassisSpeeds.fromFieldRelativeSpeeds(
+      new ChassisSpeeds(
             m_driveController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getX(), wantedX),
             m_driveController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getY(), wantedY),
-            0,
-            drivetrain.getHeading()));
+            0));
   }
   @Override
   public void end(boolean interrupted) {
