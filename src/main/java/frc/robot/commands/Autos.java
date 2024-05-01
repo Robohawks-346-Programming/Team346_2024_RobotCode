@@ -33,6 +33,7 @@ import frc.robot.commands.States.AutoShoot;
 import frc.robot.commands.States.DistanceBasedFullShoot;
 import frc.robot.commands.States.ShootCloseAuto;
 import frc.robot.commands.States.ShootFarAuto;
+import frc.robot.commands.States.ShootMidAuto;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
@@ -46,7 +47,7 @@ public final class Autos {
     drivetrain = RobotContainer.drivetrain;
     m_pivot = pivot;
     AutoBuilder.configureHolonomic(
-      drivetrain::getEstimatorPose, 
+      drivetrain::getOdometryPose, 
       drivetrain::resetPose, 
       drivetrain::getSpeeds, 
       drivetrain::drive, 
@@ -102,11 +103,12 @@ PathPlannerPath traj5 = PathPlannerPath.fromChoreoTrajectory("5 Piece.4");
      NamedCommands.registerCommand("Shoot", new AutoShoot());
      NamedCommands.registerCommand("Test Shoot", new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.4)));
      //new ParallelRaceGroup(Commands.runOnce(() -> pivot.moveArm(-60)), new WaitCommand(0.5))
-    NamedCommands.registerCommand("Pivot Close", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(m_pivot.moveArm(-35), new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(0.5)))));
+    NamedCommands.registerCommand("Pivot Close", new ParallelRaceGroup(RobotContainer.pivot.moveArm(-27), new WaitCommand(0.5)));
     NamedCommands.registerCommand("Pivot Far", new SequentialCommandGroup(new IntakeFull(), new ParallelCommandGroup(m_pivot.moveArm(-30), new ShootSpeaker())));
     NamedCommands.registerCommand("Rev", new ShootSpeaker());
     //NamedCommands.registerCommand("Eject", new SequentialCommandGroup(new ParallelRaceGroup(new EjectSpeaker(),new WaitCommand(0.5)), m_pivot.moveArm(-55)));
     NamedCommands.registerCommand("Eject", new ShootCloseAuto());
+    NamedCommands.registerCommand("Eject Mid", new ShootMidAuto());
     NamedCommands.registerCommand("Eject Far", new ShootFarAuto());
     }
 }

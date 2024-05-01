@@ -37,7 +37,7 @@ public class LEDs extends SubsystemBase {
             if(RobotContainer.shooter.getLaserBreak()) {
                 setColor(ledBuffer, Color.kGreen);
             } else if (RobotContainer.vision.getNoteVisible()) {
-                setColor(ledBuffer, Color.kOrange);
+                setColor(ledBuffer, Color.kOrangeRed);
             } else {
                 setColor(ledBuffer, Color.kRed);
             }

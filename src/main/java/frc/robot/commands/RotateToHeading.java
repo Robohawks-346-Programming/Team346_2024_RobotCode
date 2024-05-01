@@ -16,7 +16,7 @@ public class RotateToHeading extends Command {
   public RotateToHeading() {
     drivetrain = RobotContainer.drivetrain;
     addRequirements(drivetrain);
-    m_turnController = new PIDController(0.15, 0, 0);
+    m_turnController = new PIDController(0.1, 0, 0);
     m_turnController.enableContinuousInput(-180, 180);
   }
 
@@ -38,7 +38,8 @@ public class RotateToHeading extends Command {
   @Override
   public boolean isFinished() {
     //SmartDashboard.putNumber("Finished Rotation", drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees() - drivetrain.getHeadingAngleToSpeaker()) <= 0.25;
+    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees() - drivetrain.getHeadingAngleToSpeaker()) <= 1
+    ;
   }
 
 }

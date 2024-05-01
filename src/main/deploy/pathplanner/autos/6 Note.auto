@@ -5,7 +5,7 @@
       "x": 1.433172345161438,
       "y": 5.519355297088623
     },
-    "rotation": 4.2420187025611e-25
+    "rotation": -2.25336249143931e-27
   },
   "command": {
     "type": "sequential",
@@ -34,13 +34,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Eject"
+                        "name": "Shoot"
                       }
                     },
                     {
@@ -52,13 +46,37 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Eject Far"
+                        "name": "Shoot"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
                         "pathName": "6 Note.3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "6 Note.4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Eject Far"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "6 Note.5"
                       }
                     },
                     {

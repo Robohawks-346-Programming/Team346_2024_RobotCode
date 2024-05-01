@@ -26,7 +26,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Eject Far"
+            "name": "Eject"
           }
         },
         {
@@ -38,19 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Eject Far"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Far Good Side.3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Eject Far"
+            "name": "Eject"
           }
         }
       ]

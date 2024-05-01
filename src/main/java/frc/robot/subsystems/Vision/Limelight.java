@@ -21,11 +21,8 @@ public class Limelight {
     public void periodic() {
         if (limeLightTable.getEntry("tv").getDouble(0) == 1){
             seesNote = true;
-            SmartDashboard.putBoolean("Sees Note", seesNote);
         } else {
             seesNote = false;
-            forwardDistance = 0;
-            sideDistance = 0;
 
         }
     }
@@ -35,16 +32,21 @@ public class Limelight {
     }
 
     public double getForwardDistance(){
-        forwardDistance = Units.inchesToMeters(11.5) * 
+        forwardDistance = Units.inchesToMeters(11.5) / 
         Math.tan(Units.degreesToRadians(10 - limeLightTable.getEntry("ty").getDouble(0)));
-        SmartDashboard.putNumber("Forward Distance", forwardDistance);
+        //SmartDashboard.putNumber("Forward Distance", forwardDistance);
         return forwardDistance;
     }
 
     public double getSideDistance(){
         sideDistance = forwardDistance * Math.tan(Units.degreesToRadians(limeLightTable.getEntry("tx").getDouble(0)));
-        SmartDashboard.putNumber("Side Distance", sideDistance);
+        //SmartDashboard.putNumber("Side Distance", sideDistance);
         return sideDistance;
+    }
+
+    public void resetDistances(){
+        forwardDistance = 0;
+        sideDistance = 0;
     }
 }
 

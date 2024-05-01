@@ -21,13 +21,11 @@ public class ShootCloseAuto extends SequentialCommandGroup {
     // Use addRequirements() here to declare subsystem dependencies.
     addCommands(
         new SequentialCommandGroup(
-          new ParallelRaceGroup(
           new ParallelCommandGroup(
           new RotateToHeading(),
           new ParallelRaceGroup(RobotContainer.pivot.moveArm(-27), new WaitCommand(0.5)),
-          new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(1))
+          new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(1.3))
           ),
-          new WaitCommand(1.2)),
         new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.4)),
           new InstantCommand(RobotContainer.indexer::stopIndex),
           new ParallelCommandGroup(

@@ -31,7 +31,8 @@ public final class Constants {
     public static final double DRIVETRAIN_TRACKWIDTH_METERS             = Units.inchesToMeters(27);
     public static final double DRIVETRAIN_WHEELBASE_METERS              = Units.inchesToMeters(27);
     public static final double DRIVETRAIN_GEAR_RATIO                    = 5.12; //For L4 Gear Ratio
-    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.97);
+    public static final double WHEEL_DIAMETER                           = Units.inchesToMeters(3.97[\]
+    );
     public static final double WHEEL_CIRCUMFERENCE                      = Math.PI * WHEEL_DIAMETER;
 
     public static final double MAX_DRIVE_BASE_RADIUS = Math.sqrt(Math.pow((DRIVETRAIN_TRACKWIDTH_METERS/2), 2) + Math.pow((DRIVETRAIN_WHEELBASE_METERS/2), 2));
@@ -110,8 +111,7 @@ public final class Constants {
             "FL", 
             "FR", 
             "BL", 
-            "BR",
-            "Camera_Module_v1"
+            "BR"
         };
 
         public static final Transform3d[] vehicleToCameras = {//10 deg yaw, 5 deg pitch
@@ -131,7 +131,7 @@ public final class Constants {
         public static final double AUTO_DRIVE_D                                  = 0;
 
         public static final double AUTO_TURN_P                                   = 1.9;
-        public static final double AUTO_TURN_I                                   = 0.5;
+        public static final double AUTO_TURN_I                                   = 0;
         public static final double AUTO_TURN_D                                   = 0;
 
         public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = 
@@ -172,14 +172,14 @@ public final class Constants {
         public static InterpolatingDoubleTreeMap getPivotMap() {
             InterpolatingDoubleTreeMap pivotMap = new InterpolatingDoubleTreeMap();
             pivotMap.put(Units.inchesToMeters(57), -55.0);
-            pivotMap.put(Units.inchesToMeters(77), -43.5);
-            pivotMap.put(Units.inchesToMeters(96.5), -38.0);
-            pivotMap.put(Units.inchesToMeters(116.5), -29.0);
-            pivotMap.put(Units.inchesToMeters(136.5), -28.0);
-            pivotMap.put(Units.inchesToMeters(156.5), -24.0);
-            pivotMap.put(Units.inchesToMeters(176.5), -21.0);
-            pivotMap.put(Units.inchesToMeters(196.5), -20.75);
-            pivotMap.put(Units.inchesToMeters(216.5), -20.5);
+            pivotMap.put(Units.inchesToMeters(77), -42.5);
+            pivotMap.put(Units.inchesToMeters(96.5), -36.0);
+            pivotMap.put(Units.inchesToMeters(116.5), -27.5);
+            pivotMap.put(Units.inchesToMeters(136.5), -26.5);
+            pivotMap.put(Units.inchesToMeters(156.5), -22.5);
+            pivotMap.put(Units.inchesToMeters(176.5), -20.75);
+            pivotMap.put(Units.inchesToMeters(196.5), -20.5);
+            pivotMap.put(Units.inchesToMeters(216.5), -20.25);
             return pivotMap;
         }
     }
@@ -230,6 +230,6 @@ public final class Constants {
 
     public static final class LEDConstants {
         public static final int LED_PORT                                    = 0;
-        public static final int NUMBER_OF_LEDS                              = 78;
+        public static final int NUMBER_OF_LEDS                              = 81;
     }
 }

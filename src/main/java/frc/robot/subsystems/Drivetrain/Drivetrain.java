@@ -90,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
             getHeading(),
             getModulePositions(),
             new Pose2d(),
-            VecBuilder.fill(0.1, 0.1, 999999),
+            VecBuilder.fill(0.35, 0.35, 999999),
             VecBuilder.fill(0.5, 0.5, 999999)
         );
 
@@ -263,8 +263,8 @@ public class Drivetrain extends SubsystemBase {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = poseEstimator.getEstimatedPosition();
         double distance = PhotonUtils.getDistanceToPose(target, robot);
-        //SmartDashboard.putNumber("Distance To Target", distance);
-        return distance;
+        SmartDashboard.putNumber("Distance To Target", distance);
+        return distance + 0.15;
     }
 
     public double getAutomaticRotationSide(){

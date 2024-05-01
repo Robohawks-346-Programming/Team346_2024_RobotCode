@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
     }
     RobotContainer.shooter.stopShooter();
     RobotContainer.pivot.stopPivot();
-    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
       heading = RobotContainer.drivetrain.getHeading();
     } else {
       heading = RobotContainer.drivetrain.getHeadingInverse();

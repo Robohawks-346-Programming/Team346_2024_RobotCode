@@ -63,4 +63,12 @@ public class Vision extends SubsystemBase {
         return limelight.getSideDistance();
     }
 
+    public void resetDistances(){
+        limelight.resetDistances();
+    }
+
+    public double getSpeaker() {
+        return (cameras[3].getSpeakerFull() + cameras[2].getSpeakerFull()) / 2;
+    }
+
 }

@@ -26,7 +26,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Eject"
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Mid"
           }
         },
         {
@@ -45,18 +51,6 @@
           "type": "path",
           "data": {
             "pathName": "Amp side.3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Eject Far"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Amp side.4"
           }
         },
         {

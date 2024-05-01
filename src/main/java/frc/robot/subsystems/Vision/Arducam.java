@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.VisionConstants;
@@ -64,28 +65,23 @@ public class Arducam {
             return;
         }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getRotation().getAngle()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 1){
+        // for(PhotonTrackedTarget target: estimation.targetsUsed){
+        //     if (target.getPoseAmbiguity() > 0.2){
+        //         return;
+        //     }
+        // }
+
+        if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.05){
             return;
         }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.01){
-            return;
-        }
-
-        if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.01){
+        if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.05){
             return;
         }
 
         calculatedPose = estimation.estimatedPose;
         timestamp = estimation.timestampSeconds;
         hasNewPose = true;
-
-        double distance = 0;
-        for (PhotonTrackedTarget target : estimation.targetsUsed) {
-            distance += target.getBestCameraToTarget().getTranslation().getDistance(new Translation3d());
-        }
-
-        distance /= estimation.targetsUsed.size();
         //SmartDashboard.putBoolean(name+"Works", true);
 
     }
@@ -97,6 +93,30 @@ public class Arducam {
     public void recordVisionObservation() {
         RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp);
         hasNewPose = false;
+    }
+
+    public double getSpeakerFull(){
+        if (name == "BR" || name == "BL"){
+            if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
+                for(PhotonTrackedTarget target: camera.getLatestResult().getTargets()){
+                    if (target.getFiducialId() == 4){
+                        return target.getBestCameraToTarget().getX();
+                    }
+                }
+                return -1.0;
+            } else if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
+                for(PhotonTrackedTarget target: camera.getLatestResult().getTargets()){
+                    if (target.getFiducialId() == 7){
+                        return target.getBestCameraToTarget().getX();
+                    }
+                }
+                return -1.0;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1.0;
+        }
     }
     
 }
