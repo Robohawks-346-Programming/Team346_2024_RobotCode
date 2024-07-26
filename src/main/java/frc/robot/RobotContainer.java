@@ -52,26 +52,26 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 
-  //private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
+  private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
   public static final Joystick operatorControl = new Joystick(Constants.DriveConstants.OPERATOR_CONTROLLER_PORT);
-  public static final CommandPS5Controller driverControl = new CommandPS5Controller(2);
+  //public static final CommandPS5Controller driverControl = new CommandPS5Controller(2);
 
-  // private Trigger rightTrigger = driverControl.rightTrigger();
-  // private Trigger rightBumper = driverControl.rightBumper();
-  // private Trigger x = driverControl.x();
-  // private Trigger y = driverControl.y();
-  // private Trigger b = driverControl.b();
-  // private Trigger a = driverControl.a();
-  // private Trigger leftTrigger = driverControl.leftTrigger();
-  // private Trigger leftBumper = driverControl.leftBumper();
-  private Trigger rightTrigger = driverControl.R2();
-  private Trigger rightBumper = driverControl.R1();
-  private Trigger x = driverControl.square();
-  private Trigger y = driverControl.triangle();
-  private Trigger b = driverControl.circle();
-  private Trigger a = driverControl.cross();
-  private Trigger leftTrigger = driverControl.L2();
-  private Trigger leftBumper = driverControl.L1();
+  private Trigger rightTrigger = driverControl.rightTrigger();
+  private Trigger rightBumper = driverControl.rightBumper();
+  private Trigger x = driverControl.x();
+  private Trigger y = driverControl.y();
+  private Trigger b = driverControl.b();
+  private Trigger a = driverControl.a();
+  private Trigger leftTrigger = driverControl.leftTrigger();
+  private Trigger leftBumper = driverControl.leftBumper();
+  // private Trigger rightTrigger = driverControl.R2();
+  // private Trigger rightBumper = driverControl.R1();
+  // private Trigger x = driverControl.square();
+  // private Trigger y = driverControl.triangle();
+  // private Trigger b = driverControl.circle();
+  // private Trigger a = driverControl.cross();
+  // private Trigger leftTrigger = driverControl.L2();
+  // private Trigger leftBumper = driverControl.L1();
   public static final Drivetrain drivetrain = new Drivetrain();
   public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
@@ -116,6 +116,7 @@ public class RobotContainer {
     rightTrigger.onTrue(new DistanceBasedFullShoot());
     leftBumper.onTrue(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, false));
     leftTrigger.onTrue(new ParallelRaceGroup(new AutoLockNote(), new IntakeFull()));
+    // leftTrigger.onTrue(drivetrain.pathFindToPoseAndFollow());
     BUTTON_1.whileTrue(new IntakeFull());
     BUTTON_1.whileFalse(new InstantCommand(pivot::driveDown));
     BUTTON_3.whileTrue(new ShootSpeaker());

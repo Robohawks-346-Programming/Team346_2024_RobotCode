@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.Optional;
 
+import com.pathplanner.lib.commands.PathfindingCommand;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -41,8 +43,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     RobotContainer.pivot.resetPivotAngle();
-    //camera.setResolution(800, 600);
-    //camera.setFPS(20);
+    PathfindingCommand.warmupCommand().schedule();
   }
 
   /**

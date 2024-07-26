@@ -1,10 +1,18 @@
 package frc.robot.subsystems.Drivetrain;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.PhotonUtils;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstantsFactory;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.ClosedLoopOutputType;
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.VecBuilder;
@@ -26,6 +34,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -72,7 +81,7 @@ public class Drivetrain extends SubsystemBase {
 
     private double lastFPGATimestamp;
 
-    private Field2d field = new Field2d();  
+    private Field2d field = new Field2d();
 
     public Pose3d lastPose3d;
 
@@ -91,7 +100,7 @@ public class Drivetrain extends SubsystemBase {
             getModulePositions(),
             new Pose2d(),
             VecBuilder.fill(0.35, 0.35, 999999),
-            VecBuilder.fill(0.5, 0.5, 999999)
+            VecBuilder.fill(0.6, 0.6, 999999)
         );
 
         odometry = new SwerveDriveOdometry(Constants.DriveConstants.DRIVE_KINEMATICS, getHeading(), getModulePositions());
@@ -117,6 +126,7 @@ public class Drivetrain extends SubsystemBase {
 
         poseEstimator.update(getHeading(), getModulePositions());
         odometry.update(getHeading(), getModulePositions());
+        
 
         SmartDashboard.putNumber("Pose X", poseEstimator.getEstimatedPosition().getX());
         SmartDashboard.putNumber("Pose Y", poseEstimator.getEstimatedPosition().getY());
@@ -291,4 +301,8 @@ public class Drivetrain extends SubsystemBase {
         return robotYaw.getDegrees();
     }   
 
+    public Command pathFindToPoseAndFollow() {
+        List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(poseEstimator.getEstimatedPosition(), new Pose2d(poseEstimator.getEstimatedPosition().getX() + RobotContainer.vision.getNoteX(), poseEstimator.getEstimatedPosition().getY() + RobotContainer.vision.getNoteY(), new Rotation2d()));
+        return AutoBuilder.followPath(new PathPlannerPath(bezierPoints, new PathConstraints(2.0, 2.0, Units.degreesToRadians(180), Units.degreesToRadians(180)), new GoalEndState(0.0, new Rotation2d())));
+    }
 }
