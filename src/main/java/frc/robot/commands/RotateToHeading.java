@@ -27,7 +27,7 @@ public class RotateToHeading extends Command {
             0,
             0,
             //drivetrain.getAutomaticRotationSide()));
-            m_turnController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees(), drivetrain.getHeadingAngleToSpeaker())));
+            m_turnController.calculate(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees(), drivetrain.getHeadingAngleToSpeaker() - 2)));
   }
 
   @Override
@@ -38,8 +38,7 @@ public class RotateToHeading extends Command {
   @Override
   public boolean isFinished() {
     //SmartDashboard.putNumber("Finished Rotation", drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees() - drivetrain.getHeadingAngleToSpeaker()) <= 1
-    ;
+    return Math.abs(drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees() - drivetrain.getHeadingAngleToSpeaker()) <= 3;
   }
 
 }

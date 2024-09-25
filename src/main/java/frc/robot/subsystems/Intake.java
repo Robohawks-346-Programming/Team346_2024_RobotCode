@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
         centeringMotor.setSmartCurrentLimit(40);
 
         intakeMotor.setIdleMode(IdleMode.kBrake);
-        centeringMotor.setIdleMode(IdleMode.kBrake);
+        centeringMotor.setIdleMode(IdleMode.kCoast);
 
         centeringMotor.setInverted(false);
 

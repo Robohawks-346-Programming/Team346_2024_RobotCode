@@ -114,8 +114,8 @@ public class RobotContainer {
       drivetrain.zeroHeading();
     }));
     rightTrigger.onTrue(new DistanceBasedFullShoot());
-    leftBumper.onTrue(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, false));
-    leftTrigger.onTrue(new ParallelRaceGroup(new AutoLockNote(), new IntakeFull()));
+    leftTrigger.onTrue(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, false));
+    //leftTrigger.onTrue(new ParallelRaceGroup(new AutoLockNote(), new IntakeFull()));
     // leftTrigger.onTrue(drivetrain.pathFindToPoseAndFollow());
     BUTTON_1.whileTrue(new IntakeFull());
     BUTTON_1.whileFalse(new InstantCommand(pivot::driveDown));
@@ -141,10 +141,10 @@ public class RobotContainer {
     BUTTON_15.whileTrue(pivot.moveArm(-21));
     BUTTON_9.whileTrue(new InstantCommand(indexer::startIndex));
     BUTTON_9.whileFalse(new InstantCommand(indexer::stopIndex));
-    b.whileTrue(new EjectSpeaker());
-    b.whileFalse(new InstantCommand(indexer::stopIndex));
-    a.whileTrue(new EjectAmpFull());
-    a.whileFalse(new InstantCommand(indexer::stopIndex));
+    // b.whileTrue(new EjectSpeaker());
+    // b.whileFalse(new InstantCommand(indexer::stopIndex));
+    // a.whileTrue(new EjectAmpFull());
+    // a.whileFalse(new InstantCommand(indexer::stopIndex));
     y.onTrue(new FeedFull());
   }
 

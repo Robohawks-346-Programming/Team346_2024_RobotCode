@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -54,9 +55,9 @@ public final class Constants {
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
     public static final double MAX_MOVE_VELOCITY                        = 4; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 2; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 4; // for testing
     public static final double MAX_MOVE_VELOCITY_FAST                   = 4;
-    public static final double MAX_TURN_VELOCITY_FAST                   = 2;
+    public static final double MAX_TURN_VELOCITY_FAST                   = 4;
     
   // Front left Swerve Module
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
@@ -158,7 +159,7 @@ public final class Constants {
         public static final double PIVOT_D                                    = 3;
 
         public static final double PIVOT_kS                                   = 0.4;
-        public static final double PIVOT_kG                                   = 0.55;
+        public static final double PIVOT_kG                                   = 0.67;
         public static final double PIVOT_kV                                   = 0.2;
         public static final double PIVOT_kA                                   = 0;
 

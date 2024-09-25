@@ -99,8 +99,8 @@ public class Drivetrain extends SubsystemBase {
             getHeading(),
             getModulePositions(),
             new Pose2d(),
-            VecBuilder.fill(0.35, 0.35, 999999),
-            VecBuilder.fill(0.6, 0.6, 999999)
+            VecBuilder.fill(0.31, 0.31, 999999),
+            VecBuilder.fill(0.62, 0.62, 999999)
         );
 
         odometry = new SwerveDriveOdometry(Constants.DriveConstants.DRIVE_KINEMATICS, getHeading(), getModulePositions());
@@ -273,7 +273,7 @@ public class Drivetrain extends SubsystemBase {
         Pose2d target = isRedAlliance()? redGoal: blueGoal;
         Pose2d robot = poseEstimator.getEstimatedPosition();
         double distance = PhotonUtils.getDistanceToPose(target, robot);
-        SmartDashboard.putNumber("Distance To Target", distance);
+        // SmartDashboard.putNumber("Distance To Target", distance);
         return distance + 0.15;
     }
 

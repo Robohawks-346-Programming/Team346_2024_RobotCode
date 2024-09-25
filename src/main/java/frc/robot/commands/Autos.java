@@ -55,7 +55,7 @@ public final class Autos {
         () -> {
                 var alliance = DriverStation.getAlliance();
                 if (alliance.isPresent()) {
-                    return alliance.get() == DriverStation.Alliance.Red;
+                    return alliance.get() ==  DriverStation.Alliance.Red;
                 }
                 return false;
               },

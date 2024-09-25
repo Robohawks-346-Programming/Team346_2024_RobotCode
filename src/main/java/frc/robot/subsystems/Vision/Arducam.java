@@ -65,19 +65,23 @@ public class Arducam {
             return;
         }
 
-        // for(PhotonTrackedTarget target: estimation.targetsUsed){
-        //     if (target.getPoseAmbiguity() > 0.2){
-        //         return;
-        //     }
+        for(PhotonTrackedTarget target: estimation.targetsUsed){
+            if (target.getPoseAmbiguity() > 0.18){
+                return;
+            }
+        }
+
+        // if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.05){
+        //     return;
         // }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.05){
-            return;
-        }
+        // if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.05){
+        //     return;
+        // }
 
-        if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.05){
-            return;
-        }
+        // if (Math.abs(intermediatePose.getRotation().getAngle() - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 5){
+        //     return;
+        // }
 
         calculatedPose = estimation.estimatedPose;
         timestamp = estimation.timestampSeconds;
