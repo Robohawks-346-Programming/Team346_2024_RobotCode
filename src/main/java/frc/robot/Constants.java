@@ -171,13 +171,13 @@ public final class Constants {
         public static InterpolatingDoubleTreeMap getPivotMap() {
             InterpolatingDoubleTreeMap pivotMap = new InterpolatingDoubleTreeMap();
             pivotMap.put(Units.inchesToMeters(57), -55.0);
-            pivotMap.put(Units.inchesToMeters(77), -43.5);
-            pivotMap.put(Units.inchesToMeters(96.5), -38.0);
-            pivotMap.put(Units.inchesToMeters(116.5), -30.5);
-            pivotMap.put(Units.inchesToMeters(136.5), -27.25);
-            pivotMap.put(Units.inchesToMeters(156.5), -23.25);
-            pivotMap.put(Units.inchesToMeters(176.5), -21.0);
-            pivotMap.put(Units.inchesToMeters(196.5), -20.5);
+            pivotMap.put(Units.inchesToMeters(77), -35.0);
+            pivotMap.put(Units.inchesToMeters(96.5), -33.0);
+            pivotMap.put(Units.inchesToMeters(116.5), -26.0);
+            pivotMap.put(Units.inchesToMeters(136.5), -24.0);
+            pivotMap.put(Units.inchesToMeters(156.5), -23.0);
+            pivotMap.put(Units.inchesToMeters(176.5), -22.0);
+            pivotMap.put(Units.inchesToMeters(196.5), -21.0);
             pivotMap.put(Units.inchesToMeters(216.5), -20.25);
             return pivotMap;
         }

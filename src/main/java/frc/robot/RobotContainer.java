@@ -37,6 +37,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -117,6 +118,7 @@ public class RobotContainer {
     leftTrigger.onTrue(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, false));
     //leftTrigger.onTrue(new ParallelRaceGroup(new AutoLockNote(), new IntakeFull()));
     // leftTrigger.onTrue(drivetrain.pathFindToPoseAndFollow());
+    
     BUTTON_1.whileTrue(new IntakeFull());
     BUTTON_1.whileFalse(new InstantCommand(pivot::driveDown));
     BUTTON_3.whileTrue(new ShootSpeaker());
@@ -146,6 +148,25 @@ public class RobotContainer {
     // a.whileTrue(new EjectAmpFull());
     // a.whileFalse(new InstantCommand(indexer::stopIndex));
     y.onTrue(new FeedFull());
+
+    // BUTTON_2.onTrue(pivot.moveArm(-35));
+    // BUTTON_3.onTrue(pivot.moveArm(-34));
+    // BUTTON_4.onTrue(pivot.moveArm(-33));
+    // BUTTON_5.onTrue(pivot.moveArm(-32));
+    // BUTTON_6.onTrue(pivot.moveArm(-31));
+    // BUTTON_7.onTrue(pivot.moveArm(-30));
+    // BUTTON_8.onTrue(pivot.moveArm(-29));
+    // BUTTON_9.onTrue(pivot.moveArm(-28));
+    // BUTTON_10.onTrue(pivot.moveArm(-27));
+    // BUTTON_11.onTrue(pivot.moveArm(-26));
+    // BUTTON_12.onTrue(pivot.moveArm(-25));
+    // BUTTON_13.onTrue(pivot.moveArm(-24));
+    // BUTTON_14.onTrue(pivot.moveArm(-23));
+    // BUTTON_15.onTrue(pivot.moveArm(-22));
+    // BUTTON_16.onTrue(pivot.moveArm(-21));
+    // y.onTrue(pivot.moveArm(-20));
+    // x.onTrue(pivot.moveArm(-60));
+    // a.onTrue(new AutoShoot());
   }
 
   public Command getAutonomousCommand() {

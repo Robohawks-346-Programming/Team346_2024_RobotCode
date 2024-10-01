@@ -133,6 +133,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Pose Rotation", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
         field.setRobotPose(poseEstimator.getEstimatedPosition());
         SmartDashboard.putData("Field Pose", field);
+        SmartDashboard.putNumber("Distance To Target", Units.metersToInches(getDistanceFromSpeaker()));
 
         //frontLeft.setDriveWheelsToVoltage(11);
 
@@ -274,7 +275,7 @@ public class Drivetrain extends SubsystemBase {
         Pose2d robot = poseEstimator.getEstimatedPosition();
         double distance = PhotonUtils.getDistanceToPose(target, robot);
         // SmartDashboard.putNumber("Distance To Target", distance);
-        return distance + 0.15;
+        return distance;
     }
 
     public double getAutomaticRotationSide(){

@@ -28,8 +28,8 @@ public class Intake extends SubsystemBase {
 
         centeringMotor.setInverted(false);
 
-        intakeMotor.burnFlash();
-        centeringMotor.burnFlash();
+            intakeMotor.burnFlash();
+            centeringMotor.burnFlash();
 
         timer.reset();
         timer.start();
