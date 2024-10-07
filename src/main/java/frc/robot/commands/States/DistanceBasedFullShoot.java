@@ -26,7 +26,7 @@ public class DistanceBasedFullShoot extends SequentialCommandGroup {
           RobotContainer.pivot.distanceBasedArmPivot(),
           new ParallelRaceGroup(new ShootSpeaker(), new WaitCommand(1.5))
           ),
-        new ParallelRaceGroup(new EjectSpeaker(), new WaitCommand(0.7), new ShootSpeaker()),
+          new ParallelRaceGroup(new EjectSpeakerFull(), new WaitCommand(0.7), new ShootSpeaker()),
           new InstantCommand(RobotContainer.indexer::stopIndex),
           new ParallelCommandGroup(
             new InstantCommand(RobotContainer.shooter::stopShooter),

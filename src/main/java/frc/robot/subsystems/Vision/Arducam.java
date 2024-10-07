@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -36,6 +37,7 @@ public class Arducam {
     private volatile Pose3d intermediatePose = new Pose3d();
     private volatile double timestamp = 1;
     private String name;
+    private double threshold;
 
 
 
@@ -44,6 +46,7 @@ public class Arducam {
         poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, vehicleToCamera);
         poseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
         name = cameraName;
+        threshold = 0;
     }
 
     public void periodic() {
@@ -64,9 +67,16 @@ public class Arducam {
         if (intermediatePose.getZ() > 1 || intermediatePose.getZ() < -0.1) {
             return;
         }
+        if (Units.metersToInches(RobotContainer.drivetrain.getDistanceFromSpeaker()) > 200){
+            threshold = 0.18;
+        } else if(Units.metersToInches(RobotContainer.drivetrain.getDistanceFromSpeaker()) > 100) {
+            threshold = 0.14;
+        } else {
+            threshold = 0.13;
+        }
 
         for(PhotonTrackedTarget target: estimation.targetsUsed){
-            if (target.getPoseAmbiguity() > 0.18){
+            if (target.getPoseAmbiguity() > threshold){
                 return;
             }
         }

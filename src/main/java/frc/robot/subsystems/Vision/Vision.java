@@ -21,7 +21,7 @@ public class Vision extends SubsystemBase {
         cameras = new Arducam[] {
             // new Arducam(Constants.VisionConstants.cameraNames[0], VisionConstants.vehicleToCameras[0]),
             // new Arducam(Constants.VisionConstants.cameraNames[1], VisionConstants.vehicleToCameras[1]),
-            new Arducam(Constants.VisionConstants.cameraNames[2], VisionConstants.vehicleToCameras[2]),
+            new Arducam(Constants.VisionConstants.cameraNames[0], VisionConstants.vehicleToCameras[2]),
             new Arducam(Constants.VisionConstants.cameraNames[3], VisionConstants.vehicleToCameras[3])
         };
         limelight = new Limelight();

@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4120428956421427,
+      "x": 1.41,
       "y": 5.463073824179848
     },
     "rotation": 0
@@ -10,7 +10,14 @@
   "command": {
     "type": "sequential",
     "data": {
-      "commands": []
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Blueprint Path"
+          }
+        }
+      ]
     }
   },
   "folder": null,

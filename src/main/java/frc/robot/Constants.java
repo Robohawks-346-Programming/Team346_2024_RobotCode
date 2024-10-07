@@ -54,10 +54,10 @@ public final class Constants {
     public static final int TURN_CURRENT_LIMIT                          = 25;
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
-    public static final double MAX_MOVE_VELOCITY                        = 4; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 4; // for testing
-    public static final double MAX_MOVE_VELOCITY_FAST                   = 4;
-    public static final double MAX_TURN_VELOCITY_FAST                   = 4;
+    public static final double MAX_MOVE_VELOCITY                        = 1; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 1; // for testing
+    public static final double MAX_MOVE_VELOCITY_FAST                   = 1;
+    public static final double MAX_TURN_VELOCITY_FAST                   = 1;
     
   // Front left Swerve Module
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
@@ -178,7 +178,8 @@ public final class Constants {
             pivotMap.put(Units.inchesToMeters(156.5), -23.0);
             pivotMap.put(Units.inchesToMeters(176.5), -22.0);
             pivotMap.put(Units.inchesToMeters(196.5), -21.0);
-            pivotMap.put(Units.inchesToMeters(216.5), -20.25);
+            pivotMap.put(Units.inchesToMeters(216.5), -20.0);
+            pivotMap.put(Units.inchesToMeters(240), -19.5);
             return pivotMap;
         }
     }
@@ -208,7 +209,7 @@ public final class Constants {
         public static final int AMP_ROLLER_MOTOR_ID                           = 5;
 
         public static final double FEEDER_ROLLER_SPEED                        = 0.45;
-        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.6;
+        public static final double AMP_ROLLERS_ROLLER_SPEED_1                 = 0.5;
         public static final double AMP_ROLLERS_ROLLER_SPEED_2                 = 0.9;
     }
 
