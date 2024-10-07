@@ -58,6 +58,11 @@ public class Shooter extends SubsystemBase{
         SmartDashboard.putNumber("Bottom Roller RPM", bottomRoller.getVelocity().getValueAsDouble());
     }
 
+    /**
+     * Sets a specified velocity to the motors
+     * @param velocity Velocity for the top roller
+     * @param velocity2 Velocity for the bottom roller
+     */
     public void setVelocity(double velocity, double velocity2) {
         topRoller.setControl(voltage.withVelocity(velocity));
         bottomRoller.setControl(voltage.withVelocity(velocity2));
