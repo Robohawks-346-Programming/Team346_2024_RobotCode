@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -22,6 +23,9 @@ public class Indexer extends SubsystemBase{
         feederRoller.setSmartCurrentLimit(40);
         ampRollers.setSmartCurrentLimit(40);
 
+        feederRoller.setIdleMode(IdleMode.kBrake);
+        ampRollers.setIdleMode(IdleMode.kBrake);
+
         feederRoller.setInverted(true);
         ampRollers.setInverted(false);
 
@@ -33,13 +37,13 @@ public class Indexer extends SubsystemBase{
     }
 
     public void startIndex() {
-        feederRoller.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
-        ampRollers.set(Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
+        feederRoller.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_1);
+        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_1);
     }
 
     public void reverseIndex() {
-        feederRoller.set(-Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_1);
-        ampRollers.set(-Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
+        feederRoller.set(-Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
+        ampRollers.set(-Constants.IndexerConstants.FEEDER_ROLLER_SPEED);
     }
 
     public void stopIndex() {
@@ -68,6 +72,11 @@ public class Indexer extends SubsystemBase{
 
     public void ejectSpeaker() {
         feederRoller.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
-        //ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
+        ampRollers.set(Constants.IndexerConstants.AMP_ROLLERS_ROLLER_SPEED_2);
+    }
+
+    public void indexSlow(){
+        feederRoller.set(0.25);
+        ampRollers.set(0.25);
     }
 }

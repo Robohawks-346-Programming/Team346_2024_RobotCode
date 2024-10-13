@@ -8,11 +8,13 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 public class Pivot extends SubsystemBase {
     private static TalonFX pivotMotor;
@@ -60,9 +62,8 @@ public class Pivot extends SubsystemBase {
         SmartDashboard.putNumber("Arm Degrees", convertRotationsToDegrees(pivotMotor.getPosition().getValue()));
     }
     
-    public boolean isAtPosition(double rev) {
-        return(Math.abs(pivotMotor.getPosition().getValue() - convertDegreesToRotations(rev)) <= convertDegreesToRotations(Constants.PivotConstants.PIVOT_ANGLE_THRESHOLD));
-        //return convertRotationsToDegrees(pivotMotor.getPosition().getValue()) == convertDegreesToRotations(rev);
+    public boolean isAtPosition() {
+        return(Math.abs(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()) - convertRotationsToDegrees(pivotMotor.getPosition().getValueAsDouble())) < 2);
     }
 
     public void moveArmToPosition(double wantedPosition) {
@@ -81,14 +82,12 @@ public class Pivot extends SubsystemBase {
         return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(pos))));
     }
     
-    public void distanceBasedArmPivot(double x, double y){
-        pivotMotor.setControl(position.withPosition(getDistanceBasedAngle(x, y)));
+    public Command distanceBasedArmPivot(){
+        // SmartDashboard.putNumber("Distance from Speaker", RobotContainer.drivetrain.getDistanceFromSpeaker());
+        // SmartDashboard.putNumber("Wanted Arm Angle", pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker()));
+        return Commands.runOnce(() -> pivotMotor.setControl(position.withPosition(convertDegreesToRotations(pivotLookupTable.get(RobotContainer.drivetrain.getDistanceFromSpeaker())))));
     }
-
-    public double getDistanceBasedAngle(double x, double y){
-        return pivotLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-    }
-
+    
     public void resetPivotAngle() {
         pivotMotor.setPosition(convertDegreesToRotations(Constants.PivotConstants.HOME_PIVOT_ANGLE));
     }
@@ -121,6 +120,10 @@ public class Pivot extends SubsystemBase {
     }
 
     public void setPercent(){
-        pivotMotor.set(-0.03);
+        pivotMotor.set(-0.06);
+    }
+
+    public void driveDown(){
+        pivotMotor.set(-0.02);
     }
 }

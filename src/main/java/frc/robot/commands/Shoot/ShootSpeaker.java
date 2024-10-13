@@ -28,7 +28,7 @@ public class ShootSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooter.setVelocity(110, 110);
+    RobotContainer.shooter.setVelocity(120, 120);
   }
 
   // Called once the command ends or is interrupted.

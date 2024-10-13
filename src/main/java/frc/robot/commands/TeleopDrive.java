@@ -1,80 +1,66 @@
 package frc.robot.commands;
 
+import java.sql.Driver;
+import java.util.Optional;
 import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
 
 /** An example command that uses an example subsystem. */
 public class TeleopDrive extends Command {
+    Drivetrain m_drive;
+  Supplier<Double> xSpeed;
+  Supplier<Double> ySpeed;
+  Supplier<Double> zRotation;
+  double curXSpeed;
+  double curYSpeed;
+  double curZRotation;
+  double deadzone;
+  ChassisSpeeds speeds;
+  private boolean isInverted = false;
 
-  Drivetrain drivetrain;
-  DoubleSupplier x,y,theta;
-  double moveVelocity, turnVelocity;
-  boolean speedBoost, isInverted;
 
-  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier theta, boolean speedBoost, boolean isInverted) {
-    this.drivetrain = drivetrain;
-    this.x = x;
-    this.y = y;
-    this.theta = theta;
-    this.speedBoost = speedBoost;
-    this.isInverted = isInverted;
-    addRequirements(drivetrain);
+  public TeleopDrive(Supplier<Double> xSpeed, Supplier<Double> ySpeed,
+      Supplier<Double> zRotation, double deadzone, boolean inverted) {
+    m_drive = RobotContainer.drivetrain;
+    this.xSpeed = xSpeed;
+    this.ySpeed = ySpeed;
+    this.zRotation = zRotation;
+    this.deadzone = deadzone;
+    isInverted = inverted;
+    addRequirements(RobotContainer.drivetrain);
+    // if(isInverted)  {
+    //   curXSpeed *= -1;
+    //   curYSpeed *= -1; 
+    // }
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
   public void execute() {
-    if(speedBoost) {
-      if(isInverted) {
-        moveVelocity = -Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST;
-        turnVelocity = -Constants.DriveConstants.MAX_TURN_VELOCITY_FAST;
-      }
-      else {
-        moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY_FAST;
-        turnVelocity = Constants.DriveConstants.MAX_TURN_VELOCITY_FAST;
-      }
-    }
-
-    else {
-      if(isInverted) {
-        moveVelocity = -Constants.DriveConstants.MAX_MOVE_VELOCITY;
-        turnVelocity = -Constants.DriveConstants.MAX_TURN_VELOCITY;
-      }
-      else {
-        moveVelocity = Constants.DriveConstants.MAX_MOVE_VELOCITY;
-        turnVelocity = Constants.DriveConstants.MAX_TURN_VELOCITY;
-      }
-    }
     
-    double doubleX = Math.abs(x.getAsDouble()) < 0.05 ? 0 : x.getAsDouble();
-    double doubleY = Math.abs(y.getAsDouble()) < 0.05 ? 0 : y.getAsDouble();
-    double doubleTheta = Math.abs(theta.getAsDouble()) < 0.05 ? 0 : theta.getAsDouble();
+    
+    curXSpeed = Math.abs(xSpeed.get()) < deadzone ? 0 : xSpeed.get();
+    curYSpeed = Math.abs(ySpeed.get()) < deadzone ? 0 : ySpeed.get();
+    curZRotation = Math.abs(zRotation.get()) < deadzone ? 0 : zRotation.get();
+    curXSpeed *= DriveConstants.MAX_MOVE_VELOCITY;
+    curYSpeed *= DriveConstants.MAX_MOVE_VELOCITY;
+    curZRotation *= DriveConstants.MAX_TURN_VELOCITY;
+    if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
 
-    double vx = doubleX * moveVelocity;
-    double vy = doubleY * moveVelocity;
-    double omega = doubleTheta * turnVelocity;
+      curXSpeed *=-1;
+      curYSpeed *=-1;
+    }
 
-    ChassisSpeeds velocity = Constants.DriveConstants.IS_FIELD_RELATIVE ? ChassisSpeeds.fromFieldRelativeSpeeds(vx, vy, omega, drivetrain.getHeading()) 
-      : new ChassisSpeeds(vx, vy, omega);
-
-    drivetrain.drive(velocity);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    speeds = ChassisSpeeds.fromFieldRelativeSpeeds(curXSpeed, curYSpeed, curZRotation,
+        m_drive.getOdometryPose().getRotation());
+    m_drive.drive(speeds);
   }
 }

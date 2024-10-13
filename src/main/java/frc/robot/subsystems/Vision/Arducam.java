@@ -18,7 +18,11 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.RobotContainer;
 
 public class Arducam {
@@ -31,8 +35,9 @@ public class Arducam {
     private volatile boolean hasNewPose = false;
     private volatile Pose3d calculatedPose = new Pose3d();
     private volatile Pose3d intermediatePose = new Pose3d();
-    private volatile Matrix<N3, N1> stdDevs = VecBuilder.fill(1000, 1000, 1000);
     private volatile double timestamp = 1;
+    private String name;
+    private double threshold;
 
 
 
@@ -40,19 +45,21 @@ public class Arducam {
         camera = new PhotonCamera(cameraName);
         poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, vehicleToCamera);
         poseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
+        name = cameraName;
+        threshold = 0;
     }
 
     public void periodic() {
-
+        SmartDashboard.putBoolean(name, camera.isConnected());
+       // SmartDashboard.putNumber(name, count);
         if (!camera.isConnected()) return;
 
-        PhotonPipelineResult result = camera.getLatestResult(); 
+        PhotonPipelineResult result = camera.getLatestResult();
         Optional<EstimatedRobotPose> estimatedPose = poseEstimator.update(result);
         if (estimatedPose.isEmpty()) return;
         EstimatedRobotPose estimation = estimatedPose.get();
         if (estimation.timestampSeconds == timestamp) return;
-        if (estimation.targetsUsed.size() == 1 && 
-            (estimation.targetsUsed.get(0).getPoseAmbiguity() > Constants.VisionConstants.SINGLE_TAG_AMBIGUITY_CUTOFF || estimation.targetsUsed.get(0).getPoseAmbiguity() == -1))
+        if (estimation.targetsUsed.size() == 1)
             return;
 
         intermediatePose = estimation.estimatedPose;
@@ -60,18 +67,36 @@ public class Arducam {
         if (intermediatePose.getZ() > 1 || intermediatePose.getZ() < -0.1) {
             return;
         }
-
-        double distance = 0;
-        for (PhotonTrackedTarget target : estimation.targetsUsed) {
-            distance += target.getBestCameraToTarget().getTranslation().getDistance(new Translation3d());
+        if (Units.metersToInches(RobotContainer.drivetrain.getDistanceFromSpeaker()) > 200){
+            threshold = 0.18;
+        } else if(Units.metersToInches(RobotContainer.drivetrain.getDistanceFromSpeaker()) > 100) {
+            threshold = 0.14;
+        } else {
+            threshold = 0.13;
         }
 
-        distance /= estimation.targetsUsed.size();
-        stdDevs = computeStdDevs(distance);
+        for(PhotonTrackedTarget target: estimation.targetsUsed){
+            if (target.getPoseAmbiguity() > threshold){
+                return;
+            }
+        }
+
+        // if (Math.abs(Math.toDegrees(intermediatePose.getX()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getX()) < 0.05){
+        //     return;
+        // }
+
+        // if (Math.abs(Math.toDegrees(intermediatePose.getY()) - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getY()) < 0.05){
+        //     return;
+        // }
+
+        // if (Math.abs(intermediatePose.getRotation().getAngle() - RobotContainer.drivetrain.poseEstimator.getEstimatedPosition().getRotation().getDegrees()) < 5){
+        //     return;
+        // }
 
         calculatedPose = estimation.estimatedPose;
         timestamp = estimation.timestampSeconds;
         hasNewPose = true;
+        //SmartDashboard.putBoolean(name+"Works", true);
 
     }
 
@@ -80,16 +105,32 @@ public class Arducam {
     }
 
     public void recordVisionObservation() {
-        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp, stdDevs);
+        RobotContainer.drivetrain.poseEstimator.addVisionMeasurement(calculatedPose.toPose2d(), timestamp);
         hasNewPose = false;
     }
 
-    private Matrix<N3, N1> computeStdDevs(double distance) {
-        double stdDev = Math.max(
-            Constants.VisionConstants.MINIMUM_STANDARD_DEVIATION, 
-            Constants.VisionConstants.EULER_MULTIPLIER * Math.exp(distance * Constants.VisionConstants.DISTANCE_MULTIPLIER)
-        );
-        return VecBuilder.fill(stdDev, stdDev, 1000);
+    public double getSpeakerFull(){
+        if (name == "BR" || name == "BL"){
+            if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
+                for(PhotonTrackedTarget target: camera.getLatestResult().getTargets()){
+                    if (target.getFiducialId() == 4){
+                        return target.getBestCameraToTarget().getX();
+                    }
+                }
+                return -1.0;
+            } else if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)){
+                for(PhotonTrackedTarget target: camera.getLatestResult().getTargets()){
+                    if (target.getFiducialId() == 7){
+                        return target.getBestCameraToTarget().getX();
+                    }
+                }
+                return -1.0;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1.0;
+        }
     }
     
 }

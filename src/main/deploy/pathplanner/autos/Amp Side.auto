@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7708821892738342,
+      "y": 6.664938926696777
+    },
+    "rotation": 56.30996182632761
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side.1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Mid"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side.2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Far"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side.3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Far"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Choreo Autos",
+  "choreoAuto": true
+}

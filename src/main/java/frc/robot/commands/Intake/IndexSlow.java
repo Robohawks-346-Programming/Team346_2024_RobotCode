@@ -8,7 +8,7 @@ import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeArm extends Command {
+public class IndexSlow extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   /**
@@ -16,33 +16,30 @@ public class IntakeArm extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeArm() {
+  public IndexSlow() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.indexer.timer.reset();
-    RobotContainer.indexer.timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.indexer.startIndex();
+    RobotContainer.indexer.indexSlow();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotContainer.indexer.stopIndex();
-    RobotContainer.indexer.toggleStoringGamepiece();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return RobotContainer.indexer.returnCurrent();
+    return false;
   }
 }

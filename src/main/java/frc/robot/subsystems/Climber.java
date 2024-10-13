@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,7 +28,7 @@ public class Climber extends SubsystemBase{
         leftHookEncoder = leftHook.getEncoder();
         rightHookEncoder = rightHook.getEncoder();
 
-        rightHook.setInverted(true);
+        rightHook.setInverted(false);
 
         leftHookPIDController.setP(Constants.ClimberConstants.HOOK_P);
         leftHookPIDController.setI(Constants.ClimberConstants.HOOK_I);
@@ -39,6 +40,9 @@ public class Climber extends SubsystemBase{
         rightHookPIDController.setD(Constants.ClimberConstants.HOOK_D);
         leftHookPIDController.setFF(0.1);
 
+        leftHook.setIdleMode(IdleMode.kBrake);
+        rightHook.setIdleMode(IdleMode.kBrake);
+
         leftHook.burnFlash();
         rightHook.burnFlash();
 
@@ -49,24 +53,24 @@ public class Climber extends SubsystemBase{
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Left hook Good", leftHookGood);
-        SmartDashboard.putBoolean("Right hook Good", rightHookGood);
+        // SmartDashboard.putBoolean("Left hook Good", leftHookGood);
+        // SmartDashboard.putBoolean("Right hook Good", rightHookGood);
 
-        SmartDashboard.putNumber("Left hook rev", leftHookEncoder.getPosition());
-        SmartDashboard.putNumber("Right hook rev", rightHookEncoder.getPosition());
+        // SmartDashboard.putNumber("Left hook rev", leftHookEncoder.getPosition());
+        // SmartDashboard.putNumber("Right hook rev", rightHookEncoder.getPosition());
     }
 
     public void moveHooksUp() {
         // leftHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
         // rightHookPIDController.setReference(setpoint, CANSparkMax.ControlType.kPosition);
 
-        leftHook.set(0.6);
-        rightHook.set(0.6);
+        leftHook.set(0.8);
+        rightHook.set(0.8);
     }
 
     public void moveHooksDown() {
-        leftHook.set(-0.4);
-        rightHook.set(-0.4);
+        leftHook.set(-0.75);
+        rightHook.set(-0.75);
     }
 
     public void stopHooks(){

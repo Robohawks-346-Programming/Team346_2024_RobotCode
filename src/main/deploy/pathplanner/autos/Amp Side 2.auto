@@ -1,0 +1,73 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7708823084831238,
+      "y": 6.700737953186035
+    },
+    "rotation": 59.036216813405595
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side 2.1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side 2.2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Far"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side 2.3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Far"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp side 2.4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Eject Far"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Choreo Autos",
+  "choreoAuto": true
+}

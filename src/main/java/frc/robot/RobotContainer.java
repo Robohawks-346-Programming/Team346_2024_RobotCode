@@ -4,11 +4,20 @@
 
 package frc.robot;
 
-import frc.robot.commands.States.EfficientIntake;
+import frc.robot.commands.States.AutoShoot;
+import frc.robot.commands.States.DistanceBasedFullShoot;
+import frc.robot.commands.States.EjectAmpFull;
+import frc.robot.commands.States.EjectSpeakerFull;
+import frc.robot.commands.States.FeedFull;
+import frc.robot.commands.AutoLockNote;
 import frc.robot.commands.Autos;
+import frc.robot.commands.RotateToHeading;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.Intake.IntakeFull;
 import frc.robot.commands.Intake.Outake;
 import frc.robot.commands.Shoot.EjectAmp;
+import frc.robot.commands.Shoot.EjectSpeaker;
+import frc.robot.commands.Shoot.Feed;
 import frc.robot.commands.Shoot.ShootSpeaker;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.Climber;
@@ -17,16 +26,27 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Drivetrain.Drivetrain;
+import frc.robot.subsystems.Vision.Vision;
 
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -35,6 +55,7 @@ public class RobotContainer {
 
   private final CommandXboxController driverControl = new CommandXboxController(Constants.DriveConstants.DRIVER_CONTROLLER_PORT);
   public static final Joystick operatorControl = new Joystick(Constants.DriveConstants.OPERATOR_CONTROLLER_PORT);
+  //public static final CommandPS5Controller driverControl = new CommandPS5Controller(2);
 
   private Trigger rightTrigger = driverControl.rightTrigger();
   private Trigger rightBumper = driverControl.rightBumper();
@@ -44,19 +65,27 @@ public class RobotContainer {
   private Trigger a = driverControl.a();
   private Trigger leftTrigger = driverControl.leftTrigger();
   private Trigger leftBumper = driverControl.leftBumper();
+  // private Trigger rightTrigger = driverControl.R2();
+  // private Trigger rightBumper = driverControl.R1();
+  // private Trigger x = driverControl.square();
+  // private Trigger y = driverControl.triangle();
+  // private Trigger b = driverControl.circle();
+  // private Trigger a = driverControl.cross();
+  // private Trigger leftTrigger = driverControl.L2();
+  // private Trigger leftBumper = driverControl.L1();
   public static final Drivetrain drivetrain = new Drivetrain();
-  public static final Autos autos = new Autos();
   public static final LEDs leds = new LEDs();
   public static final Pivot pivot = new Pivot();
   public static final Indexer indexer = new Indexer();
   public static final Shooter shooter = new Shooter();
   public static final Intake intake = new Intake();
   public static final Climber climber = new Climber();
-  public boolean isInverted = false;
+  public static final Vision vision = new Vision();
+  public static final Autos autos = new Autos(pivot);
   
-    public DoubleSupplier xAxis = () -> (driverControl.getLeftY());
-    public DoubleSupplier yAxis = () -> (driverControl.getLeftX());
-    public DoubleSupplier thetaAxis = () -> (driverControl.getRightX());
+    public Supplier<Double> xAxis = () -> (driverControl.getLeftY());
+    public Supplier<Double> yAxis = () -> (driverControl.getLeftX());
+    public Supplier<Double> thetaAxis = () -> (driverControl.getRightX() *-1);
 
     public static final JoystickButton BUTTON_1 = new JoystickButton(operatorControl, 1),
       BUTTON_2 = new JoystickButton(operatorControl, 2),
@@ -77,17 +106,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
-
-    Optional<Alliance> ally = DriverStation.getAlliance();
-    if (ally.isPresent()) {
-        if (ally.get() == DriverStation.Alliance.Blue) {
-          isInverted = false;
-        }
-        else {
-          isInverted = true;
-        }
-    }
-    drivetrain.setDefaultCommand(new TeleopDrive(drivetrain, xAxis, yAxis, thetaAxis, false, isInverted));
+    setDriveCommand(false);
   }
 
   private void configureBindings() {
@@ -95,10 +114,16 @@ public class RobotContainer {
       drivetrain.resetEncoders();
       drivetrain.zeroHeading();
     }));
-    BUTTON_1.whileTrue(new ParallelCommandGroup(new EfficientIntake(), new InstantCommand(pivot::setPercent)));
+    rightTrigger.onTrue(new DistanceBasedFullShoot());
+    leftTrigger.onTrue(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, false));
+    //leftTrigger.onTrue(new ParallelRaceGroup(new AutoLockNote(), new IntakeFull()));
+    // leftTrigger.onTrue(drivetrain.pathFindToPoseAndFollow());
+    
+    BUTTON_1.whileTrue(new IntakeFull());
+    BUTTON_1.whileFalse(new InstantCommand(pivot::driveDown));
     BUTTON_3.whileTrue(new ShootSpeaker());
     BUTTON_2.whileTrue(new Outake());
-    BUTTON_4.onTrue(pivot.moveArm(-35));
+    BUTTON_4.onTrue(pivot.moveArm(-32));
     BUTTON_8.onTrue(pivot.moveArm(-60));
     BUTTON_5.onTrue(pivot.moveArm(55));
     BUTTON_6.onTrue(pivot.moveArm(0));
@@ -107,23 +132,50 @@ public class RobotContainer {
     BUTTON_11.whileFalse(new InstantCommand(climber::stopHooks));
     BUTTON_14.whileTrue(new InstantCommand(climber::rightHookUp));
     BUTTON_14.whileFalse(new InstantCommand(climber::stopHooks));
-    BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksUp));
+    BUTTON_13.whileTrue(new InstantCommand(climber::moveHooksDown));
     BUTTON_13.whileFalse(new InstantCommand(climber::stopHooks));
-    BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksDown));
+    BUTTON_12.whileTrue(new InstantCommand(climber::moveHooksUp));
     BUTTON_12.whileFalse(new InstantCommand(climber::stopHooks));
-    BUTTON_10.whileTrue(new InstantCommand(indexer::ejectSpeaker));
+    BUTTON_10.whileTrue(new EjectSpeakerFull());
     BUTTON_10.whileFalse(new InstantCommand(indexer::stopIndex));
-    BUTTON_16.whileTrue(new InstantCommand(indexer::ejectAmp));
+    BUTTON_16.whileTrue(new EjectAmpFull());
     BUTTON_16.whileFalse(new InstantCommand(indexer::stopIndex));
-    BUTTON_15.whileTrue(new InstantCommand(indexer::reverseIndex));
-    BUTTON_15.whileFalse(new InstantCommand(indexer::stopIndex));
-    b.whileTrue(new InstantCommand(indexer::ejectSpeaker));
-    b.whileFalse(new InstantCommand(indexer::stopIndex));
-    a.whileTrue(new EjectAmp());
-    a.whileFalse(new InstantCommand(indexer::stopIndex));
+    BUTTON_15.whileTrue(pivot.moveArm(-21));
+    BUTTON_9.whileTrue(new InstantCommand(indexer::startIndex));
+    BUTTON_9.whileFalse(new InstantCommand(indexer::stopIndex));
+    // b.whileTrue(new EjectSpeaker());
+    // b.whileFalse(new InstantCommand(indexer::stopIndex));
+    // a.whileTrue(new EjectAmpFull());
+    // a.whileFalse(new InstantCommand(indexer::stopIndex));
+    y.onTrue(new FeedFull());
+
+    // BUTTON_2.onTrue(pivot.moveArm(-35));
+    // BUTTON_3.onTrue(pivot.moveArm(-34));
+    // BUTTON_4.onTrue(pivot.moveArm(-33));
+    // BUTTON_5.onTrue(pivot.moveArm(-32));
+    // BUTTON_6.onTrue(pivot.moveArm(-31));
+    // BUTTON_7.onTrue(pivot.moveArm(-30));
+    // BUTTON_8.onTrue(pivot.moveArm(-29));
+    // BUTTON_9.onTrue(pivot.moveArm(-28));
+    // BUTTON_10.onTrue(pivot.moveArm(-27));
+    // BUTTON_11.onTrue(pivot.moveArm(-26));
+    // BUTTON_12.onTrue(pivot.moveArm(-25));
+    // BUTTON_13.onTrue(pivot.moveArm(-24));
+    // BUTTON_14.onTrue(pivot.moveArm(-23));
+    // BUTTON_15.onTrue(pivot.moveArm(-22));
+    // BUTTON_16.onTrue(pivot.moveArm(-21));
+    // y.onTrue(pivot.moveArm(-20));
+    // x.onTrue(pivot.moveArm(-60));
+    // a.onTrue(new AutoShoot());
   }
 
   public Command getAutonomousCommand() {
     return autos.getAutos();
   }
+
+  public void setDriveCommand(boolean invert){
+    drivetrain.setDefaultCommand(new TeleopDrive(xAxis, yAxis, thetaAxis, 0.05, invert));
+  }
+
+
 }

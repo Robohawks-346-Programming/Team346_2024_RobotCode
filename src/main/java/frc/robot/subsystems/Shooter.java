@@ -22,8 +22,6 @@ public class Shooter extends SubsystemBase{
 
     private final VoltageOut volts;
 
-    public final InterpolatingDoubleTreeMap shooterLookupTable = Constants.ShooterConstants.getShooterMap();
-
     private double x, y;
 
     private final CoastOut coast = new CoastOut();
@@ -60,6 +58,11 @@ public class Shooter extends SubsystemBase{
         SmartDashboard.putNumber("Bottom Roller RPM", bottomRoller.getVelocity().getValueAsDouble());
     }
 
+    /**
+     * Sets a specified velocity to the motors
+     * @param velocity Velocity for the top roller
+     * @param velocity2 Velocity for the bottom roller
+     */
     public void setVelocity(double velocity, double velocity2) {
         topRoller.setControl(voltage.withVelocity(velocity));
         bottomRoller.setControl(voltage.withVelocity(velocity2));
@@ -68,15 +71,6 @@ public class Shooter extends SubsystemBase{
     public void setVoltage(double volt) {
         topRoller.setControl(volts.withOutput(volt));
         bottomRoller.setControl(volts.withOutput(volt));
-    }
-
-    public void distanceBaseShoot(){
-        topRoller.setControl(voltage.withVelocity(getDistanceBasedVelocity()));
-        bottomRoller.setControl(voltage.withVelocity(getDistanceBasedVelocity()));
-    }
-
-    public double getDistanceBasedVelocity(){
-        return shooterLookupTable.get(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
     }
 
     public boolean isAtVelocity(double rev){

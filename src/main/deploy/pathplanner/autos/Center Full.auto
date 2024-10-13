@@ -16,12 +16,6 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "Rev"
-                }
-              },
-              {
                 "type": "sequential",
                 "data": {
                   "commands": [
@@ -83,12 +77,6 @@
                       "type": "path",
                       "data": {
                         "pathName": "Test 7"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Shoot"
                       }
                     }
                   ]

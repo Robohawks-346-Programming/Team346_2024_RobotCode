@@ -4,9 +4,23 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
+import com.pathplanner.lib.commands.PathfindingCommand;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.TeleopDrive;
+import frc.robot.util.AllianceFlipUtil;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private Rotation2d heading;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,6 +43,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     RobotContainer.pivot.resetPivotAngle();
+    PathfindingCommand.warmupCommand().schedule();
   }
 
   /**
@@ -80,11 +96,33 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     RobotContainer.shooter.stopShooter();
+    RobotContainer.pivot.stopPivot();
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red)){
+      heading = RobotContainer.drivetrain.getHeading();
+    } else {
+      heading = RobotContainer.drivetrain.getHeadingInverse();
+    }
+    //RobotContainer.drivetrain.zeroHeading();
+    // RobotContainer.drivetrain.setFieldToVehicle(
+    //   new Pose2d(RobotContainer.drivetrain.returnTranslation(), 
+    //   AllianceFlipUtil.apply(RobotContainer.drivetrain.getHeading())));
+    
+    RobotContainer.drivetrain.setFieldToVehicle(new Pose2d(new Translation2d(), heading));
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // Optional<Alliance> ally = DriverStation.getAlliance();
+    // if (ally.isPresent()) {
+    //     if (ally.get() == DriverStation.Alliance.Blue) {
+    //     m_robotContainer.setDriveCommand(true);
+    //     }
+    //     else {
+    //       m_robotContainer.setDriveCommand(false);
+    //     }
+    // }
+  }
 
   @Override
   public void testInit() {
