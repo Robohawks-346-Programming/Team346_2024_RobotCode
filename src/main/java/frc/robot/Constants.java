@@ -54,10 +54,10 @@ public final class Constants {
     public static final int TURN_CURRENT_LIMIT                          = 25;
     public static final boolean IS_FIELD_RELATIVE                       = true;
 
-    public static final double MAX_MOVE_VELOCITY                        = 1; // for testing
-    public static final double MAX_TURN_VELOCITY                        = 1; // for testing
-    public static final double MAX_MOVE_VELOCITY_FAST                   = 1;
-    public static final double MAX_TURN_VELOCITY_FAST                   = 1;
+    public static final double MAX_MOVE_VELOCITY                        = 2; // for testing
+    public static final double MAX_TURN_VELOCITY                        = 2; // for testing
+    public static final double MAX_MOVE_VELOCITY_FAST                   = 2;
+    public static final double MAX_TURN_VELOCITY_FAST                   = 2;
     
   // Front left Swerve Module
   public static final int FRONT_LEFT_DRIVE_ID                         = 21;
